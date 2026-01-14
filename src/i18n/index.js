@@ -25,13 +25,13 @@ const languagePacks = {
     'footer.copyright': '© 2025 Athena Protocol. ALL RIGHTS RESERVED.',
     
     // Hero Section
-    'hero.subtitle': '只有代码、数学，以及一个由 AI 驱动的、不可阻挡的价值创造机器',
-    'hero.assetsTitle': '您的资产在此处安睡',
-    'hero.friendsBoost': '好友带来的助力',
-    'hero.injectPool': '注入底池',
-    'hero.shareFriend': '分享好友',
-    'hero.achievementReward': '成就奖励',
-    'hero.totalInvestment': '您的总质押',
+    'hero.subtitle': '纯粹的算法逻辑与数学法则，驱动 AI 自主运行的永续价值引擎',
+    'hero.assetsTitle': '尊享资产托管',
+    'hero.friendsBoost': '社交网络价值加成',
+    'hero.injectPool': '战略注资',
+    'hero.shareFriend': '邀请合作伙伴',
+    'hero.achievementReward': '荣誉勋章',
+    'hero.totalInvestment': '总持仓价值',
     
     // Connect Wallet Modal
     'wallet.connectTitle': '连接钱包',
@@ -345,13 +345,13 @@ const languagePacks = {
     'footer.copyright': '© 2025 Athena Protocol. ALL RIGHTS RESERVED.',
     
     // Hero Section
-    'hero.subtitle': '只有代碼、數學，以及一個由 AI 驅動的、不可阻擋的價值創造機器',
-    'hero.assetsTitle': '您的資產在此處安睡',
-    'hero.friendsBoost': '好友帶來的助力',
-    'hero.injectPool': '注入底池',
-    'hero.shareFriend': '分享好友',
-    'hero.achievementReward': '成就獎勵',
-    'hero.totalInvestment': '您的總質押',
+    'hero.subtitle': '純粹的演算法邏輯與數學法則，驅動 AI 自主運行的永續價值引擎',
+    'hero.assetsTitle': '尊享資產託管',
+    'hero.friendsBoost': '社交網絡價值加成',
+    'hero.injectPool': '戰略注資',
+    'hero.shareFriend': '邀請合作夥伴',
+    'hero.achievementReward': '榮譽勳章',
+    'hero.totalInvestment': '總持倉價值',
     
     // Connect Wallet Modal
     'wallet.connectTitle': '連接錢包',
@@ -655,13 +655,13 @@ const languagePacks = {
     'footer.copyright': '© 2025 Athena Protocol. ALL RIGHTS RESERVED.',
     
     // Hero Section
-    'hero.subtitle': 'Only code, mathematics, and an AI-driven, unstoppable value creation machine',
-    'hero.assetsTitle': 'Your assets rest here',
-    'hero.friendsBoost': 'Boost from friends',
-    'hero.injectPool': 'Inject Pool',
-    'hero.shareFriend': 'Share Friend',
-    'hero.achievementReward': 'Achievement Reward',
-    'hero.totalInvestment': 'Your Total Stake',
+    'hero.subtitle': 'Pure algorithmic logic and mathematical principles, powering an autonomous AI-driven perpetual value engine',
+    'hero.assetsTitle': 'Premium Asset Custody',
+    'hero.friendsBoost': 'Social Network Value Multiplier',
+    'hero.injectPool': 'Strategic Capital Injection',
+    'hero.shareFriend': 'Invite Partners',
+    'hero.achievementReward': 'Honor Medallion',
+    'hero.totalInvestment': 'Total Position Value',
     
     // Connect Wallet Modal
     'wallet.connectTitle': 'Connect Wallet',
@@ -967,13 +967,13 @@ const languagePacks = {
     'footer.copyright': '© 2025 Athena Protocol. ALL RIGHTS RESERVED.',
     
     // Hero Section
-    'hero.subtitle': 'コード、数学、そしてAI駆動の止められない価値創造マシンのみ',
-    'hero.assetsTitle': 'あなたの資産はここで休んでいます',
-    'hero.friendsBoost': '友人からのブースト',
-    'hero.injectPool': 'プール注入',
-    'hero.shareFriend': '友人を共有',
-    'hero.achievementReward': '実績報酬',
-    'hero.totalInvestment': 'あなたの総ステーク',
+    'hero.subtitle': '純粋なアルゴリズムロジックと数学的原理が、AI自律駆動型の永続的価値エンジンを実現',
+    'hero.assetsTitle': 'プレミアム資産カストディ',
+    'hero.friendsBoost': 'ソーシャルネットワーク価値増幅',
+    'hero.injectPool': '戦略的キャピタルインジェクション',
+    'hero.shareFriend': 'パートナー招待',
+    'hero.achievementReward': '名誉メダリオン',
+    'hero.totalInvestment': '総ポジション価値',
     
     // Connect Wallet Modal
     'wallet.connectTitle': 'ウォレット接続',
@@ -1273,13 +1273,13 @@ const languagePacks = {
     'footer.copyright': '© 2025 Athena Protocol. ALL RIGHTS RESERVED.',
     
     // Hero Section
-    'hero.subtitle': '코드, 수학, 그리고 AI가 구동하는 막을 수 없는 가치 창조 기계만',
-    'hero.assetsTitle': '귀하의 자산이 여기서 쉬고 있습니다',
-    'hero.friendsBoost': '친구들의 부스트',
-    'hero.injectPool': '풀 주입',
-    'hero.shareFriend': '친구 공유',
-    'hero.achievementReward': '성취 보상',
-    'hero.totalInvestment': '총 스테이킹',
+    'hero.subtitle': '순수한 알고리즘 논리와 수학적 원리가 구동하는 AI 자율 운영 영구 가치 엔진',
+    'hero.assetsTitle': '프리미엄 자산 보관',
+    'hero.friendsBoost': '소셜 네트워크 가치 승수',
+    'hero.injectPool': '전략적 자본 투입',
+    'hero.shareFriend': '파트너 초대',
+    'hero.achievementReward': '명예 메달',
+    'hero.totalInvestment': '총 포지션 가치',
     
     // Connect Wallet Modal
     'wallet.connectTitle': '지갑 연결',
