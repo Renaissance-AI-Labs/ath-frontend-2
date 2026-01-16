@@ -25,13 +25,13 @@ const languagePacks = {
     'footer.copyright': '© 2025 Athena Protocol. ALL RIGHTS RESERVED.',
     
     // Hero Section
-    'hero.subtitle': '只有代码、数学，以及一个由 AI 驱动的、不可阻挡的价值创造机器',
-    'hero.assetsTitle': '您的资产在此处安睡',
-    'hero.friendsBoost': '好友带来的助力',
-    'hero.injectPool': '注入底池',
-    'hero.shareFriend': '分享好友',
-    'hero.achievementReward': '成就奖励',
-    'hero.totalInvestment': '您的总质押',
+    'hero.subtitle': '纯粹的算法逻辑与数学法则，驱动 AI 自主运行的永续价值引擎',
+    'hero.assetsTitle': '尊享资产托管',
+    'hero.friendsBoost': '社交网络价值加成',
+    'hero.injectPool': '战略注资',
+    'hero.shareFriend': '邀请合作伙伴',
+    'hero.achievementReward': '荣誉勋章',
+    'hero.totalInvestment': '总持仓价值',
     
     // Connect Wallet Modal
     'wallet.connectTitle': '连接钱包',
@@ -73,6 +73,9 @@ const languagePacks = {
     'inject.approveSuccess': '授权成功！',
     'inject.approveFailed': '授权失败或被拒绝',
     'inject.soldOut': '当前全网质押额度已售罄',
+    'inject.min1': '1分钟',
+    'inject.min15': '15分钟',
+    'inject.min30': '30分钟',
     
     // Claim Reward Modal
     'claim.title': '领取您的成就奖励',
@@ -171,6 +174,15 @@ const languagePacks = {
     'howToUse.waitingRedeem': '等待赎回',
     'howToUse.staking': 'STAKING',
     'howToUse.redeemedStatus': 'REDEEMED',
+
+    // Unstake Modal
+    'unstake.title': '赎回操作',
+    'unstake.reinvestTitle': '收获利息',
+    'unstake.reinvestDesc': '将获取利息，并将此订单到期本金以同周期复投',
+    'unstake.redeemTitle': '赎回本金',
+    'unstake.redeemDesc': '将放弃利息，仅赎回本金',
+    'unstake.dailyLimit': '每日赎回额度受池子总量 5% 限制',
+    'unstake.cancel': '取消',
     
     // Share Friend Modal
     'share.title': '分享链接给好友',
@@ -332,7 +344,19 @@ const languagePacks = {
     'banker.faq1Question': '为什么存入后不能立即提取？',
     'banker.faq1Answer': '为防止流动性攻击，每次存入后都有锁定及冷却期。提取前请检查倒计时。',
     'banker.faq2Question': '我的收益如何计算？',
-    'banker.faq2Answer': '您的收益由两部分组成：“流动性盈亏”（随玩家输赢波动，影响本金）和“分红奖励”（随交易量增加，通过领取获得）。'
+    'banker.faq2Answer': '您的收益由两部分组成：“流动性盈亏”（随玩家输赢波动，影响本金）和“分红奖励”（随交易量增加，通过领取获得）。',
+    'common.recommend': '推荐',
+    
+    // Unstake Modal
+    'unstake.title': '选择赎回方式',
+    'unstake.reinvestTitle': '收获利息并复投',
+    'unstake.reinvestDesc': '将获取利息，并将此订单到期本金以同周期复投',
+    'unstake.redeemTitle': '赎回本金',
+    'unstake.redeemDesc': '将放弃利息，仅赎回本金',
+    'unstake.dailyLimit': '今日剩余赎回额度',
+    'toast.dailyLimitExceeded': '每日赎回限额已达上限',
+    'toast.dailyLimitReached': '今日赎回额度不足 (Daily redeem limit reached)',
+    'toast.invalidType': '传入的类型参数错误 (Invalid Type)'
   },
   
   'zh-tw': {
@@ -345,13 +369,13 @@ const languagePacks = {
     'footer.copyright': '© 2025 Athena Protocol. ALL RIGHTS RESERVED.',
     
     // Hero Section
-    'hero.subtitle': '只有代碼、數學，以及一個由 AI 驅動的、不可阻擋的價值創造機器',
-    'hero.assetsTitle': '您的資產在此處安睡',
-    'hero.friendsBoost': '好友帶來的助力',
-    'hero.injectPool': '注入底池',
-    'hero.shareFriend': '分享好友',
-    'hero.achievementReward': '成就獎勵',
-    'hero.totalInvestment': '您的總質押',
+    'hero.subtitle': '純粹的演算法邏輯與數學法則，驅動 AI 自主運行的永續價值引擎',
+    'hero.assetsTitle': '尊享資產託管',
+    'hero.friendsBoost': '社交網絡價值加成',
+    'hero.injectPool': '戰略注資',
+    'hero.shareFriend': '邀請合作夥伴',
+    'hero.achievementReward': '榮譽勳章',
+    'hero.totalInvestment': '總持倉價值',
     
     // Connect Wallet Modal
     'wallet.connectTitle': '連接錢包',
@@ -393,6 +417,9 @@ const languagePacks = {
     'inject.approveSuccess': '授權成功！',
     'inject.approveFailed': '授權失敗或被拒絕',
     'inject.soldOut': '當前全網質押額度已售罄',
+    'inject.min1': '1分鐘',
+    'inject.min15': '15分鐘',
+    'inject.min30': '30分鐘',
     
     // Claim Reward Modal
     'claim.title': '領取您的成就獎勵',
@@ -459,6 +486,15 @@ const languagePacks = {
     'howToUse.waitingRedeem': '等待贖回',
     'howToUse.staking': 'STAKING',
     'howToUse.redeemedStatus': 'REDEEMED',
+
+    // Unstake Modal
+    'unstake.title': '贖回操作',
+    'unstake.reinvestTitle': '收穫利息',
+    'unstake.reinvestDesc': '將獲取利息，並以同週期複投該本金',
+    'unstake.redeemTitle': '贖回本金',
+    'unstake.redeemDesc': '將放棄利息，僅贖回本金',
+    'unstake.dailyLimit': '每日贖回額度受池子總量 5% 限制',
+    'unstake.cancel': '取消',
     
     // Toast Notifications
     'toast.connectWalletFirst': '請先連接並授權您的錢包',
@@ -642,7 +678,19 @@ const languagePacks = {
     'banker.faq1Question': '為什麼存入後不能立即提取？',
     'banker.faq1Answer': '為防止流動性攻擊，每次存入後都有鎖定及冷卻期。提取前請檢查倒計時。',
     'banker.faq2Question': '我的收益如何計算？',
-    'banker.faq2Answer': '您的收益由兩部分組成：「流動性盈虧」（隨玩家輸贏波動，影響本金）和「分紅獎勵」（隨交易量增加，通過領取獲得）。'
+    'banker.faq2Answer': '您的收益由兩部分組成：「流動性盈虧」（隨玩家輸贏波動，影響本金）和「分紅獎勵」（隨交易量增加，通過領取獲得）。',
+    'common.recommend': '推薦',
+
+    // Unstake Modal
+    'unstake.title': '選擇贖回方式',
+    'unstake.reinvestTitle': '收穫利息並複投',
+    'unstake.reinvestDesc': '將獲取利息，並將等額本金同週期複投',
+    'unstake.redeemTitle': '贖回本金',
+    'unstake.redeemDesc': '將放棄利息，僅贖回本金',
+    'unstake.dailyLimit': '今日剩餘贖回額度',
+    'toast.dailyLimitExceeded': '每日贖回限額已達上限',
+    'toast.dailyLimitReached': '今日贖回額度不足 (Daily redeem limit reached)',
+    'toast.invalidType': '傳入的類型參數錯誤 (Invalid Type)'
   },
   
   'en': {
@@ -655,13 +703,13 @@ const languagePacks = {
     'footer.copyright': '© 2025 Athena Protocol. ALL RIGHTS RESERVED.',
     
     // Hero Section
-    'hero.subtitle': 'Only code, mathematics, and an AI-driven, unstoppable value creation machine',
-    'hero.assetsTitle': 'Your assets rest here',
-    'hero.friendsBoost': 'Boost from friends',
-    'hero.injectPool': 'Inject Pool',
-    'hero.shareFriend': 'Share Friend',
-    'hero.achievementReward': 'Achievement Reward',
-    'hero.totalInvestment': 'Your Total Stake',
+    'hero.subtitle': 'Pure algorithmic logic and mathematical principles, powering an autonomous AI-driven perpetual value engine',
+    'hero.assetsTitle': 'Premium Asset Custody',
+    'hero.friendsBoost': 'Social Network Value Multiplier',
+    'hero.injectPool': 'Strategic Capital Injection',
+    'hero.shareFriend': 'Invite Partners',
+    'hero.achievementReward': 'Honor Medallion',
+    'hero.totalInvestment': 'Total Position Value',
     
     // Connect Wallet Modal
     'wallet.connectTitle': 'Connect Wallet',
@@ -703,6 +751,9 @@ const languagePacks = {
     'inject.approveSuccess': 'Approval successful!',
     'inject.approveFailed': 'Approval failed or rejected',
     'inject.soldOut': 'The global staking quota is currently sold out',
+    'inject.min1': '1 Min',
+    'inject.min15': '15 Mins',
+    'inject.min30': '30 Mins',
     
     // Claim Reward Modal
     'claim.title': 'Claim Your Achievement Rewards',
@@ -769,6 +820,15 @@ const languagePacks = {
     'howToUse.waitingRedeem': 'Waiting to Redeem',
     'howToUse.staking': 'STAKING',
     'howToUse.redeemedStatus': 'REDEEMED',
+
+    // Unstake Modal
+    'unstake.title': 'Unstake Options',
+    'unstake.reinvestTitle': 'Harvest Interest',
+    'unstake.reinvestDesc': 'Harvest interest and reinvest principal for the same cycle',
+    'unstake.redeemTitle': 'Redeem Principal',
+    'unstake.redeemDesc': 'Forfeit interest, redeem principal only',
+    'unstake.dailyLimit': 'Daily redemption limit is 5% of total pool',
+    'unstake.cancel': 'Cancel',
     
     // Toast Notifications
     'toast.connectWalletFirst': 'Please connect and authorize your wallet first',
@@ -954,7 +1014,19 @@ const languagePacks = {
     'banker.faq1Question': 'Why can\'t I withdraw immediately after depositing?',
     'banker.faq1Answer': 'To prevent liquidity attacks, there is a lock period after each deposit. Please check the countdown timer before withdrawing.',
     'banker.faq2Question': 'How are my earnings calculated?',
-    'banker.faq2Answer': 'Your earnings consist of two parts: "Liquidity PnL" (fluctuates with players\' wins/losses, affecting your principal) and "Dividend Rewards" (increases with volume, claimed via Harvest).'
+    'banker.faq2Answer': 'Your earnings consist of two parts: "Liquidity PnL" (fluctuates with players\' wins/losses, affecting your principal) and "Dividend Rewards" (increases with volume, claimed via Harvest).',
+    'common.recommend': 'Recommended',
+
+    // Unstake Modal
+    'unstake.title': 'Select Redeem Option',
+    'unstake.reinvestTitle': 'Harvest Interest & Reinvest',
+    'unstake.reinvestDesc': 'Will get interest, and reinvest the same principal for the same cycle.',
+    'unstake.redeemTitle': 'Redeem Principal',
+    'unstake.redeemDesc': 'Will forfeit interest, redeem principal only.',
+    'unstake.dailyLimit': 'Daily Remaining Redeem Limit',
+    'toast.dailyLimitExceeded': 'Daily redemption limit exceeded',
+    'toast.dailyLimitReached': 'Daily redeem limit reached',
+    'toast.invalidType': 'Invalid Type Parameter'
   },
   
   'ja': {
@@ -967,13 +1039,13 @@ const languagePacks = {
     'footer.copyright': '© 2025 Athena Protocol. ALL RIGHTS RESERVED.',
     
     // Hero Section
-    'hero.subtitle': 'コード、数学、そしてAI駆動の止められない価値創造マシンのみ',
-    'hero.assetsTitle': 'あなたの資産はここで休んでいます',
-    'hero.friendsBoost': '友人からのブースト',
-    'hero.injectPool': 'プール注入',
-    'hero.shareFriend': '友人を共有',
-    'hero.achievementReward': '実績報酬',
-    'hero.totalInvestment': 'あなたの総ステーク',
+    'hero.subtitle': '純粋なアルゴリズムロジックと数学的原理が、AI自律駆動型の永続的価値エンジンを実現',
+    'hero.assetsTitle': 'プレミアム資産カストディ',
+    'hero.friendsBoost': 'ソーシャルネットワーク価値増幅',
+    'hero.injectPool': '戦略的キャピタルインジェクション',
+    'hero.shareFriend': 'パートナー招待',
+    'hero.achievementReward': '名誉メダリオン',
+    'hero.totalInvestment': '総ポジション価値',
     
     // Connect Wallet Modal
     'wallet.connectTitle': 'ウォレット接続',
@@ -1014,6 +1086,10 @@ const languagePacks = {
     'inject.maxAmountExceeded': '最大{amount} USDTまで注入可能',
     'inject.approveSuccess': '承認成功！',
     'inject.approveFailed': '承認失敗または拒否されました',
+    'inject.soldOut': '現在、グローバルステーキング枠は完売しています',
+    'inject.min1': '1分',
+    'inject.min15': '15分',
+    'inject.min30': '30分',
     
     // Claim Reward Modal
     'claim.title': '実績報酬を受け取る',
@@ -1080,6 +1156,15 @@ const languagePacks = {
     'howToUse.waitingRedeem': '償還待ち',
     'howToUse.staking': 'STAKING',
     'howToUse.redeemedStatus': 'REDEEMED',
+
+    // Unstake Modal
+    'unstake.title': '償還オプション',
+    'unstake.reinvestTitle': '利息を受け取る',
+    'unstake.reinvestDesc': '利息を受け取り、元本を同期間で再投資します',
+    'unstake.redeemTitle': '元本を償還',
+    'unstake.redeemDesc': '利息を放棄し、元本のみを償還します',
+    'unstake.dailyLimit': '1日の償還限度額はプール総額の5%です',
+    'unstake.cancel': 'キャンセル',
     
     // Toast Notifications
     'toast.connectWalletFirst': 'まずウォレットを接続して承認してください',
@@ -1260,7 +1345,19 @@ const languagePacks = {
     'banker.faq1Question': '入金後すぐに引き出せないのはなぜですか？',
     'banker.faq1Answer': '流動性攻撃を防ぐため、各入金後にロック期間があります。引き出し前にカウントダウンタイマーを確認してください。',
     'banker.faq2Question': '収益はどのように計算されますか？',
-    'banker.faq2Answer': '収益は2つの部分で構成されます。「流動性損益」（プレイヤーの勝敗に応じて変動し、元本に影響します）と「配当報酬」（取引量とともに増加し、収穫で請求されます）。'
+    'banker.faq2Answer': '収益は2つの部分で構成されます。「流動性損益」（プレイヤーの勝敗に応じて変動し、元本に影響します）と「配当報酬」（取引量とともに増加し、収穫で請求されます）。',
+    'common.recommend': '推奨',
+
+    // Unstake Modal
+    'unstake.title': '償還方法の選択',
+    'unstake.reinvestTitle': '利息の収穫と再投資',
+    'unstake.reinvestDesc': '利息を受け取り、同額の元本を同期間で再投資します',
+    'unstake.redeemTitle': '元本の償還',
+    'unstake.redeemDesc': '利息を放棄し、元本のみを償還します',
+    'unstake.dailyLimit': '本日の残り償還限度額',
+    'toast.dailyLimitExceeded': '1日の償還限度額を超えました',
+    'toast.dailyLimitReached': '本日の償還限度額が不足しています (Daily redeem limit reached)',
+    'toast.invalidType': '無効なタイプパラメータです (Invalid Type)'
   },
   
   'ko': {
@@ -1273,13 +1370,13 @@ const languagePacks = {
     'footer.copyright': '© 2025 Athena Protocol. ALL RIGHTS RESERVED.',
     
     // Hero Section
-    'hero.subtitle': '코드, 수학, 그리고 AI가 구동하는 막을 수 없는 가치 창조 기계만',
-    'hero.assetsTitle': '귀하의 자산이 여기서 쉬고 있습니다',
-    'hero.friendsBoost': '친구들의 부스트',
-    'hero.injectPool': '풀 주입',
-    'hero.shareFriend': '친구 공유',
-    'hero.achievementReward': '성취 보상',
-    'hero.totalInvestment': '총 스테이킹',
+    'hero.subtitle': '순수한 알고리즘 논리와 수학적 원리가 구동하는 AI 자율 운영 영구 가치 엔진',
+    'hero.assetsTitle': '프리미엄 자산 보관',
+    'hero.friendsBoost': '소셜 네트워크 가치 승수',
+    'hero.injectPool': '전략적 자본 투입',
+    'hero.shareFriend': '파트너 초대',
+    'hero.achievementReward': '명예 메달',
+    'hero.totalInvestment': '총 포지션 가치',
     
     // Connect Wallet Modal
     'wallet.connectTitle': '지갑 연결',
@@ -1321,6 +1418,9 @@ const languagePacks = {
     'inject.approveSuccess': '승인 성공!',
     'inject.approveFailed': '승인 실패 또는 거부됨',
     'inject.soldOut': '현재 글로벌 스테이킹 할당량이 모두 판매되었습니다',
+    'inject.min1': '1분',
+    'inject.min15': '15분',
+    'inject.min30': '30분',
 
     // Claim Reward Modal
     'claim.title': '성취 보상 받기',
@@ -1387,6 +1487,15 @@ const languagePacks = {
     'howToUse.waitingRedeem': '상환 대기',
     'howToUse.staking': 'STAKING',
     'howToUse.redeemedStatus': 'REDEEMED',
+
+    // Unstake Modal
+    'unstake.title': '상환 옵션',
+    'unstake.reinvestTitle': '이자 수확',
+    'unstake.reinvestDesc': '이자를 수확하고 동일한 주기로 원금을 재투자합니다',
+    'unstake.redeemTitle': '원금 상환',
+    'unstake.redeemDesc': '이자를 포기하고 원금만 상환합니다',
+    'unstake.dailyLimit': '일일 상환 한도는 전체 풀의 5%로 제한됩니다',
+    'unstake.cancel': '취소',
     
     // Toast Notifications
     'toast.connectWalletFirst': '먼저 지갑을 연결하고 승인하세요',
@@ -1568,6 +1677,18 @@ const languagePacks = {
     'banker.faq1Answer': '유동성 공격을 방지하기 위해 각 입금 후 잠금 기간이 있습니다. 출금하기 전에 카운트다운 타이머를 확인하세요.',
     'banker.faq2Question': '수익은 어떻게 계산되나요?',
     'banker.faq2Answer': '수익은 두 가지 부분으로 구성됩니다: "유동성 손익"(플레이어의 승패에 따라 변동하며 원금에 영향을 미침)과 "배당 보상"(거래량에 따라 증가하며 수확을 통해 청구).',
+    'common.recommend': '추천',
+
+    // Unstake Modal
+    'unstake.title': '상환 옵션 선택',
+    'unstake.reinvestTitle': '이자 수확 및 재투자',
+    'unstake.reinvestDesc': '이자를 받고 동액의 원금을 동일한 주기로 재투자합니다.',
+    'unstake.redeemTitle': '원금 상환',
+    'unstake.redeemDesc': '이자를 포기하고 원금만 상환합니다.',
+    'unstake.dailyLimit': '오늘의 남은 상환 한도',
+    'toast.dailyLimitExceeded': '일일 상환 한도를 초과했습니다',
+    'toast.dailyLimitReached': '오늘의 상환 한도가 부족합니다 (Daily redeem limit reached)',
+    'toast.invalidType': '잘못된 유형 매개변수 (Invalid Type)'
   }
 };
 
