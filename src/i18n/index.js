@@ -178,7 +178,7 @@ const languagePacks = {
     // Unstake Modal
     'unstake.title': '赎回操作',
     'unstake.reinvestTitle': '收获利息',
-    'unstake.reinvestDesc': '将获取利息，并以同周期复投该本金',
+    'unstake.reinvestDesc': '将获取利息，并将等额本金同周期复投',
     'unstake.redeemTitle': '赎回本金',
     'unstake.redeemDesc': '将放弃利息，仅赎回本金',
     'unstake.dailyLimit': '每日赎回额度受池子总量 5% 限制',
@@ -350,7 +350,7 @@ const languagePacks = {
     // Unstake Modal
     'unstake.title': '选择赎回方式',
     'unstake.reinvestTitle': '收获利息并复投',
-    'unstake.reinvestDesc': '将获取利息，并以同周期复投该本金',
+    'unstake.reinvestDesc': '将获取利息，并将等额本金同周期复投',
     'unstake.redeemTitle': '赎回本金',
     'unstake.redeemDesc': '将放弃利息，仅赎回本金',
     'unstake.dailyLimit': '今日剩余赎回额度',
@@ -684,7 +684,7 @@ const languagePacks = {
     // Unstake Modal
     'unstake.title': '選擇贖回方式',
     'unstake.reinvestTitle': '收穫利息並複投',
-    'unstake.reinvestDesc': '將獲取利息，並以同週期複投該本金',
+    'unstake.reinvestDesc': '將獲取利息，並將等額本金同週期複投',
     'unstake.redeemTitle': '贖回本金',
     'unstake.redeemDesc': '將放棄利息，僅贖回本金',
     'unstake.dailyLimit': '今日剩餘贖回額度',
@@ -1020,7 +1020,7 @@ const languagePacks = {
     // Unstake Modal
     'unstake.title': 'Select Redeem Option',
     'unstake.reinvestTitle': 'Harvest Interest & Reinvest',
-    'unstake.reinvestDesc': 'Will get interest, and reinvest principal for the same cycle.',
+    'unstake.reinvestDesc': 'Will get interest, and reinvest the same principal for the same cycle.',
     'unstake.redeemTitle': 'Redeem Principal',
     'unstake.redeemDesc': 'Will forfeit interest, redeem principal only.',
     'unstake.dailyLimit': 'Daily Remaining Redeem Limit',
@@ -1351,7 +1351,7 @@ const languagePacks = {
     // Unstake Modal
     'unstake.title': '償還方法の選択',
     'unstake.reinvestTitle': '利息の収穫と再投資',
-    'unstake.reinvestDesc': '利息を受け取り、元本を同期間で再投資します',
+    'unstake.reinvestDesc': '利息を受け取り、同額の元本を同期間で再投資します',
     'unstake.redeemTitle': '元本の償還',
     'unstake.redeemDesc': '利息を放棄し、元本のみを償還します',
     'unstake.dailyLimit': '本日の残り償還限度額',
@@ -1682,7 +1682,7 @@ const languagePacks = {
     // Unstake Modal
     'unstake.title': '상환 옵션 선택',
     'unstake.reinvestTitle': '이자 수확 및 재투자',
-    'unstake.reinvestDesc': '이자를 받고 동일한 주기로 원금을 재투자합니다.',
+    'unstake.reinvestDesc': '이자를 받고 동액의 원금을 동일한 주기로 재투자합니다.',
     'unstake.redeemTitle': '원금 상환',
     'unstake.redeemDesc': '이자를 포기하고 원금만 상환합니다.',
     'unstake.dailyLimit': '오늘의 남은 상환 한도',

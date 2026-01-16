@@ -17,7 +17,7 @@
           <!-- Option 1: Reinvest (exitType 2) -->
           <!-- Placed prominently at top as requested -->
           <div 
-            class="option-card highlight" 
+            class="option-card" 
             @click="selectExitType(2)"
             :class="{ 'disabled': processing }"
           >
@@ -26,28 +26,30 @@
                   <h4>{{ t('unstake.reinvestTitle') }}</h4>
                   <span class="badge-recommend">{{ t('common.recommend') }}</span>
               </div>
+              <div class="separator"></div>
               <p>{{ t('unstake.reinvestDesc') }}</p>
             </div>
           </div>
 
           <!-- Option 2: Redeem Principal (exitType 1) -->
           <div 
-            class="option-card compact" 
+            class="option-card" 
             @click="selectExitType(1)"
             :class="{ 'disabled': processing || isLimitReached }"
           >
             <div class="option-content">
               <h4>{{ t('unstake.redeemTitle') }}</h4>
+              <div class="separator"></div>
               <p class="warning-desc">
                 <i class="icon icon-WarningCircle"></i>
                 {{ t('unstake.redeemDesc') }}
               </p>
-              
-              <!-- Daily Limit Info -->
-              <div class="limit-info">
-                <span>{{ t('unstake.dailyLimit') }}: {{ parseFloat(maxUnstakeAmount).toFixed(2) }} USDT</span>
-              </div>
             </div>
+          </div>
+          
+          <!-- Daily Limit Info -->
+          <div class="limit-info">
+            <span>{{ t('unstake.dailyLimit') }}: {{ parseFloat(maxUnstakeAmount).toFixed(2) }} USDT</span>
           </div>
         </div>
       </div>
@@ -169,7 +171,7 @@ const selectExitType = (type) => {
     z-index: 2;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 40px;
 }
 
 .title_holder {
@@ -199,6 +201,10 @@ const selectExitType = (type) => {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .option-card.compact {
@@ -225,29 +231,23 @@ const selectExitType = (type) => {
 .option-card:hover {
   background: rgba(255, 255, 255, 0);
   border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
 }
 
 .option-card.highlight {
   background: rgba(200, 255, 0, 0); /* Approximate primary color tint */
   border-color: var(--primary);
   box-shadow: 0 0 15px rgba(200, 255, 0, 0.1);
-  min-height: 140px; /* Taller height for emphasis */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
 .option-card h4 {
   color: #fff;
   font-size: 18px;
-  margin-bottom: 8px;
+  margin-bottom: 0;
   font-family: 'ChillRoundF', sans-serif;
 }
 
 .option-card.highlight h4 {
   color: var(--primary);
-  font-size: 20px; /* Slightly larger title for emphasis */
   margin-bottom: 0;
 }
 
@@ -255,7 +255,13 @@ const selectExitType = (type) => {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 8px;
+}
+
+.separator {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    width: 100%;
+    margin: 12px 0;
 }
 
 .badge-recommend {
@@ -267,13 +273,6 @@ const selectExitType = (type) => {
     border-radius: 4px;
     font-family: 'ChillRoundF', sans-serif;
     box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.4);
-    animation: pulse-badge 2s infinite;
-}
-
-@keyframes pulse-badge {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
 }
 
 .option-card p {
@@ -284,23 +283,23 @@ const selectExitType = (type) => {
 }
 
 .warning-desc {
-  color: #b60e0e !important; /* Warning red color */
+  color: rgba(255, 255, 255, 0.7) !important; /* Warning red color */
   font-weight: 500;
   display: flex;
   align-items: center;
 }
 
 .limit-info {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: -5px;
+  padding-left: 20px;
   font-size: 13px;
   color: rgba(255, 255, 255, 0.5); 
+  text-align: left;
 }
 
 /* Change color based on if limit is reached or not if needed, 
    but here we use a distinct color to make it visible */
-.option-card:not(.disabled) .limit-info {
+.limit-info {
     color: var(--primary); /* Green/Yellow if active */
 }
 
