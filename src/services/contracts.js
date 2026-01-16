@@ -56,11 +56,11 @@ export const contractAddresses = {
   },
   staking: {
     production: '0x705c99F6C25056cC73B299dFe209d80455FA7D63', // To be deployed
-    development: '0x13FdD65cfC3CbC91609aD1Ea642312Aa682760c7',
+    development: '0xDc582d3439a17115Ddf8288ED9BD86f37846394B',
   },
   ath: {
     production: '0xc30ba330aE7f4921c06C1D9B4605540503EFBf10', // To be deployed
-    development: '0x72CfC4eE2620019aD2d90abF51a0B6fF673456c6',
+    development: '0x28C465A59EE6470f76581186a1E9E8205Ed11276',
   },
   usdt: {
     production: '0x55d398326f99059fF775485246999027B3197955', // BNB Mainnet USDT
