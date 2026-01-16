@@ -77,17 +77,7 @@ import {
   approveUsdt,
   getMaxStakeAmount,
   getUserStakedBalance,
-  getPoolUsdtReserves,
-  getMaxPoolLimit
 } from '../services/contracts';
-import {
-  ENABLE_TEMPORARY_STAKE_LIMIT,
-  TEMPORARY_STAKE_LIMIT,
-  ENABLE_SINGLE_PURCHASE_LIMIT,
-  SINGLE_PURCHASE_LIMIT,
-  ENABLE_GLOBAL_STAKE_LIMIT,
-  GLOBAL_STAKE_LIMIT_USDT,
-} from '../services/environment';
 import {
   showToast
 } from '../services/notification';
@@ -108,12 +98,10 @@ export default {
       usdtBalance: '0',
       usdtAllowance: '0',
       userStakedBalance: '0', // User's current staked balance
-      poolUsdtReserves: '0', // Global pool reserves
       isApproving: false,
       isLoading: true, // Start with loading true to fetch allowance
       walletState: walletState,
       maxStakeAmount: '0',
-      dynamicGlobalLimit: '0', // Dynamic global limit from contract
     };
   },
   computed: {
@@ -139,36 +127,11 @@ export default {
     walletAddress() {
       return this.walletState.address;
     },
-    // Calculate the effective maximum stake amount based on temporary limit settings
+    // Calculate the effective maximum stake amount
     effectiveMaxStakeAmount() {
-      const maxAllowedByContract = parseFloat(this.maxStakeAmount);
-      let effectiveAmount = maxAllowedByContract;
-
-      if (ENABLE_TEMPORARY_STAKE_LIMIT) {
-        const userStaked = parseFloat(this.userStakedBalance);
-        const remainingQuota = Math.max(0, TEMPORARY_STAKE_LIMIT - userStaked);
-        effectiveAmount = Math.min(effectiveAmount, remainingQuota);
-      }
-
-      // Apply the single transaction limit if it's enabled
-      if (ENABLE_SINGLE_PURCHASE_LIMIT) {
-        effectiveAmount = Math.min(effectiveAmount, SINGLE_PURCHASE_LIMIT);
-      }
-
-      // If global limit is reached, cap the amount at 10 USDT
-      if (this.isGlobalLimitReached) {
-        effectiveAmount = Math.min(effectiveAmount, 10);
-      }
-      
-      return effectiveAmount;
-    },
-    isGlobalLimitReached() {
-      if (!ENABLE_GLOBAL_STAKE_LIMIT) {
-        return false;
-      }
-      // Use dynamic limit from contract if available, otherwise fallback to static limit
-      const effectiveLimit = parseFloat(this.dynamicGlobalLimit) || GLOBAL_STAKE_LIMIT_USDT;
-      return parseFloat(this.poolUsdtReserves) >= effectiveLimit;
+      // User request: Only use the maxStakeAmount from the contract
+      // Removed: ENABLE_TEMPORARY_STAKE_LIMIT, ENABLE_SINGLE_PURCHASE_LIMIT, Global Limit checks
+      return parseFloat(this.maxStakeAmount);
     },
     isAmountInvalid() {
       return parseFloat(this.amount) > this.effectiveMaxStakeAmount;
@@ -181,10 +144,6 @@ export default {
         return { text: this.t('inject.approving'), action: 'approving', disabled: true };
       }
       
-      if (this.isGlobalLimitReached && amountNum > 10) {
-        return { text: this.t('inject.confirmStake'), action: 'global_limit_reached', disabled: true };
-      }
-
       if (!this.amount || amountNum <= 0) {
         // Default state when no amount is entered
         return { text: this.t('inject.enterAmount'), action: 'idle', disabled: true };
@@ -202,26 +161,16 @@ export default {
     },
     formattedUsdtBalance() {
       const displayValue = this.effectiveMaxStakeAmount;
-
-      if (ENABLE_TEMPORARY_STAKE_LIMIT) {
-        const userStaked = parseFloat(this.userStakedBalance);
-        const maxAllowedByContract = parseFloat(this.maxStakeAmount);
-        const remainingQuota = Math.max(0, TEMPORARY_STAKE_LIMIT - userStaked);
-        console.log(`[余额日志] 限时限额逻辑: 合约最大=${maxAllowedByContract}, 用户已质押=${userStaked}, 限额=${TEMPORARY_STAKE_LIMIT}, 剩余额度=${remainingQuota}, 最终显示=${displayValue}`);
-      } else {
-        console.log(`[余额日志] 无限额限制: 合约最大=${parseFloat(this.maxStakeAmount)}, 最终显示=${displayValue}`);
-      }
+      
+      console.log(`[MaxStake] Final Display Value: ${displayValue}`);
 
       if (isNaN(displayValue)) {
-           console.log(`[余额日志] 格式化失败: 解析结果为NaN, 返回 '0.00'`);
            return '0.00';
       }
-      const formatted = displayValue.toLocaleString('en-US', {
+      return displayValue.toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
-      console.log(`[余额日志] 格式化成功: toLocaleString结果='${formatted}'`);
-      return formatted;
     }
   },
   watch: {
@@ -245,20 +194,20 @@ export default {
         this.fetchUsdtAllowance(),
         this.fetchMaxStakeAmount(),
         this.fetchUserStakedBalance(),
-        this.fetchPoolUsdtReserves(),
-        this.fetchMaxPoolLimit()
       ]);
       
-      const allowanceNum = parseFloat(this.usdtAllowance);
-      const isApproved = allowanceNum > 0;
-      const effectiveLimit = parseFloat(this.dynamicGlobalLimit) || GLOBAL_STAKE_LIMIT_USDT;
-      console.log(`[注入资产弹窗] 数据获取: 用户余额=${this.usdtBalance}, 允许额度=${this.usdtAllowance}, 合约最大可注入=${this.maxStakeAmount}, 用户已质押=${this.userStakedBalance}, 全局池子余量=${this.poolUsdtReserves}, 全局质押上限(动态)=${this.dynamicGlobalLimit}, 全局质押上限(静态)=${GLOBAL_STAKE_LIMIT_USDT}, 实际使用=${effectiveLimit}`);
+      console.log(`[InjectPoolModal] Initial Data Loaded:
+        User USDT Balance: ${this.usdtBalance}
+        User USDT Allowance: ${this.usdtAllowance}
+        Max Stake Amount (Contract): ${this.maxStakeAmount}
+        User Staked Balance: ${this.userStakedBalance}
+      `);
 
       this.isLoading = false;
     },
     async fetchUsdtBalance() {
       const rawBalance = await getUsdtBalance();
-      console.log(`[余额日志] 从合约获取到的原始usdtBalance: ${rawBalance}`);
+      // console.log(`[Balance Log] Raw USDT Balance: ${rawBalance}`);
       this.usdtBalance = rawBalance;
     },
     async fetchUsdtAllowance() {
@@ -269,13 +218,6 @@ export default {
     },
     async fetchUserStakedBalance() {
       this.userStakedBalance = await getUserStakedBalance();
-    },
-    async fetchPoolUsdtReserves() {
-      this.poolUsdtReserves = await getPoolUsdtReserves();
-    },
-    async fetchMaxPoolLimit() {
-      this.dynamicGlobalLimit = await getMaxPoolLimit();
-      console.log(`[注入资产弹窗] 从合约获取到的最大限额 maxPoolLimit: ${this.dynamicGlobalLimit} USDT`);
     },
     resetBalance() {
       this.usdtBalance = '0';
@@ -298,10 +240,6 @@ export default {
     async handleMainAction() {
       if (this.mainButtonState.disabled) {
         // If the button is logically disabled, check why and show appropriate toast.
-        const amountNum = parseFloat(this.amount) || 0;
-        if (this.isGlobalLimitReached && amountNum > 10) {
-          showToast(this.t('inject.soldOut'));
-        }
         // Potentially other disabled reasons can be checked here in the future.
         return;
       }
@@ -321,31 +259,11 @@ export default {
       }
       // --- End Validation Logic ---
       
-      console.log(`[注入资产弹窗] 主操作按钮被点击, 当前状态: '${this.mainButtonState.action}'`);
+      console.log(`[InjectPoolModal] Main Action Triggered: '${this.mainButtonState.action}'`);
 
       const action = this.mainButtonState.action;
 
-      // Final on-click check for global staking limit, to prevent race conditions
-      if (action === 'stake' || action === 'next_step') {
-        if (ENABLE_GLOBAL_STAKE_LIMIT) {
-          const currentReserves = await getPoolUsdtReserves();
-          const currentLimit = await getMaxPoolLimit();
-          this.poolUsdtReserves = currentReserves; // Update state for reactivity
-          this.dynamicGlobalLimit = currentLimit; // Update dynamic limit
-          const effectiveLimit = parseFloat(this.dynamicGlobalLimit) || GLOBAL_STAKE_LIMIT_USDT;
-          const isLimitReachedNow = parseFloat(this.poolUsdtReserves) >= effectiveLimit;
-          const amountNum = parseFloat(this.amount) || 0;
-          if (isLimitReachedNow && amountNum > 10) {
-            showToast(this.t('inject.soldOut'));
-            return; // Stop the process
-          }
-        }
-      }
-
       switch (action) {
-        case 'global_limit_reached':
-          showToast(this.t('inject.soldOut'));
-          break;
         case 'approve':
           console.log("[注入资产弹窗] 执行操作: 请求USDT授权");
           this.isApproving = true;
