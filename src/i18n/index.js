@@ -73,6 +73,9 @@ const languagePacks = {
     'inject.approveSuccess': '授权成功！',
     'inject.approveFailed': '授权失败或被拒绝',
     'inject.soldOut': '当前全网质押额度已售罄',
+    'inject.min1': '1分钟',
+    'inject.min15': '15分钟',
+    'inject.min30': '30分钟',
     
     // Claim Reward Modal
     'claim.title': '领取您的成就奖励',
@@ -393,6 +396,9 @@ const languagePacks = {
     'inject.approveSuccess': '授權成功！',
     'inject.approveFailed': '授權失敗或被拒絕',
     'inject.soldOut': '當前全網質押額度已售罄',
+    'inject.min1': '1分鐘',
+    'inject.min15': '15分鐘',
+    'inject.min30': '30分鐘',
     
     // Claim Reward Modal
     'claim.title': '領取您的成就獎勵',
@@ -703,6 +709,9 @@ const languagePacks = {
     'inject.approveSuccess': 'Approval successful!',
     'inject.approveFailed': 'Approval failed or rejected',
     'inject.soldOut': 'The global staking quota is currently sold out',
+    'inject.min1': '1 Min',
+    'inject.min15': '15 Mins',
+    'inject.min30': '30 Mins',
     
     // Claim Reward Modal
     'claim.title': 'Claim Your Achievement Rewards',
@@ -1014,6 +1023,10 @@ const languagePacks = {
     'inject.maxAmountExceeded': '最大{amount} USDTまで注入可能',
     'inject.approveSuccess': '承認成功！',
     'inject.approveFailed': '承認失敗または拒否されました',
+    'inject.soldOut': '現在、グローバルステーキング枠は完売しています',
+    'inject.min1': '1分',
+    'inject.min15': '15分',
+    'inject.min30': '30分',
     
     // Claim Reward Modal
     'claim.title': '実績報酬を受け取る',
@@ -1321,6 +1334,9 @@ const languagePacks = {
     'inject.approveSuccess': '승인 성공!',
     'inject.approveFailed': '승인 실패 또는 거부됨',
     'inject.soldOut': '현재 글로벌 스테이킹 할당량이 모두 판매되었습니다',
+    'inject.min1': '1분',
+    'inject.min15': '15분',
+    'inject.min30': '30분',
 
     // Claim Reward Modal
     'claim.title': '성취 보상 받기',

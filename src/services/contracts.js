@@ -656,10 +656,13 @@ export const getUserStakingData = async () => {
     const records = await Promise.all(recordPromises);
     const rewards = await Promise.all(rewardPromises);
 
-    // console.log("[质押列表] 批量获取到原始Record数据:", records);
     // console.log("[质押列表] 批量获取到原始Reward数据:", rewards);
 
-    const stakeDurations = [86400, 1296000, 2592000]; // 1, 15, 30 days in seconds
+    // Staking durations: 1, 15, 30 days for PROD; 1, 15, 30 minutes for others
+    const isProd = APP_ENV === 'PROD';
+    const stakeDurations = isProd 
+      ? [86400, 1296000, 2592000] // 1 day, 15 days, 30 days
+      : [60, 900, 1800];          // 1 min, 15 min, 30 min
 
     const formattedData = records.map((record, index) => {
       const originalIndex = indices[index];

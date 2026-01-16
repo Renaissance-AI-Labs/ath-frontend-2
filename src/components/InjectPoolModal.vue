@@ -78,6 +78,7 @@ import {
   getMaxStakeAmount,
   getUserStakedBalance,
 } from '../services/contracts';
+import { APP_ENV } from '../services/environment';
 import {
   showToast
 } from '../services/notification';
@@ -106,20 +107,21 @@ export default {
   },
   computed: {
     durationOptions() {
+      const isTest = APP_ENV !== 'PROD';
       return [
         {
           value: 0,
-          days: this.t('inject.days1'),
+          days: isTest ? this.t('inject.min1') : this.t('inject.days1'),
           rate: this.t('inject.rate1')
         },
         {
           value: 1,
-          days: this.t('inject.days15'),
+          days: isTest ? this.t('inject.min15') : this.t('inject.days15'),
           rate: this.t('inject.rate15')
         },
         {
           value: 2,
-          days: this.t('inject.days30'),
+          days: isTest ? this.t('inject.min30') : this.t('inject.days30'),
           rate: this.t('inject.rate30')
         }
       ];
