@@ -181,6 +181,9 @@
             v-if="showUnstakeModal" 
             :processing="unstackingStates[selectedStakingId]" 
             :principal="selectedStakingPrincipal"
+            :interest="selectedStakingInterest"
+            :stakeIndex="selectedStakingIndex"
+            :id="selectedStakingId"
             @close="showUnstakeModal = false" 
             @confirm="confirmUnstake" 
         />
@@ -301,6 +304,7 @@ const fetchStakingData = async () => {
                 expiryTimestamp: expiryTimestamp,
                 displayStatus: displayStatus,
                 id: id,
+                stakeIndex: Number(record.stakeIndex),
             };
         });
 
@@ -320,11 +324,21 @@ const fetchStakingData = async () => {
 const showUnstakeModal = ref(false);
 const selectedStakingId = ref(null);
 const selectedStakingPrincipal = ref(0);
+const selectedStakingInterest = ref(0);
+const selectedStakingIndex = ref(0);
 
 const handleUnstake = (id) => {
     selectedStakingId.value = id;
     const item = stakingItems.value.find(i => i.id === id);
-    selectedStakingPrincipal.value = item ? item.principal : 0;
+    if (item) {
+        selectedStakingPrincipal.value = item.principal;
+        selectedStakingInterest.value = item.interest;
+        selectedStakingIndex.value = item.stakeIndex;
+    } else {
+        selectedStakingPrincipal.value = 0;
+        selectedStakingInterest.value = 0;
+        selectedStakingIndex.value = 0;
+    }
     showUnstakeModal.value = true;
 };
 

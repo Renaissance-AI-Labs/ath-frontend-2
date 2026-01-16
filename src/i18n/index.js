@@ -345,6 +345,7 @@ const languagePacks = {
     'banker.faq1Answer': '为防止流动性攻击，每次存入后都有锁定及冷却期。提取前请检查倒计时。',
     'banker.faq2Question': '我的收益如何计算？',
     'banker.faq2Answer': '您的收益由两部分组成：“流动性盈亏”（随玩家输赢波动，影响本金）和“分红奖励”（随交易量增加，通过领取获得）。',
+    'common.recommend': '推荐',
     
     // Unstake Modal
     'unstake.title': '选择赎回方式',
@@ -678,6 +679,7 @@ const languagePacks = {
     'banker.faq1Answer': '為防止流動性攻擊，每次存入後都有鎖定及冷卻期。提取前請檢查倒計時。',
     'banker.faq2Question': '我的收益如何計算？',
     'banker.faq2Answer': '您的收益由兩部分組成：「流動性盈虧」（隨玩家輸贏波動，影響本金）和「分紅獎勵」（隨交易量增加，通過領取獲得）。',
+    'common.recommend': '推薦',
 
     // Unstake Modal
     'unstake.title': '選擇贖回方式',
@@ -1013,6 +1015,7 @@ const languagePacks = {
     'banker.faq1Answer': 'To prevent liquidity attacks, there is a lock period after each deposit. Please check the countdown timer before withdrawing.',
     'banker.faq2Question': 'How are my earnings calculated?',
     'banker.faq2Answer': 'Your earnings consist of two parts: "Liquidity PnL" (fluctuates with players\' wins/losses, affecting your principal) and "Dividend Rewards" (increases with volume, claimed via Harvest).',
+    'common.recommend': 'Recommended',
 
     // Unstake Modal
     'unstake.title': 'Select Redeem Option',
@@ -1343,6 +1346,7 @@ const languagePacks = {
     'banker.faq1Answer': '流動性攻撃を防ぐため、各入金後にロック期間があります。引き出し前にカウントダウンタイマーを確認してください。',
     'banker.faq2Question': '収益はどのように計算されますか？',
     'banker.faq2Answer': '収益は2つの部分で構成されます。「流動性損益」（プレイヤーの勝敗に応じて変動し、元本に影響します）と「配当報酬」（取引量とともに増加し、収穫で請求されます）。',
+    'common.recommend': '推奨',
 
     // Unstake Modal
     'unstake.title': '償還方法の選択',
@@ -1673,6 +1677,7 @@ const languagePacks = {
     'banker.faq1Answer': '유동성 공격을 방지하기 위해 각 입금 후 잠금 기간이 있습니다. 출금하기 전에 카운트다운 타이머를 확인하세요.',
     'banker.faq2Question': '수익은 어떻게 계산되나요?',
     'banker.faq2Answer': '수익은 두 가지 부분으로 구성됩니다: "유동성 손익"(플레이어의 승패에 따라 변동하며 원금에 영향을 미침)과 "배당 보상"(거래량에 따라 증가하며 수확을 통해 청구).',
+    'common.recommend': '추천',
 
     // Unstake Modal
     'unstake.title': '상환 옵션 선택',

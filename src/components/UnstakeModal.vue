@@ -22,20 +22,26 @@
             :class="{ 'disabled': processing }"
           >
             <div class="option-content">
-              <h4>{{ t('unstake.reinvestTitle') }}</h4>
+              <div class="header-with-badge">
+                  <h4>{{ t('unstake.reinvestTitle') }}</h4>
+                  <span class="badge-recommend">{{ t('common.recommend') }}</span>
+              </div>
               <p>{{ t('unstake.reinvestDesc') }}</p>
             </div>
           </div>
 
           <!-- Option 2: Redeem Principal (exitType 1) -->
           <div 
-            class="option-card" 
+            class="option-card compact" 
             @click="selectExitType(1)"
             :class="{ 'disabled': processing || isLimitReached }"
           >
             <div class="option-content">
               <h4>{{ t('unstake.redeemTitle') }}</h4>
-              <p>{{ t('unstake.redeemDesc') }}</p>
+              <p class="warning-desc">
+                <i class="icon icon-WarningCircle"></i>
+                {{ t('unstake.redeemDesc') }}
+              </p>
               
               <!-- Daily Limit Info -->
               <div class="limit-info">
@@ -68,6 +74,18 @@ const props = defineProps({
     type: [Number, String],
     required: true,
     default: 0
+  },
+  interest: {
+    type: [Number, String],
+    default: 0
+  },
+  stakeIndex: {
+    type: Number,
+    default: 0
+  },
+  id: {
+    type: Number,
+    default: null
   }
 });
 
@@ -76,6 +94,14 @@ const maxUnstakeAmount = ref('0');
 
 onMounted(async () => {
   maxUnstakeAmount.value = await getMaxUnstakeAmount();
+  
+  console.log('[赎回弹窗] 当前选中的订单详情:', {
+    '订单编号 (ID)': props.id,
+    '质押类型/时长索引 (StakeIndex)': props.stakeIndex,
+    '本金 (Principal)': props.principal,
+    '利息 (Interest)': props.interest,
+    '当前系统赎回限额 (MaxUnstakeAmount)': maxUnstakeAmount.value
+  });
 });
 
 const isLimitReached = computed(() => {
@@ -175,16 +201,41 @@ const selectExitType = (type) => {
   overflow: hidden;
 }
 
+.option-card.compact {
+  padding: 10px 15px; /* Reduced padding */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Lighter border */
+}
+
+.option-card.compact h4 {
+  font-size: 14px; /* Smaller title */
+  margin-bottom: 2px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.option-card.compact .warning-desc {
+  font-size: 12px; /* Smaller warning text */
+}
+
+.option-card.compact .limit-info {
+  margin-top: 5px;
+  padding-top: 5px;
+  font-size: 11px;
+}
+
 .option-card:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0);
   border-color: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
 }
 
 .option-card.highlight {
-  background: rgba(200, 255, 0, 0.08); /* Approximate primary color tint */
+  background: rgba(200, 255, 0, 0); /* Approximate primary color tint */
   border-color: var(--primary);
   box-shadow: 0 0 15px rgba(200, 255, 0, 0.1);
+  min-height: 140px; /* Taller height for emphasis */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .option-card h4 {
@@ -196,6 +247,33 @@ const selectExitType = (type) => {
 
 .option-card.highlight h4 {
   color: var(--primary);
+  font-size: 20px; /* Slightly larger title for emphasis */
+  margin-bottom: 0;
+}
+
+.header-with-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.badge-recommend {
+    background: var(--primary);
+    color: #000;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: 'ChillRoundF', sans-serif;
+    box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.4);
+    animation: pulse-badge 2s infinite;
+}
+
+@keyframes pulse-badge {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
 
 .option-card p {
@@ -205,12 +283,19 @@ const selectExitType = (type) => {
   margin: 0;
 }
 
+.warning-desc {
+  color: #b60e0e !important; /* Warning red color */
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
 .limit-info {
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 13px;
-  color: #ff6b6b; /* Reddish color for limit/warning feel, or neutral if normal */
+  color: rgba(255, 255, 255, 0.5); 
 }
 
 /* Change color based on if limit is reached or not if needed, 
@@ -269,4 +354,3 @@ const selectExitType = (type) => {
   to { transform: translateY(-500px); }
 }
 </style>
-
