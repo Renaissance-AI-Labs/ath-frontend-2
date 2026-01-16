@@ -101,7 +101,7 @@ export default {
             } else {
                 envPrefix = 'D'; // Dev/Local
             }
-            const version = '1.3.0'; // Version is now hardcoded here
+            const version = '2.0.0'; // Version is now hardcoded here
             return `${this.t('footer.copyright')} ${envPrefix}-${version}`;
         }
     }
