@@ -38,7 +38,7 @@
             <div class="container">
                 <div class="sect-title wow fadeInUp">
                     <div class="title-container">
-                        <span class="protocol-version-bg">2</span>
+                        <span class="protocol-version-bg">X</span>
                         <h1 class="s-title font-3 title-big">
                             Athena Protocol<br>
                             <!-- <span class="text-change_wrap">
@@ -426,7 +426,7 @@ onUnmounted(() => {
 
 /* 装饰性光晕 - 轮廓更清晰 */
 .protocol-version-bg::before {
-    content: '2';
+    content: 'X';
     position: absolute;
     left: 0;
     top: 0;
@@ -440,7 +440,7 @@ onUnmounted(() => {
 
 /* 氛围背光 - 减弱一点以免影响前景 */
 .protocol-version-bg::after {
-    content: '2';
+    content: 'X';
     position: absolute;
     left: 50%;
     top: 50%;
