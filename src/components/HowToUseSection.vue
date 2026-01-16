@@ -202,6 +202,7 @@ import {
   ethers
 } from 'ethers';
 import { t } from '@/i18n';
+import { APP_ENV } from '../services/environment';
 
 const stakingItems = ref([]); // Renamed from allStakingItems, now holds only current page data
 const totalItems = ref(0); // New state for total records from contract
@@ -239,7 +240,10 @@ const fetchStakingData = async () => {
         totalItems.value = Number(total);
 
         const decimals = getUsdtDecimals();
-        const stakeDurations = [86400, 1296000, 2592000]; // 1, 15, 30 days in seconds
+        const isProd = APP_ENV === 'PROD';
+        const stakeDurations = isProd 
+          ? [86400, 1296000, 2592000] // 1 day, 15 days, 30 days
+          : [60, 900, 1800];          // 1 min, 15 min, 30 min
 
         // --- Conditional Interest Fetching ---
         let liveRewards = [];
