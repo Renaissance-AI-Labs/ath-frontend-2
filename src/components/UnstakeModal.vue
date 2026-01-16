@@ -35,7 +35,7 @@
           <div 
             class="option-card" 
             @click="selectExitType(1)"
-            :class="{ 'disabled': processing || isLimitReached }"
+            :class="{ 'disabled': processing }"
           >
             <div class="option-content">
               <h4>{{ t('unstake.redeemTitle') }}</h4>
@@ -47,10 +47,10 @@
             </div>
           </div>
           
-          <!-- Daily Limit Info -->
-          <div class="limit-info">
+          <!-- Daily Limit Info (Hidden as requested, see console) -->
+          <!-- <div class="limit-info">
             <span>{{ t('unstake.dailyLimit') }}: {{ parseFloat(maxUnstakeAmount).toFixed(2) }} USDT</span>
-          </div>
+          </div> -->
         </div>
       </div>
       
