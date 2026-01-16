@@ -717,7 +717,7 @@ export const getUserStakingData = async () => {
   }
 };
 
-export const unstake = async (id) => {
+export const unstake = async (id, exitType) => {
   if (!stakingContract) {
     showToast(t('toast.stakingNotInitialized'));
     return false;
@@ -726,15 +726,19 @@ export const unstake = async (id) => {
     showToast(t('toast.invalidOrderId'));
     return false;
   }
+  if (![1, 2].includes(exitType)) {
+      console.error("Invalid exitType:", exitType);
+      return false;
+  }
 
-  console.log(`[赎回操作] 准备为 ID 为 ${id} 的订单发起交易...`);
+  console.log(`[赎回操作] 准备为 ID 为 ${id} 的订单发起交易, 类型: ${exitType}...`);
 
   try {
     // Dry-run the transaction first to catch potential reverts without sending a transaction.
-    await stakingContract.unstake.staticCall(id);
+    await stakingContract.unstake.staticCall(id, exitType);
     console.log("[赎回操作] 静态调用检查通过，交易很可能会成功。");
 
-    const tx = await stakingContract.unstake(id);
+    const tx = await stakingContract.unstake(id, exitType);
     console.log(`[赎回操作] 交易已发送, Hash: ${tx.hash}. 等待链上确认...`);
     // showToast("交易已发送，等待确认...");
 
@@ -750,7 +754,14 @@ export const unstake = async (id) => {
       // No toast notification needed for user-initiated cancellation.
     } else {
       console.error("[赎回操作] 交易失败 (可能是静态调用检查时发现问题):", error);
-      showToast(t('toast.unstakeFailed', { reason: error.reason || error.message || 'Unknown error' }));
+      const reason = error.reason || error.message || 'Unknown error';
+      if (reason.includes("Daily limit")) {
+          showToast(t('toast.dailyLimitExceeded'));
+      } else if (reason.includes("Invalid Type")) {
+          showToast(t('toast.invalidType'));
+      } else {
+          showToast(t('toast.unstakeFailed', { reason: reason }));
+      }
     }
     return false;
   }
@@ -807,6 +818,33 @@ export const getPoolUsdtReserves = async () => {
     return ethers.formatUnits(reserves, getUsdtDecimals());
   } catch (error) {
     console.error("Error fetching pool USDT reserves:", error);
+    return "0";
+  }
+};
+
+/**
+ * Fetches the maximum amount that can be unstaked today.
+ * @returns {Promise<string>} The max unstake amount in ethers (formatted string).
+ */
+export const getMaxUnstakeAmount = async () => {
+  if (!stakingContract) {
+    console.warn("Staking contract not initialized.");
+    return "0";
+  }
+  try {
+    // maxUnstakeAmount() returns the amount in wei (based on USDT decimals usually, check contract logic)
+    // The previous logic implies amounts are handled in USDT decimals (6) or 18.
+    // Let's assume it matches the principal amount's decimals (likely 18 or 6).
+    // Based on 'getUsdtDecimals()' usage elsewhere, let's use that if it returns USDT value.
+    // However, in 'unstake', amount is principal. 'stake' takes 18 decimals usually if it's main token, 
+    // but here stake is USDT. Wait, staking contract usually takes USDT.
+    // stakeWithInviter takes amountInWei which is parsed with getUsdtDecimals().
+    // So maxUnstakeAmount likely returns USDT wei.
+    
+    const amount = await stakingContract.maxUnstakeAmount();
+    return ethers.formatUnits(amount, getUsdtDecimals());
+  } catch (error) {
+    console.error("Error fetching max unstake amount:", error);
     return "0";
   }
 };

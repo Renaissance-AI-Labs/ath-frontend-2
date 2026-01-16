@@ -177,6 +177,13 @@
             </div>
         </div>
         <span class="br-line"></span>
+        <UnstakeModal 
+            v-if="showUnstakeModal" 
+            :processing="unstackingStates[selectedStakingId]" 
+            :principal="selectedStakingPrincipal"
+            @close="showUnstakeModal = false" 
+            @confirm="confirmUnstake" 
+        />
     </section>
 </template>
 <script setup>
@@ -198,6 +205,7 @@ import {
 } from '../services/contracts';
 import CountdownTimer from './CountdownTimer.vue';
 import AnimatedNumber from './AnimatedNumber.vue';
+import UnstakeModal from './UnstakeModal.vue';
 import {
   ethers
 } from 'ethers';
@@ -309,13 +317,28 @@ const fetchStakingData = async () => {
 };
 
 
-const handleUnstake = async (id) => {
+const showUnstakeModal = ref(false);
+const selectedStakingId = ref(null);
+const selectedStakingPrincipal = ref(0);
+
+const handleUnstake = (id) => {
+    selectedStakingId.value = id;
+    const item = stakingItems.value.find(i => i.id === id);
+    selectedStakingPrincipal.value = item ? item.principal : 0;
+    showUnstakeModal.value = true;
+};
+
+const confirmUnstake = async (exitType) => {
+    const id = selectedStakingId.value;
+    if (id === null) return;
+    
     unstackingStates[id] = true;
     try {
-        const success = await unstake(id);
+        const success = await unstake(id, exitType);
         if (success) {
             // Refresh the entire list to get the latest state from the blockchain
             await fetchStakingData();
+            showUnstakeModal.value = false;
         }
     } finally {
         unstackingStates[id] = false;

@@ -174,6 +174,15 @@ const languagePacks = {
     'howToUse.waitingRedeem': '等待赎回',
     'howToUse.staking': 'STAKING',
     'howToUse.redeemedStatus': 'REDEEMED',
+
+    // Unstake Modal
+    'unstake.title': '赎回操作',
+    'unstake.reinvestTitle': '收获利息',
+    'unstake.reinvestDesc': '将获取利息，并以同周期复投该本金',
+    'unstake.redeemTitle': '赎回本金',
+    'unstake.redeemDesc': '将放弃利息，仅赎回本金',
+    'unstake.dailyLimit': '每日赎回额度受池子总量 5% 限制',
+    'unstake.cancel': '取消',
     
     // Share Friend Modal
     'share.title': '分享链接给好友',
@@ -335,7 +344,18 @@ const languagePacks = {
     'banker.faq1Question': '为什么存入后不能立即提取？',
     'banker.faq1Answer': '为防止流动性攻击，每次存入后都有锁定及冷却期。提取前请检查倒计时。',
     'banker.faq2Question': '我的收益如何计算？',
-    'banker.faq2Answer': '您的收益由两部分组成：“流动性盈亏”（随玩家输赢波动，影响本金）和“分红奖励”（随交易量增加，通过领取获得）。'
+    'banker.faq2Answer': '您的收益由两部分组成：“流动性盈亏”（随玩家输赢波动，影响本金）和“分红奖励”（随交易量增加，通过领取获得）。',
+    
+    // Unstake Modal
+    'unstake.title': '选择赎回方式',
+    'unstake.reinvestTitle': '收获利息并复投',
+    'unstake.reinvestDesc': '将获取利息，并以同周期复投该本金',
+    'unstake.redeemTitle': '赎回本金',
+    'unstake.redeemDesc': '将放弃利息，仅赎回本金',
+    'unstake.dailyLimit': '今日剩余赎回额度',
+    'toast.dailyLimitExceeded': '每日赎回限额已达上限',
+    'toast.dailyLimitReached': '今日赎回额度不足 (Daily redeem limit reached)',
+    'toast.invalidType': '传入的类型参数错误 (Invalid Type)'
   },
   
   'zh-tw': {
@@ -465,6 +485,15 @@ const languagePacks = {
     'howToUse.waitingRedeem': '等待贖回',
     'howToUse.staking': 'STAKING',
     'howToUse.redeemedStatus': 'REDEEMED',
+
+    // Unstake Modal
+    'unstake.title': '贖回操作',
+    'unstake.reinvestTitle': '收穫利息',
+    'unstake.reinvestDesc': '將獲取利息，並以同週期複投該本金',
+    'unstake.redeemTitle': '贖回本金',
+    'unstake.redeemDesc': '將放棄利息，僅贖回本金',
+    'unstake.dailyLimit': '每日贖回額度受池子總量 5% 限制',
+    'unstake.cancel': '取消',
     
     // Toast Notifications
     'toast.connectWalletFirst': '請先連接並授權您的錢包',
@@ -648,7 +677,18 @@ const languagePacks = {
     'banker.faq1Question': '為什麼存入後不能立即提取？',
     'banker.faq1Answer': '為防止流動性攻擊，每次存入後都有鎖定及冷卻期。提取前請檢查倒計時。',
     'banker.faq2Question': '我的收益如何計算？',
-    'banker.faq2Answer': '您的收益由兩部分組成：「流動性盈虧」（隨玩家輸贏波動，影響本金）和「分紅獎勵」（隨交易量增加，通過領取獲得）。'
+    'banker.faq2Answer': '您的收益由兩部分組成：「流動性盈虧」（隨玩家輸贏波動，影響本金）和「分紅獎勵」（隨交易量增加，通過領取獲得）。',
+
+    // Unstake Modal
+    'unstake.title': '選擇贖回方式',
+    'unstake.reinvestTitle': '收穫利息並複投',
+    'unstake.reinvestDesc': '將獲取利息，並以同週期複投該本金',
+    'unstake.redeemTitle': '贖回本金',
+    'unstake.redeemDesc': '將放棄利息，僅贖回本金',
+    'unstake.dailyLimit': '今日剩餘贖回額度',
+    'toast.dailyLimitExceeded': '每日贖回限額已達上限',
+    'toast.dailyLimitReached': '今日贖回額度不足 (Daily redeem limit reached)',
+    'toast.invalidType': '傳入的類型參數錯誤 (Invalid Type)'
   },
   
   'en': {
@@ -778,6 +818,15 @@ const languagePacks = {
     'howToUse.waitingRedeem': 'Waiting to Redeem',
     'howToUse.staking': 'STAKING',
     'howToUse.redeemedStatus': 'REDEEMED',
+
+    // Unstake Modal
+    'unstake.title': 'Unstake Options',
+    'unstake.reinvestTitle': 'Harvest Interest',
+    'unstake.reinvestDesc': 'Harvest interest and reinvest principal for the same cycle',
+    'unstake.redeemTitle': 'Redeem Principal',
+    'unstake.redeemDesc': 'Forfeit interest, redeem principal only',
+    'unstake.dailyLimit': 'Daily redemption limit is 5% of total pool',
+    'unstake.cancel': 'Cancel',
     
     // Toast Notifications
     'toast.connectWalletFirst': 'Please connect and authorize your wallet first',
@@ -963,7 +1012,18 @@ const languagePacks = {
     'banker.faq1Question': 'Why can\'t I withdraw immediately after depositing?',
     'banker.faq1Answer': 'To prevent liquidity attacks, there is a lock period after each deposit. Please check the countdown timer before withdrawing.',
     'banker.faq2Question': 'How are my earnings calculated?',
-    'banker.faq2Answer': 'Your earnings consist of two parts: "Liquidity PnL" (fluctuates with players\' wins/losses, affecting your principal) and "Dividend Rewards" (increases with volume, claimed via Harvest).'
+    'banker.faq2Answer': 'Your earnings consist of two parts: "Liquidity PnL" (fluctuates with players\' wins/losses, affecting your principal) and "Dividend Rewards" (increases with volume, claimed via Harvest).',
+
+    // Unstake Modal
+    'unstake.title': 'Select Redeem Option',
+    'unstake.reinvestTitle': 'Harvest Interest & Reinvest',
+    'unstake.reinvestDesc': 'Will get interest, and reinvest principal for the same cycle.',
+    'unstake.redeemTitle': 'Redeem Principal',
+    'unstake.redeemDesc': 'Will forfeit interest, redeem principal only.',
+    'unstake.dailyLimit': 'Daily Remaining Redeem Limit',
+    'toast.dailyLimitExceeded': 'Daily redemption limit exceeded',
+    'toast.dailyLimitReached': 'Daily redeem limit reached',
+    'toast.invalidType': 'Invalid Type Parameter'
   },
   
   'ja': {
@@ -1093,6 +1153,15 @@ const languagePacks = {
     'howToUse.waitingRedeem': '償還待ち',
     'howToUse.staking': 'STAKING',
     'howToUse.redeemedStatus': 'REDEEMED',
+
+    // Unstake Modal
+    'unstake.title': '償還オプション',
+    'unstake.reinvestTitle': '利息を受け取る',
+    'unstake.reinvestDesc': '利息を受け取り、元本を同期間で再投資します',
+    'unstake.redeemTitle': '元本を償還',
+    'unstake.redeemDesc': '利息を放棄し、元本のみを償還します',
+    'unstake.dailyLimit': '1日の償還限度額はプール総額の5%です',
+    'unstake.cancel': 'キャンセル',
     
     // Toast Notifications
     'toast.connectWalletFirst': 'まずウォレットを接続して承認してください',
@@ -1273,7 +1342,18 @@ const languagePacks = {
     'banker.faq1Question': '入金後すぐに引き出せないのはなぜですか？',
     'banker.faq1Answer': '流動性攻撃を防ぐため、各入金後にロック期間があります。引き出し前にカウントダウンタイマーを確認してください。',
     'banker.faq2Question': '収益はどのように計算されますか？',
-    'banker.faq2Answer': '収益は2つの部分で構成されます。「流動性損益」（プレイヤーの勝敗に応じて変動し、元本に影響します）と「配当報酬」（取引量とともに増加し、収穫で請求されます）。'
+    'banker.faq2Answer': '収益は2つの部分で構成されます。「流動性損益」（プレイヤーの勝敗に応じて変動し、元本に影響します）と「配当報酬」（取引量とともに増加し、収穫で請求されます）。',
+
+    // Unstake Modal
+    'unstake.title': '償還方法の選択',
+    'unstake.reinvestTitle': '利息の収穫と再投資',
+    'unstake.reinvestDesc': '利息を受け取り、元本を同期間で再投資します',
+    'unstake.redeemTitle': '元本の償還',
+    'unstake.redeemDesc': '利息を放棄し、元本のみを償還します',
+    'unstake.dailyLimit': '本日の残り償還限度額',
+    'toast.dailyLimitExceeded': '1日の償還限度額を超えました',
+    'toast.dailyLimitReached': '本日の償還限度額が不足しています (Daily redeem limit reached)',
+    'toast.invalidType': '無効なタイプパラメータです (Invalid Type)'
   },
   
   'ko': {
@@ -1403,6 +1483,15 @@ const languagePacks = {
     'howToUse.waitingRedeem': '상환 대기',
     'howToUse.staking': 'STAKING',
     'howToUse.redeemedStatus': 'REDEEMED',
+
+    // Unstake Modal
+    'unstake.title': '상환 옵션',
+    'unstake.reinvestTitle': '이자 수확',
+    'unstake.reinvestDesc': '이자를 수확하고 동일한 주기로 원금을 재투자합니다',
+    'unstake.redeemTitle': '원금 상환',
+    'unstake.redeemDesc': '이자를 포기하고 원금만 상환합니다',
+    'unstake.dailyLimit': '일일 상환 한도는 전체 풀의 5%로 제한됩니다',
+    'unstake.cancel': '취소',
     
     // Toast Notifications
     'toast.connectWalletFirst': '먼저 지갑을 연결하고 승인하세요',
@@ -1584,6 +1673,17 @@ const languagePacks = {
     'banker.faq1Answer': '유동성 공격을 방지하기 위해 각 입금 후 잠금 기간이 있습니다. 출금하기 전에 카운트다운 타이머를 확인하세요.',
     'banker.faq2Question': '수익은 어떻게 계산되나요?',
     'banker.faq2Answer': '수익은 두 가지 부분으로 구성됩니다: "유동성 손익"(플레이어의 승패에 따라 변동하며 원금에 영향을 미침)과 "배당 보상"(거래량에 따라 증가하며 수확을 통해 청구).',
+
+    // Unstake Modal
+    'unstake.title': '상환 옵션 선택',
+    'unstake.reinvestTitle': '이자 수확 및 재투자',
+    'unstake.reinvestDesc': '이자를 받고 동일한 주기로 원금을 재투자합니다.',
+    'unstake.redeemTitle': '원금 상환',
+    'unstake.redeemDesc': '이자를 포기하고 원금만 상환합니다.',
+    'unstake.dailyLimit': '오늘의 남은 상환 한도',
+    'toast.dailyLimitExceeded': '일일 상환 한도를 초과했습니다',
+    'toast.dailyLimitReached': '오늘의 상환 한도가 부족합니다 (Daily redeem limit reached)',
+    'toast.invalidType': '잘못된 유형 매개변수 (Invalid Type)'
   }
 };
 
