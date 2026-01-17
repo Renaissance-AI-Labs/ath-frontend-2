@@ -367,6 +367,10 @@ onUnmounted(() => {
 
 <style scoped>
 
+.sect-title {
+    text-align: center;
+}
+
 .text-change_wrap {
     margin-top: 50px;
     font-size: 18px;
