@@ -2,8 +2,8 @@ import axios from 'axios';
 import { APP_ENV } from './environment';
 
 const SUBGRAPH_URLS = {
-  PROD: 'https://gateway.thegraph.com/api/subgraphs/id/ExXtbpnCYZwZU3UwEKg3PUv4ZY8UbeUXCQDWzPtb9Gbz',
-  DEV: 'https://api.studio.thegraph.com/query/16009/ath-referral-test/version/latest',
+  PROD: 'https://gateway.thegraph.com/api/subgraphs/id/6mSFS8SEePNKG3SxyzpyoGNQoaPk18DxeHrNrPc8HeYe',
+  DEV: 'https://api.studio.thegraph.com/query/16009/athx-referral-test/version/latest',
 };
 
 const SUBGRAPH_API_KEY = '59ea243e4cb1078db41167f3fb142843';
