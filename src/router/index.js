@@ -25,16 +25,19 @@ const routes = [
     path: '/personal-center',
     name: 'PersonalCenter',
     component: PersonalCenterView,
+    beforeEnter: (to, from, next) => { next('/'); }
   },
   {
     path: '/crash',
     name: 'Crash',
     component: CrashView,
+    beforeEnter: (to, from, next) => { next('/'); }
   },
   {
     path: '/shareholder',
     name: 'Shareholder',
     component: ShareholderView,
+    beforeEnter: (to, from, next) => { next('/'); }
   },
   {
     path: '/xbrokers-event',
