@@ -32,6 +32,7 @@
             -->
 
             <!-- Category -->
+            <!-- 
             <div class="sidebar-item">
               <h5 class="sb-title font-3 text-linear">{{ t('sidebar.gameCenter') }}</h5>
               <div class="br-line has-dot"></div>
@@ -43,29 +44,9 @@
                   </router-link>
                   <span v-else class="text-body-1" style="cursor: not-allowed; opacity: 0.6; display: flex; align-items: center; justify-content: space-between;">
                      {{ t('sidebar.crashGameComingSoon') }}
-                     <!-- <i class="icon icon-ArrowUpRight"></i> -->
+                     <!- - <i class="icon icon-ArrowUpRight"></i> - ->
                   </span>
                 </li>
-                <!--
-                <li>
-                  <a href="#" class="text-body-1">
-                    AI design
-                    <i class="icon icon-ArrowUpRight"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="text-body-1">
-                    Content write
-                    <i class="icon icon-ArrowUpRight"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="text-body-1">
-                    Developer
-                    <i class="icon icon-ArrowUpRight"></i>
-                  </a>
-                </li>
-                -->
               </ul>
             </div>
 
@@ -87,6 +68,7 @@
                 </li>
               </ul>
             </div>
+            -->
 
             <!-- Recent posts -->
             <!-- 

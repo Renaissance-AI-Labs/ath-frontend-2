@@ -500,11 +500,13 @@
     </section>
 
     <!-- Sidebar Trigger Button -->
+    <!--
     <div class="btn-sidebar-mb d-lg-none right">
         <button @click="openSidebar" style="background-color: #111111;">
             <img src="/asset/images/section/speed.svg" alt="Menu" width="50" height="50" style="transform: rotate(180deg);">
         </button>
     </div>
+    -->
 
     <!-- Right Sidebar -->
     <HomeRightSidebar 
