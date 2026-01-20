@@ -20,8 +20,6 @@ import athAbi from '../abis/ath.json';
 import s5poolAbi from '../abis/s5pool.json';
 import s6poolAbi from '../abis/s6pool.json';
 import s7poolAbi from '../abis/s7pool.json';
-import stakeLimitAbi from '../abis/stake_limit.json';
-import nodePoolAbi from '../abis/node_pool.json';
 import nodeDividendPoolAbi from '../abis/node_dividend_pool.json';
 import crashAbi from '../abis/crash.json';
 import bankerPoolAbi from '../abis/bankerpool.json';
@@ -32,18 +30,6 @@ import gameLevelAbi from '../abis/game_level.json';
 // Select staking ABI based on environment
 const stakingAbi = APP_ENV === 'PROD' ? stakingAbiMain : stakingAbiTest;
 
-// Add maxPoolLimit method to stake limit ABI
-const stakeLimitAbiWithMethod = [
-  ...stakeLimitAbi,
-  {
-    "inputs": [],
-    "name": "maxPoolLimit",
-    "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-    "stateMutability": "view",
-    "type": "function"
-  }
-];
-
 const uniswapV2RouterAbi = [
   "function getAmountsOut(uint amountIn, address[] calldata path) external view returns (uint[] memory amounts)"
 ];
@@ -51,15 +37,15 @@ const uniswapV2RouterAbi = [
 // --- Contract Addresses ---
 export const contractAddresses = {
   referral: {
-    production: '0xE8bF70FCcdA199A1CC2F90412e6Ab13779F95B3F', // To be deployed
+    production: '0x3E6F4149Ca9217642F8848c5a2BD79BB97B30A4E',
     development: '0x1Ad59D67a7D413b0F053d33cf4Ec1FC92190C83A',
   },
   staking: {
-    production: '0x705c99F6C25056cC73B299dFe209d80455FA7D63', // To be deployed
+    production: '0x56214003629E7162eC8Eda8C5aC5c5a693929b3A',
     development: '0xDc582d3439a17115Ddf8288ED9BD86f37846394B',
   },
   ath: {
-    production: '0xc30ba330aE7f4921c06C1D9B4605540503EFBf10', // To be deployed
+    production: '0x0A8cdD89e99E6921595beB032b8Cb8e8314bf310',
     development: '0x28C465A59EE6470f76581186a1E9E8205Ed11276',
   },
   usdt: {
@@ -71,43 +57,35 @@ export const contractAddresses = {
     development: '0xD99D1c33F9fC3444f8101754aBC46c52416550D1', // PancakeSwap Router V2 on BNB Testnet
   },
   s5pool: {
-    production: '0x20B0850f3B888B4C2494E7C7fbcF9808C6e82F77', // To be deployed
+    production: '0x01EAb616Fbd39404CE8C3944928CecE8ab8887c1',
     development: '0xb65b398eB4d9FcAeaC8046A3c9Eb84d4eA60ed2d',
   },
   s6pool: {
-    production: '0x71b935C4a14b14b9E894CAeCcC9CF7E39379007b', // To be deployed
+    production: '0xd90cB1D8DC0981655FEB8c129dD72aF11a15993C',
     development: '0xa28CC3Ea8E349c41bfDd4eE84d99C224e31620c9',
   },
   s7pool: {
-    production: '0x0A9267E219ce6eb099881f3Df651333BE7742C2e', // To be deployed
+    production: '0xCbE399196541D600dE6eB23A6A8365F697E4e3fb',
     development: '0x1041DDd9585387BC4Aad8bc914db26d1FBbf2D00',
   },
   lp: {
-    production: '0x1Cd9298c1c73F02D14EFcF23622352EB7308d700',
-    development: '0xCE8Ce1f5Fd5E67987c749783dA5E5861D7152262',
-  },
-  stakeLimit: {
-    production: '0x06c879448299B0fE5fcdf590770d85fEfc1B122b',
-    development: '0x352Ff740C6F15E35E2585Ef98826C4e4351AdA2a',
-  },
-  nodePool: {
-    production: '0xb864DeB03c90e5B8cC79396Bd6F97dC6b6E668F6',
-    development: '0x940309DF7136275F4711804bA73566491bCb3eAA',
+    production: '0x9D673fDCD92fF174B669A23403bd86f59d6ac459',
+    development: '0xcC24F978082277ABc2c5c5C4e5FB38a412e7F55A', // USDT-ATH LP
   },
   nodeDividendPool: {
-    production: '0x9f79772Ff1E4Dd61F1039aEc2AEeb415C62c471f',
+    production: '0x2547A4b83BEFFC6d73656C918aA6d4f6dE00b034',
     development: '0x3F4E253D329C767293F0B50670882Eb3761a6989',
   },
   crash: {
-    production: '0x896A036F2Ef9699322b20C1E9Eb529F5486b79eF',
+    production: '',
     development: '0x58Ad6227c74D9000d0d6014682bD990aAB217eE0',
   },
   bankerPool: {
-    production: '0xe98944fE9E52143a213Bd14bEbFFA9790466c777',
+    production: '',
     development: '0x1a6Ce0091075a3C81bcad078cDc59A55668F12a4',
   },
   gameLevel: {
-    production: '0x9233205Be82a858d9a6Db6Cd3fA589716474c925',
+    production: '',
     development: '0xdBB653bA08987a6Ec630909fCb62d938cdF3cE9B',
   }
 };
@@ -121,15 +99,13 @@ let routerContract;
 let s5poolContract;
 let s6poolContract;
 let s7poolContract;
-let stakeLimitContract;
-let nodePoolContract;
 let nodeDividendPoolContract;
 let crashContract;
 let bankerPoolContract;
 let gameLevelContract;
 
 // We need to export these for other modules to use them.
-export { referralContract, stakingContract, athContract, usdtContract, s5poolContract, s6poolContract, s7poolContract, stakeLimitContract, nodePoolContract, nodeDividendPoolContract, crashContract, bankerPoolContract, gameLevelContract };
+export { referralContract, stakingContract, athContract, usdtContract, s5poolContract, s6poolContract, s7poolContract, nodeDividendPoolContract, crashContract, bankerPoolContract, gameLevelContract };
 
 // --- KPI Thresholds (as per Staking.sol) ---
 const THRESHOLDS = {
@@ -188,8 +164,6 @@ export const initializeContracts = async () => {
   const s5poolAddress = contractAddresses.s5pool[env];
   const s6poolAddress = contractAddresses.s6pool[env];
   const s7poolAddress = contractAddresses.s7pool[env];
-  const stakeLimitAddress = contractAddresses.stakeLimit[env];
-  const nodePoolAddress = contractAddresses.nodePool[env];
   const nodeDividendPoolAddress = contractAddresses.nodeDividendPool[env];
   const crashAddress = contractAddresses.crash[env];
   const bankerPoolAddress = contractAddresses.bankerPool[env];
@@ -204,8 +178,6 @@ export const initializeContracts = async () => {
   s5poolContract = new ethers.Contract(s5poolAddress, s5poolAbi, rawSigner);
   s6poolContract = new ethers.Contract(s6poolAddress, s6poolAbi, rawSigner);
   s7poolContract = new ethers.Contract(s7poolAddress, s7poolAbi, rawSigner);
-  stakeLimitContract = new ethers.Contract(stakeLimitAddress, stakeLimitAbiWithMethod, rawSigner);
-  nodePoolContract = new ethers.Contract(nodePoolAddress, nodePoolAbi, rawSigner);
   nodeDividendPoolContract = new ethers.Contract(nodeDividendPoolAddress, nodeDividendPoolAbi, rawSigner);
   crashContract = new ethers.Contract(crashAddress, crashAbi, rawSigner);
   bankerPoolContract = new ethers.Contract(bankerPoolAddress, bankerPoolAbi, rawSigner);
@@ -220,8 +192,6 @@ export const initializeContracts = async () => {
     s5pool: await s5poolContract.getAddress(),
     s6pool: await s6poolContract.getAddress(),
     s7pool: await s7poolContract.getAddress(),
-    stakeLimit: await stakeLimitContract.getAddress(),
-    nodePool: await nodePoolContract.getAddress(),
     nodeDividendPool: await nodeDividendPoolContract.getAddress(),
     crash: await crashContract.getAddress(),
     bankerPool: await bankerPoolContract.getAddress(),
@@ -245,8 +215,6 @@ export const resetContracts = () => {
   s5poolContract = null;
   s6poolContract = null;
   s7poolContract = null;
-  stakeLimitContract = null;
-  nodePoolContract = null;
   nodeDividendPoolContract = null;
   crashContract = null;
   bankerPoolContract = null;
@@ -407,23 +375,6 @@ export const getS6PendingRewards = async () => getPendingRewards(s6poolContract)
  */
 export const getS7PendingRewards = async () => getPendingRewards(s7poolContract);
 
-/**
- * Fetches pending rewards from the Node Pool for the current user.
- * @returns {Promise<string>} Formatted Node Point pending rewards.
- */
-export const getNodePointRewards = async () => {
-    if (!nodePoolContract || !walletState.address) {
-        // This is a normal state if contracts are not yet initialized.
-        return "0";
-    }
-    try {
-        const rewards = await nodePoolContract.getTokenRewards(walletState.address);
-        return ethers.formatUnits(rewards, 18); // Assuming ATH has 18 decimals
-    } catch (error) {
-        console.error(`Error fetching pending node point rewards from ${await nodePoolContract.getAddress()}:`, error);
-        return "0";
-    }
-};
 
 /**
  * Generic function to claim rewards from a pool contract.
@@ -474,33 +425,6 @@ export const claimS6Rewards = async () => claimRewards(s6poolContract);
  * @returns {Promise<boolean>} True if successful.
  */
 export const claimS7Rewards = async () => claimRewards(s7poolContract);
-
-/**
- * Claims rewards from the Node Pool.
- * @returns {Promise<boolean>} True if successful.
- */
-export const claimNodePointRewards = async () => {
-    if (!nodePoolContract || !walletState.address) {
-        showToast(t('toast.poolNotInitialized')); // Reusing existing toast
-        return false;
-    }
-    try {
-        const tx = await nodePoolContract.harvest();
-        showToast(t('toast.txSent'));
-        await tx.wait();
-        // The success toast will be specific and handled in the component as requested.
-        return true;
-    } catch (error) {
-        if (error.code === 'ACTION_REJECTED') {
-            console.log("User rejected the node point claim transaction.");
-            // No toast for user rejection
-        } else {
-            console.error(`Error claiming node point rewards from ${await nodePoolContract.getAddress()}:`, error);
-            showToast(t('toast.claimFailed', { reason: error.reason || error.message || 'Unknown error' }));
-        }
-        return false;
-    }
-};
 
 /**
  * Fetches pending rewards from the Node Dividend Pool for the current user (USDT).
@@ -1027,11 +951,11 @@ export const stakeWithInviter = async (amount, stakeIndex, parentAddress) => {
     return true;
   } catch (error) {
     if (error.code === 'ACTION_REJECTED') {
-        console.log('[质押操作] 用户在钱包中拒绝了交易。');
-        // No toast notification for user rejection
+      console.log('[质押操作] 用户在钱包中拒绝了交易。');
+      // No toast notification for user rejection
     } else {
-        console.error("Error during stakeWithInviter call:", error);
-        showToast(t('toast.stakeFailed', { reason: error.reason || error.message || 'Unknown error' }));
+      console.error("Error during stakeWithInviter call:", error);
+      showToast(t('toast.stakeFailed', { reason: error.reason || error.message || 'Unknown error' }));
     }
     return false;
   }
@@ -1073,29 +997,6 @@ export const rewardOfSlot = async (id) => {
         console.error(`Error fetching reward for slot with ID ${id}:`, error);
         return 0n;
     }
-};
-
-/**
- * Fetches the maxPoolLimit from the stake limit contract.
- * @returns {Promise<string>} The max pool limit, formatted as a string.
- */
-export const getMaxPoolLimit = async () => {
-  if (!stakeLimitContract) {
-    console.warn("Stake limit contract not initialized.");
-    return "0";
-  }
-  try {
-    console.log(`[MaxPoolLimit] 正在从合约读取 maxPoolLimit...`);
-    const limit = await stakeLimitContract.maxPoolLimit();
-    console.log(`[MaxPoolLimit] 从合约获取到的原始值: ${limit.toString()}`);
-    // Note: maxPoolLimit is already in USDT units, no need to format
-    const limitStr = limit.toString();
-    console.log(`[MaxPoolLimit] 最终值 (USDT): ${limitStr}`);
-    return limitStr;
-  } catch (error) {
-    console.error("[MaxPoolLimit] 获取最大池子限额失败:", error);
-    return "0";
-  }
 };
 
 // --- Exported Functions to get contract instances (optional, but good practice) ---
