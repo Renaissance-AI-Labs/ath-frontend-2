@@ -66,18 +66,6 @@
                             </button>
                         </div>
 
-                        <!-- Temporarily hide lists and show loading state -->
-                        <div class="loading-state" :class="`list-${listMode}`">
-                            <div class="stars-bg stars-bg-1">
-                                <div class="stars"></div>
-                                <div class="stars2"></div>
-                                <div class="stars3"></div>
-                            </div>
-                            <p>{{ t('howToUse.loadingStakingData') }}</p>
-                        </div>
-                        
-                        <!-- TEMPORARILY COMMENTED OUT - Uncomment to restore functionality -->
-                        <!--
                         <div v-if="isLoading" class="loading-state" :class="`list-${listMode}`">
                             <div class="stars-bg stars-bg-1">
                                 <div class="stars"></div>
@@ -169,7 +157,6 @@
                                 </a>
                             </div>
                         </template>
-                        -->
                     </div>
                 </div>
                 <div class="position-relative has-hafl_plus">
@@ -190,6 +177,16 @@
             </div>
         </div>
         <span class="br-line"></span>
+        <UnstakeModal 
+            v-if="showUnstakeModal" 
+            :processing="unstackingStates[selectedStakingId]" 
+            :principal="selectedStakingPrincipal"
+            :interest="selectedStakingInterest"
+            :stakeIndex="selectedStakingIndex"
+            :id="selectedStakingId"
+            @close="showUnstakeModal = false" 
+            @confirm="confirmUnstake" 
+        />
     </section>
 </template>
 <script setup>
@@ -211,10 +208,12 @@ import {
 } from '../services/contracts';
 import CountdownTimer from './CountdownTimer.vue';
 import AnimatedNumber from './AnimatedNumber.vue';
+import UnstakeModal from './UnstakeModal.vue';
 import {
   ethers
 } from 'ethers';
 import { t } from '@/i18n';
+import { APP_ENV } from '../services/environment';
 
 const stakingItems = ref([]); // Renamed from allStakingItems, now holds only current page data
 const totalItems = ref(0); // New state for total records from contract
@@ -252,7 +251,10 @@ const fetchStakingData = async () => {
         totalItems.value = Number(total);
 
         const decimals = getUsdtDecimals();
-        const stakeDurations = [86400, 1296000, 2592000]; // 1, 15, 30 days in seconds
+        const isProd = APP_ENV === 'PROD';
+        const stakeDurations = isProd 
+          ? [86400, 1296000, 2592000] // 1 day, 15 days, 30 days
+          : [60, 900, 1800];          // 1 min, 15 min, 30 min
 
         // --- Conditional Interest Fetching ---
         let liveRewards = [];
@@ -302,6 +304,7 @@ const fetchStakingData = async () => {
                 expiryTimestamp: expiryTimestamp,
                 displayStatus: displayStatus,
                 id: id,
+                stakeIndex: Number(record.stakeIndex),
             };
         });
 
@@ -318,13 +321,38 @@ const fetchStakingData = async () => {
 };
 
 
-const handleUnstake = async (id) => {
+const showUnstakeModal = ref(false);
+const selectedStakingId = ref(null);
+const selectedStakingPrincipal = ref(0);
+const selectedStakingInterest = ref(0);
+const selectedStakingIndex = ref(0);
+
+const handleUnstake = (id) => {
+    selectedStakingId.value = id;
+    const item = stakingItems.value.find(i => i.id === id);
+    if (item) {
+        selectedStakingPrincipal.value = item.principal;
+        selectedStakingInterest.value = item.interest;
+        selectedStakingIndex.value = item.stakeIndex;
+    } else {
+        selectedStakingPrincipal.value = 0;
+        selectedStakingInterest.value = 0;
+        selectedStakingIndex.value = 0;
+    }
+    showUnstakeModal.value = true;
+};
+
+const confirmUnstake = async (exitType) => {
+    const id = selectedStakingId.value;
+    if (id === null) return;
+    
     unstackingStates[id] = true;
     try {
-        const success = await unstake(id);
+        const success = await unstake(id, exitType);
         if (success) {
             // Refresh the entire list to get the latest state from the blockchain
             await fetchStakingData();
+            showUnstakeModal.value = false;
         }
     } finally {
         unstackingStates[id] = false;

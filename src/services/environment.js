@@ -44,18 +44,18 @@ export const TEMPORARY_STAKE_LIMIT = 10;
 /**
  * Enable single purchase limit configuration
  */
-export const ENABLE_SINGLE_PURCHASE_LIMIT = true;
+export const ENABLE_SINGLE_PURCHASE_LIMIT = false;
 
 /**
  * Single purchase limit configuration
  * The maximum amount (in USDT) for a single stake transaction.
  */
-export const SINGLE_PURCHASE_LIMIT = 1000;
+export const SINGLE_PURCHASE_LIMIT = 1;
 
 /**
  * Enable global staking limit based on USDT reserves in the pool.
  */
-export const ENABLE_GLOBAL_STAKE_LIMIT = true;
+export const ENABLE_GLOBAL_STAKE_LIMIT = false;
 
 /**
  * The maximum amount of USDT reserves in the pool.

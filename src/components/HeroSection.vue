@@ -23,7 +23,7 @@
                             <span class="bar_center"></span>
                         </span>
                         <span class="hacker-text_transform no-delay">
-                            YOUR ALL-IN-ONE ATHENA PLATFORM
+                            THE ULTIMATE DECENTRALIZED AUTONOMOUS ECOSYSTEM
                         </span>
                         <span class="bar-group type-right">
                             <span class="bar_center"></span>
@@ -37,18 +37,21 @@
         <div class="sect-main">
             <div class="container">
                 <div class="sect-title wow fadeInUp">
-                    <h1 class="s-title font-3 title-big">
-                        Athena Protocol <br>
-                        <!-- <span class="text-change_wrap">
-                            <span class="text-change_rotating">这里没有<span class="icon icon-gemini"></span>CEO
-                            </span>
-                            <span class="text-change_rotating">这里没有<span
-                                    class="icon icon-gemini"></span>营销团队
-                            </span>
-                            <span class="text-change_rotating">Built on<span class="icon icon-cloud"></span>Claude.
-                            </span>
-                        </span> -->
-                    </h1>
+                    <div class="title-container">
+                        <span class="protocol-version-bg">X</span>
+                        <h1 class="s-title font-3 title-big">
+                            Athena Protocol<br>
+                            <!-- <span class="text-change_wrap">
+                                <span class="text-change_rotating">这里没有<span class="icon icon-gemini"></span>CEO
+                                </span>
+                                <span class="text-change_rotating">这里没有<span
+                                        class="icon icon-gemini"></span>营销团队
+                                </span>
+                                <span class="text-change_rotating">Built on<span class="icon icon-cloud"></span>Claude.
+                                </span>
+                            </span> -->
+                        </h1>
+                    </div>
                     <p class="s-sub_title" style="color: #fff;">
                         {{ t('hero.subtitle') }}
                     </p>
@@ -364,6 +367,10 @@ onUnmounted(() => {
 
 <style scoped>
 
+.sect-title {
+    text-align: center;
+}
+
 .text-change_wrap {
     margin-top: 50px;
     font-size: 18px;
@@ -372,6 +379,104 @@ onUnmounted(() => {
 .title-big {
     font-size: 48px;
     color: #fff;
+    position: relative;
+    z-index: 2;
+}
+
+.title-container {
+    position: relative;
+    display: inline-block;
+}
+
+.protocol-version-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* 拉宽 1.4 倍，营造宽体史诗感 */
+    transform: translate(-50%, -63%) scaleX(1.1);
+    font-size: 120px;
+    line-height: 1;
+    /* 加粗 */
+    font-weight: 900;
+    font-style: normal;
+    font-family: 'Playfair Display', 'Didot', 'Bodoni MT', 'Times New Roman', serif;
+    
+    /* 高级古典流金质感 - 颜色更醇厚 */
+    background: linear-gradient(
+        180deg, 
+        #bf953f 0%, 
+        #fcf6ba 25%, 
+        #b38728 50%, 
+        #fbf5b7 75%, 
+        #aa771c 100%
+    );
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    
+    z-index: 0;
+    pointer-events: none;
+    user-select: none;
+    
+    /* 提高不透明度，移除混合模式，让它清晰可见 */
+    opacity: 0.85;
+    mix-blend-mode: normal;
+    
+    animation: liquidGoldFlow 8s ease-in-out infinite;
+    /* 增加投影深度，让文字从背景中浮现出来 */
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.8));
+}
+
+/* 装饰性光晕 - 轮廓更清晰 */
+.protocol-version-bg::before {
+    content: 'X';
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    color: transparent;
+    /* 增加描边清晰度 */
+    -webkit-text-stroke: 2px rgba(255, 223, 0, 0.4);
+    filter: blur(1px);
+    opacity: 1;
+}
+
+/* 氛围背光 - 减弱一点以免影响前景 */
+.protocol-version-bg::after {
+    content: 'X';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    z-index: -2;
+    background: linear-gradient(to bottom, transparent, rgba(184, 134, 11, 0.6));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: blur(20px);
+    opacity: 0.6;
+}
+
+@keyframes liquidGoldFlow {
+    0% {
+        background-position: 0% 50%;
+        filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.2));
+    }
+    50% {
+        background-position: 100% 50%;
+        filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.5));
+    }
+    100% {
+        background-position: 0% 50%;
+        filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.2));
+    }
+}
+
+@keyframes cinemaGlow {
+    /* Deprecated - kept for compatibility if needed elsewhere */
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
 }
 
 .coins-title {
