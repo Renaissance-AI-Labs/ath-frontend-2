@@ -312,7 +312,7 @@ const languagePacks = {
     // Common
     'common.loading': 'Loading...',
     'common.token': 'TOKEN',
-    'common.ath': 'ATH',
+    'common.ath': 'ATHX',
 
     // Banker/Shareholder
     'banker.dashboard': '股东看板',
@@ -646,7 +646,7 @@ const languagePacks = {
     // Common
     'common.loading': 'Loading...',
     'common.token': 'TOKEN',
-    'common.ath': 'ATH',
+    'common.ath': 'ATHX',
 
     // Banker/Shareholder
     'banker.dashboard': '股東看板',
@@ -982,7 +982,7 @@ const languagePacks = {
     // Common
     'common.loading': 'Loading...',
     'common.token': 'TOKEN',
-    'common.ath': 'ATH',
+    'common.ath': 'ATHX',
 
     // Banker/Shareholder
     'banker.dashboard': 'Shareholder Dashboard',
@@ -1313,7 +1313,7 @@ const languagePacks = {
     // Common
     'common.loading': 'Loading...',
     'common.token': 'TOKEN',
-    'common.ath': 'ATH',
+    'common.ath': 'ATHX',
 
     // Banker/Shareholder
     'banker.dashboard': '株主ダッシュボード',
@@ -1644,7 +1644,7 @@ const languagePacks = {
     // Common
     'common.loading': 'Loading...',
     'common.token': 'TOKEN',
-    'common.ath': 'ATH',
+    'common.ath': 'ATHX',
 
     // Banker/Shareholder
     'banker.dashboard': '주주 대시보드',
