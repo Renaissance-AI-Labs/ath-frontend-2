@@ -12,9 +12,7 @@
       </div>
       <div class="hero-video" v-if="$route.path === '/'">
           <div class="video-container">
-              <video class="video-width video-effect" muted autoplay loop playsinline>
-                  <source src="/asset/images/video/BlackHole.mp4" type="video/mp4">
-              </video>
+              <AuroraBackground class="video-width" />
               <div class="video-fade-overlay"></div>
           </div>
       </div>
@@ -42,6 +40,7 @@ import LanguageModal from './components/LanguageModal.vue';
 import { autoConnectWallet } from './services/wallet.js';
 import ToastNotification from './components/ToastNotification.vue';
 import { initializeLanguage } from './i18n';
+import AuroraBackground from './components/AuroraBackground.vue';
 
 export default {
   name: 'App',
@@ -52,7 +51,8 @@ export default {
     MobileMenu,
     ConnectWalletModal,
     LanguageModal,
-    ToastNotification
+    ToastNotification,
+    AuroraBackground
   },
   data() {
     return {
@@ -133,14 +133,26 @@ export default {
 </script>
 
 <style scoped>
+.hero-video {
+  height: 700px;
+  width: 100% !important; /* Override global width: 100% */
+  left: 50% !important; /* Center horizontally */
+  transform: translateX(-50%);
+  top: 30px;
+  max-width: none !important;
+  opacity: 0.6 !important; /* Ensure full visibility of the effect */
+}
+
 .video-width {
-  margin-left: 2px;
-  width: 98%;
+  width: 100%; /* Fill the container */
+  height: 100%;
 }
 
 .video-container {
   position: relative;
-  line-height: 0; /* Removes potential whitespace below video */
+  line-height: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .video-fade-overlay {

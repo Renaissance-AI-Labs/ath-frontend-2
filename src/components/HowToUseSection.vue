@@ -43,8 +43,11 @@
                 </div>
             </div> -->
             <div class="s-img_item wow bounceInScale">
-                <img class="lazyload" src="/asset/images/section/gradient-ring-bg.webp"
-                    data-src="/asset/images/section/gradient-ring-bg.webp" alt="Background">
+                <div class="aurora-bg">
+                    <div class="aurora-item"></div>
+                    <div class="aurora-item"></div>
+                    <div class="aurora-item"></div>
+                </div>
             </div>
             <div class="container">
                 <div class="sect-title wow fadeInUp title-position">
@@ -102,13 +105,14 @@
                         <template v-else>
                             <ul class="tab-how_to position-relative mx-1 wow fadeInUp" role="tablist" :class="`list-${listMode}`">
                                 <li v-for="(item, index) in stakingItems" :key="item.id" class="nav-tab-item li-style" role="presentation">
-                                    <div class="br-line has-dot"></div>
+                                    <!-- <div class="br-line has-dot"></div> -->
                                     <div data-bs-toggle="tab" data-bs-target="#step3" class="btn_tab" aria-selected="true" role="tab">
-                                        <div :class="`stars-bg stars-bg-${(index % 3) + 1}`">
+                                        <div class="bottom-glow-line"></div>
+                                        <!-- <div :class="`stars-bg stars-bg-${(index % 3) + 1}`">
                                             <div class="stars"></div>
                                             <div class="stars2"></div>
                                             <div class="stars3"></div>
-                                        </div>
+                                        </div> -->
                                         <div class="card-content">
                                             <div style="display: flex; flex-direction: row; justify-content: space-between;">
                                                 <h5 class="name h5-list-style" :data-text="`${activeTab === 'investment' ? t('howToUse.staking') : t('howToUse.redeemedStatus')}-CODE-${String(item.id + 1).padStart(2, '0')}`">
@@ -477,6 +481,12 @@ const displayedPages = computed(() => {
 </script>
 <style scoped>
 
+.section-how-to {
+    --primary: #FF5500; /* 橙红色主题色 */
+    --primary-rgb: 255, 85, 0;
+    --primary-gradient: linear-gradient(90deg, #FF5500 0%, #FF8800 100%);
+}
+
 .tab-how_to,
 .empty-state,
 .loading-state {
@@ -497,8 +507,9 @@ const displayedPages = computed(() => {
 
 .toggle-button {
     /* Base styles from .btn-ip */
-    background: var(--primary-gradient);
-    border: 1px solid var(--line);
+    background: rgba(255, 85, 0, 0.25); /* 通透的橙红色背景 - 调亮 */
+    border: 1px solid rgba(255, 85, 0, 0.6); /* 细微的边框 - 调亮 */
+    backdrop-filter: blur(5px); /* 磨砂玻璃效果 */
     border-radius: 12px;
     padding: 10px 20px;
     color: #fff;
@@ -518,30 +529,32 @@ const displayedPages = computed(() => {
 }
 
 .toggle-button:hover {
+    background: rgba(255, 85, 0, 0.35); /* 悬停更亮 */
     box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.5);
 }
 
 .toggle-button:hover .tab-text {
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
 }
 
 .tab-text {
     flex-grow: 1;
     text-align: center;
-    color: rgba(255, 255, 255, 0.7); /* Dim inactive tabs */
+    color: rgba(255, 255, 255, 0.9); /* Dim inactive tabs - 调亮 */
     transition: all 0.3s ease;
 }
 
 .tab-text.active {
     color: #fff;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+    font-weight: 600;
 }
 
 .tab-divider {
     width: 1px;
     height: 20px; /* Adjust height as needed */
     background: linear-gradient(to bottom, transparent, #fff, transparent);
-    opacity: 0.5;
+    opacity: 0.8; /* 调亮 */
 }
 
 
@@ -590,10 +603,24 @@ const displayedPages = computed(() => {
   cursor: not-allowed;
 }
 
+.pagination-item {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.6);
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.pagination-item:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: rgba(255, 85, 0, 0.1);
+}
+
 .pagination-item.active {
-  background-color: #fff;
-  border-color: #fff;
-  color: #222;
+    background-color: rgba(255, 85, 0, 0.25); /* 通透的主题色 */
+    border-color: var(--primary);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(255, 85, 0, 0.3);
 }
 
 .pagination-item.disabled {
@@ -602,12 +629,112 @@ const displayedPages = computed(() => {
   pointer-events: none;
 }
 
-.img-position {
-    margin-top: 30px;
+/* 极光背景容器 */
+.s-img_item {
+    position: absolute; /* 改为绝对定位，以便重叠 */
+    top: -100px; /* 向上调整位置，覆盖标题区域 */
+    left: 0%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1000px;
+    height: 500px;
+    margin: 0 auto;
+    overflow: hidden;
+    z-index: 0; /* 放在底层 */
+    pointer-events: none;
+}
+
+/* 确保父容器相对定位 */
+.sect-main {
+    position: relative;
+}
+
+/* 确保内容在极光之上 */
+.container {
+    position: relative;
+    z-index: 2;
+}
+
+/* 极光背景基础 */
+.aurora-bg {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    /* filter: blur(40px); */ /* 移除整体模糊，单独控制 */
+}
+
+/* 极光光斑单元 - 改为曲线光带 */
+.aurora-item {
+    position: absolute;
+    border-radius: 50%;
+    mix-blend-mode: screen;
+    filter: blur(40px);
+    opacity: 0.7;
+}
+
+/* 光带 1：主曲线 */
+.aurora-item:nth-child(1) {
+    top: 10%;
+    left: -10%;
+    width: 120%;
+    height: 60%;
+    background: transparent;
+    border-top: 15px solid rgba(255, 85, 0, 0.6);
+    border-radius: 50%;
+    box-shadow: 0 -20px 80px rgba(255, 85, 0, 0.8), inset 0 20px 80px rgba(255, 85, 0, 0.4);
+    transform: rotate(-5deg);
+    animation: aurora-wave 12s infinite alternate ease-in-out;
+}
+
+/* 光带 2：辅助辉光 */
+.aurora-item:nth-child(2) {
+    top: 30%;
+    left: 10%;
+    width: 80%;
+    height: 50%;
+    background: radial-gradient(ellipse at center, rgba(255, 120, 0, 0.5), transparent 70%);
+    transform: rotate(0deg);
+    filter: blur(60px);
+    animation: aurora-pulse 8s infinite alternate ease-in-out;
+}
+
+/* 光带 3：反向曲线 */
+.aurora-item:nth-child(3) {
+    top: 15%;
+    left: -5%;
+    width: 110%;
+    height: 70%;
+    background: transparent;
+    border-top: 10px solid rgba(255, 150, 50, 0.4);
+    border-radius: 50%;
+    box-shadow: 0 -15px 60px rgba(255, 150, 50, 0.5);
+    transform: rotate(3deg);
+    animation: aurora-wave-reverse 15s infinite alternate ease-in-out;
+}
+
+/* 极光波动动画 */
+@keyframes aurora-wave {
+    0% { transform: rotate(-5deg) translateY(0) scaleX(1); opacity: 0.6; }
+    50% { transform: rotate(-3deg) translateY(-10px) scaleX(1.05); opacity: 0.8; }
+    100% { transform: rotate(-7deg) translateY(10px) scaleX(0.95); opacity: 0.6; }
+}
+
+@keyframes aurora-wave-reverse {
+    0% { transform: rotate(3deg) translateY(0) scaleX(1); opacity: 0.5; }
+    100% { transform: rotate(6deg) translateY(15px) scaleX(1.1); opacity: 0.7; }
+}
+
+@keyframes aurora-pulse {
+    0% { transform: scale(1); opacity: 0.4; }
+    100% { transform: scale(1.2); opacity: 0.6; }
 }
 
 .title-position {
     padding-top: 0px;
+    margin-top: 100px;
 }
 
 .pagination-list {
@@ -627,8 +754,8 @@ const displayedPages = computed(() => {
 }
 
 .tab-how_to .nav-tab-item .btn_tab {
-    background: rgba(20, 20, 21, 0.5);
-    border: 1px solid var(--line);
+    background: rgba(20, 20, 21, 0.8);
+    border: none;
     border-radius: 12px;
     padding: 16px;
     backdrop-filter: blur(16px);
@@ -636,6 +763,75 @@ const displayedPages = computed(() => {
     transition: all .3s ease;
     position: relative;
     overflow: hidden;
+    /* 基础阴影 */
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+}
+
+/* 1. 边框层：实现左右白色细边框，顶部透明 */
+.tab-how_to .nav-tab-item .btn_tab::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    padding: 1px; /* 边框厚度 */
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.1) 20%,
+        rgba(255, 255, 255, 0.6) 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* 2. 底部光晕层：模拟底部的主题色辉光，向上晕染，染红底部的白色边框 */
+.tab-how_to .nav-tab-item .btn_tab::after {
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    left: 10%;
+    right: 10%;
+    height: 40px;
+    background: var(--primary);
+    filter: blur(25px); /* 大范围模糊，形成光晕 */
+    opacity: 0.5;
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* 3. 底部高亮光带：位于底部边缘的锐利亮线，增强轮廓 */
+.tab-how_to .nav-tab-item .btn_tab .bottom-glow-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.5) 20%,
+        var(--primary) 50%,
+        rgba(255, 255, 255, 0.5) 80%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    box-shadow: 0 0 10px var(--primary);
+    z-index: 3;
+    opacity: 0.8;
+}
+
+/* 悬停效果 */
+.tab-how_to .nav-tab-item .btn_tab:hover::after {
+    opacity: 0.8;
+    filter: blur(20px); /* 悬停时光晕更聚拢一点 */
+}
+
+.tab-how_to .nav-tab-item .btn_tab:hover .bottom-glow-line {
+    opacity: 1;
+    box-shadow: 0 0 15px var(--primary);
 }
 
 /* .tab-how_to .nav-tab-item .btn_tab:hover {
@@ -702,22 +898,22 @@ const displayedPages = computed(() => {
 }
 
 .stars {
-  animation: animStar 20s linear infinite;
-  box-shadow: 123px 45px #FFF, 255px 189px #FFF, 345px 8px #FFF, 99px 345px #FFF, 487px 233px #FFF, 321px 487px #FFF, 499px 10px #FFF, 23px 187px #FFF, 176px 455px #FFF, 433px 321px #FFF, 45px 23px #FFF, 231px 480px #FFF, 467px 98px #FFF, 33px 256px #FFF, 198px 321px #FFF, 349px 465px #FFF, 480px 12px #FFF, 12px 190px #FFF, 256px 432px #FFF, 490px 211px #FFF, 54px 49px #FFF, 289px 344px #FFF, 411px 189px #FFF, 76px 287px #FFF, 201px 477px #FFF, 389px 23px #FFF, 477px 376px #FFF, 156px 143px #FFF, 301px 499px #FFF, 432px 65px #FFF;
+  /* animation: animStar 20s linear infinite; */
+  box-shadow: 123px 45px rgba(255, 85, 0, 0.8), 255px 189px rgba(255, 85, 0, 0.8), 345px 8px rgba(255, 85, 0, 0.8), 99px 345px rgba(255, 85, 0, 0.8), 487px 233px rgba(255, 85, 0, 0.8), 321px 487px rgba(255, 85, 0, 0.8), 499px 10px rgba(255, 85, 0, 0.8), 23px 187px rgba(255, 85, 0, 0.8), 176px 455px rgba(255, 85, 0, 0.8), 433px 321px rgba(255, 85, 0, 0.8), 45px 23px rgba(255, 85, 0, 0.8), 231px 480px rgba(255, 85, 0, 0.8), 467px 98px rgba(255, 85, 0, 0.8), 33px 256px rgba(255, 85, 0, 0.8), 198px 321px rgba(255, 85, 0, 0.8), 349px 465px rgba(255, 85, 0, 0.8), 480px 12px rgba(255, 85, 0, 0.8), 12px 190px rgba(255, 85, 0, 0.8), 256px 432px rgba(255, 85, 0, 0.8), 490px 211px rgba(255, 85, 0, 0.8), 54px 49px rgba(255, 85, 0, 0.8), 289px 344px rgba(255, 85, 0, 0.8), 411px 189px rgba(255, 85, 0, 0.8), 76px 287px rgba(255, 85, 0, 0.8), 201px 477px rgba(255, 85, 0, 0.8), 389px 23px rgba(255, 85, 0, 0.8), 477px 376px rgba(255, 85, 0, 0.8), 156px 143px rgba(255, 85, 0, 0.8), 301px 499px rgba(255, 85, 0, 0.8), 432px 65px rgba(255, 85, 0, 0.8);
 }
 
 .stars2 {
   width: 2px;
   height: 2px;
-  animation: animStar 40s linear infinite;
-  box-shadow: 234px 123px #FFF, 456px 345px #FFF, 12px 487px #FFF, 498px 65px #FFF, 213px 289px #FFF, 45px 456px #FFF, 345px 98px #FFF, 187px 399px #FFF, 432px 187px #FFF, 88px 88px #FFF, 287px 465px #FFF, 478px 243px #FFF, 143px 32px #FFF, 365px 398px #FFF, 499px 488px #FFF;
+  /* animation: animStar 40s linear infinite; */
+  box-shadow: 234px 123px rgba(255, 85, 0, 0.8), 456px 345px rgba(255, 85, 0, 0.8), 12px 487px rgba(255, 85, 0, 0.8), 498px 65px rgba(255, 85, 0, 0.8), 213px 289px rgba(255, 85, 0, 0.8), 45px 456px rgba(255, 85, 0, 0.8), 345px 98px rgba(255, 85, 0, 0.8), 187px 399px rgba(255, 85, 0, 0.8), 432px 187px rgba(255, 85, 0, 0.8), 88px 88px rgba(255, 85, 0, 0.8), 287px 465px rgba(255, 85, 0, 0.8), 478px 243px rgba(255, 85, 0, 0.8), 143px 32px rgba(255, 85, 0, 0.8), 365px 398px rgba(255, 85, 0, 0.8), 499px 488px rgba(255, 85, 0, 0.8);
 }
 
 .stars3 {
   width: 3px;
   height: 3px;
-  animation: animStar 60s linear infinite;
-  box-shadow: 87px 345px #FFF, 465px 87px #FFF, 234px 487px #FFF, 487px 234px #FFF, 156px 156px #FFF, 387px 432px #FFF, 432px 32px #FFF;
+  /* animation: animStar 60s linear infinite; */
+  box-shadow: 87px 345px rgba(255, 85, 0, 0.8), 465px 87px rgba(255, 85, 0, 0.8), 234px 487px rgba(255, 85, 0, 0.8), 487px 234px rgba(255, 85, 0, 0.8), 156px 156px rgba(255, 85, 0, 0.8), 387px 432px rgba(255, 85, 0, 0.8), 432px 32px rgba(255, 85, 0, 0.8);
 }
 
 .stars:after, .stars2:after, .stars3:after {
@@ -761,7 +957,7 @@ const displayedPages = computed(() => {
 
 .redeem-glow {
   /* Constant glow effect */
-  box-shadow: 0 0 12px rgba(220, 220, 220, 0.7);
+  box-shadow: 0 0 2px rgba(220, 220, 220, 0.5);
   border: 1px solid rgba(220, 220, 220, 0.3); /* A subtle border to complement the glow */
 }
 
