@@ -1,7 +1,7 @@
 <template>
     <section class="section-testimonial">
         <!-- == Head Section -->
-        <div class="sect-header">
+        <!-- <div class="sect-header">
             <div class="container">
                 <div class="s-meta text-caption font-2">
                     <p class="s-number_order wg-counter">
@@ -11,9 +11,9 @@
                 </div>
             </div>
         </div>
-        <span class="br-line"></span>
+        <span class="br-line"></span> -->
         <!-- == Tagline Section -->
-        <div class="sect-tagline">
+        <!-- <div class="sect-tagline">
             <div class="container">
                 <div class="sect-tagline_inner">
                     <span class="hafl-plus pst-left_bot wow bounceInScale"></span>
@@ -31,8 +31,8 @@
                     </h6>
                 </div>
             </div>
-        </div>
-        <span class="br-line"></span>
+        </div> -->
+        <!-- <span class="br-line"></span> -->
         <!-- == Main Section -->
         <div class="sect-main">
             <div class="s-img_item wow bounceInScale">

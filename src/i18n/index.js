@@ -26,6 +26,8 @@ const languagePacks = {
     
     // Hero Section
     'hero.subtitle': '纯粹的算法逻辑与数学法则，驱动 AI 自主运行的永续价值引擎',
+    'hero.subtitle_line1': '纯粹的算法逻辑与数学法则',
+    'hero.subtitle_line2': '驱动 AI 自主运行的永续价值引擎',
     'hero.assetsTitle': '尊享资产托管',
     'hero.friendsBoost': '社交网络价值加成',
     'hero.injectPool': '战略注资',

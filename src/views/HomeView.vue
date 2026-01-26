@@ -1,6 +1,5 @@
 <template>
   <div>
-    <span class="br-line"></span>
     <HeroSection @open-inject-modal="openInjectModal" @open-claim-reward-modal="openClaimRewardModal" @open-share-friend-modal="openShareFriendModal" />
     <!-- <FeatureSection /> -->
     <HowToUseSection />

@@ -1,7 +1,7 @@
 <template>
     <section class="section-how-to" id="howToUse">
         <!-- == Head Section -->
-        <div class="sect-header">
+        <!-- <div class="sect-header">
             <div class="container">
                 <div class="s-meta text-caption font-2">
                     <p class="s-number_order wg-counter">
@@ -11,9 +11,9 @@
                 </div>
             </div>
         </div>
-        <span class="br-line"></span>
+        <span class="br-line"></span> -->
         <!-- == Tagline Section -->
-        <div class="sect-tagline">
+        <!-- <div class="sect-tagline">
             <div class="container">
                 <div class="sect-tagline_inner">
                     <span class="hafl-plus pst-left_bot wow bounceInScale"></span>
@@ -32,7 +32,7 @@
                 </div>
             </div>
         </div>
-        <span class="br-line"></span>
+        <span class="br-line"></span> -->
         <!-- == Main Section -->
         <div class="sect-main flat-animate-tab img-position">
             <!-- <div class="visual-object">
@@ -163,15 +163,11 @@
                         </template>
                     </div>
                 </div>
-                <div class="position-relative has-hafl_plus">
-                    <span class="hafl-plus pst-left_bot item_bot wow bounceInScale"></span>
-                    <span class="hafl-plus pst-right_bot item_bot wow bounceInScale"></span>
-                </div>
             </div>
         </div>
-        <span class="br-line"></span>
+        <!-- <span class="br-line"></span> -->
         <!-- == Bottom Section -->
-        <div class="sect-bottom">
+        <!-- <div class="sect-bottom">
             <div class="container">
                 <div class="box-hacker has-overlay_linear mx-1">
                     <p class="hacker-text text-caption font-2 text-uppercase hackerText">
@@ -180,7 +176,7 @@
                 </div>
             </div>
         </div>
-        <span class="br-line"></span>
+        <span class="br-line"></span> -->
         <UnstakeModal 
             v-if="showUnstakeModal" 
             :processing="unstackingStates[selectedStakingId]" 
