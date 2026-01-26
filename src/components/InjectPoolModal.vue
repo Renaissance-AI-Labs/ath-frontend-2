@@ -1,65 +1,82 @@
 <template>
   <div class="modal-overlay" @click.self="close">
-    <div class="modal-content">
-      <!-- Glow Effects -->
-      <div class="glow-effect-top-left"></div>
-      <div class="glow-effect-bottom"></div>
+    <div class="modal-content glass-card">
+      <div class="glass-filter"></div>
+      <div class="glass-overlay"></div>
+      <div class="glass-specular"></div>
       
-      <div class="modal-body">
-        <div class="title_holder">
-          <h3>{{ t('inject.title') }}</h3>
-        </div>
+      <div class="glass-content">
+        <!-- Glow Effects -->
+        <div class="glow-effect-top-left"></div>
+        <div class="glow-effect-bottom"></div>
 
-        <!-- Amount Input Group -->
-        <div class="form-group">
-          <label class="form-label">{{ t('inject.amountLabel') }}</label>
-          <div class="amount-input-group">
-            <div class="input-wrapper">
-              <input 
-                type="text" 
-                inputmode="decimal"
-                :value="amount"
-                @input="handleAmountInput"
-                :placeholder="t('inject.amountPlaceholder')" 
-                class="form-input"
-                :class="{ 'input-error': isAmountInvalid }"
+        <div class="modal-body">
+          <div class="title_holder">
+            <h3>{{ t('inject.title') }}</h3>
+          </div>
+
+          <!-- Amount Input Group -->
+          <div class="form-group">
+            <label class="form-label">{{ t('inject.amountLabel') }}</label>
+            <div class="amount-input-group">
+              <div class="input-wrapper">
+                <input 
+                  type="text" 
+                  inputmode="decimal"
+                  :value="amount"
+                  @input="handleAmountInput"
+                  :placeholder="t('inject.amountPlaceholder')" 
+                  class="form-input"
+                  :class="{ 'input-error': isAmountInvalid }"
+                >
+              </div>
+              <div class="balance-info">
+                <a href="#" @click.prevent="fillMax" class="btn-ip ip-modern text-body-3 balance-btn">
+                {{ t('inject.maxAmount', { amount: formattedUsdtBalance }) }}
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Duration Button Group -->
+          <div class="form-group">
+            <label class="form-label">{{ t('inject.durationLabel') }}</label>
+            <div class="duration-button-group">
+              <button 
+                v-for="option in durationOptions" 
+                :key="option.value"
+                @click="selectedDuration = option.value"
+                :class="['duration-btn', { 'active': selectedDuration === option.value }]"
+                type="button"
               >
-            </div>
-            <div class="balance-info">
-              <a href="#" @click.prevent="fillMax" class="btn-ip ip-modern text-body-3 balance-btn">
-              {{ t('inject.maxAmount', { amount: formattedUsdtBalance }) }}
-              </a>
+                <span class="duration-days">{{ option.days }}</span>
+                <span class="duration-rate">{{ option.rate }}</span>
+              </button>
             </div>
           </div>
-        </div>
 
-        <!-- Duration Button Group -->
-        <div class="form-group">
-          <label class="form-label">{{ t('inject.durationLabel') }}</label>
-          <div class="duration-button-group">
-            <button 
-              v-for="option in durationOptions" 
-              :key="option.value"
-              @click="selectedDuration = option.value"
-              :class="['duration-btn', { 'active': selectedDuration === option.value }]"
-              type="button"
-            >
-              <span class="duration-days">{{ option.days }}</span>
-              <span class="duration-rate">{{ option.rate }}</span>
-            </button>
+          <!-- Action Buttons -->
+          <div class="button-group">
+            <a href="#" @click.prevent="close" class="glass-btn btn-cancel">
+               <div class="glass-filter"></div>
+               <div class="glass-specular"></div>
+               <div class="btn-content">
+                  {{ t('inject.cancel') }}
+               </div>
+            </a>
+            <a href="#" @click.prevent="handleMainAction" class="glass-btn btn-confirm" :class="{ 'disabled': mainButtonState.disabled }">
+               <div class="glass-filter"></div>
+               <div class="glass-specular"></div>
+               <div class="btn-content">
+                  {{ mainButtonState.text }}
+               </div>
+            </a>
           </div>
-        </div>
 
-        <!-- Action Buttons -->
-        <div class="button-group">
-          <a href="#" @click.prevent="close" class="btn-ip ip-modern text-body-3 btn-cancel">
-            {{ t('inject.cancel') }}
-          </a>
-          <a href="#" @click.prevent="handleMainAction" class="btn-ip ip-modern text-body-3 btn-confirm">
-            {{ mainButtonState.text }}
-          </a>
         </div>
-
+        <button @click="close" class="close-button">
+          <i class="icon icon-close"></i>
+        </button>
       </div>
     </div>
   </div>
@@ -322,26 +339,68 @@ export default {
   position: relative;
   width: 90%;
   max-width: 380px;
-  padding: 32px;
-  border-radius: 32px;
-  background: #0f0f11; /* Deep dark background */
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  padding: 0;
+  border-radius: 34px;
+  background: transparent;
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.25),
+    0 0 40px rgba(255, 255, 255, 0.05);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  overflow: hidden; /* Contain the glow */
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Glassmorphism Styles */
+.glass-filter {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  filter: url(#liquid-lens);
+}
+
+.glass-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--lg-bg-color);
+}
+
+.glass-specular {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  box-shadow:
+    inset 1px 1px 0 var(--lg-highlight),
+    inset 0 0 5px var(--lg-highlight);
+  pointer-events: none;
+}
+
+.glass-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Glow Effects */
 .glow-effect-bottom {
   position: absolute;
-  bottom: -25px; /* Positioned to show the bright core at the very bottom edge */
+  bottom: -25px;
   left: 50%;
   transform: translateX(-50%);
-  width: 120%; /* Wider to cover the bottom fully */
-  height: 120px; /* Compressed height for "parallel" look */
+  width: 120%;
+  height: 120px;
   background: radial-gradient(
     ellipse at center bottom,
     rgb(255, 255, 255) 0%,
@@ -353,7 +412,7 @@ export default {
   opacity: 1;
   filter: blur(35px);
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
   mix-blend-mode: screen;
 }
 
@@ -372,7 +431,7 @@ export default {
   opacity: 0.6;
   filter: blur(40px);
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
   mix-blend-mode: screen;
 }
 
@@ -397,7 +456,7 @@ export default {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 2;
+  z-index: 10;
   transition: all 0.2s ease;
 }
 
@@ -415,36 +474,31 @@ export default {
 .form-label {
   display: block;
   text-align: left;
-  color: var(--text-2);
+  color: rgba(255, 255, 255, 0.5);
   margin-bottom: 10px;
   font-size: 14px;
   padding-left: 5px; /* Align with balance button */
 }
 .input-wrapper {
   position: relative;
+  width: 100%;
 }
-.form-input, .form-select {
+.form-input {
   width: 100%;
   padding: 15px 20px;
-  background-color: #0c0c0e;
-  border: 1px solid var(--line);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   color: var(--white);
   font-size: 16px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  transition: border-color 0.3s;
 }
-.form-input:focus, .form-select:focus {
+.form-input:focus {
   outline: none;
   border-color: var(--primary);
-}
-.form-select {
-  cursor: pointer;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23888' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 1rem center;
-  background-size: 1em;
 }
 
 .balance-info {
@@ -454,14 +508,17 @@ export default {
 .balance-btn {
   background: none;
   border: none;
-  color: var(--text-2);
+  color: rgba(255, 255, 255, 0.5);
   cursor: pointer;
   padding: 5px;
   font-size: 14px;
   text-decoration: underline;
+  box-shadow: none; /* Override btn-ip shadow */
 }
 .balance-btn:hover {
   color: var(--primary);
+  border: none;
+  background: none;
 }
 
 .amount-input-group {
@@ -490,11 +547,10 @@ export default {
 .duration-btn {
   flex: 1;
   padding: 10px 8px;
-  background: linear-gradient(0deg, rgba(20, 20, 21, 0.82), rgba(20, 20, 21, 0.82)),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 100%);
-  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  color: var(--text-2);
+  color: rgba(255, 255, 255, 0.5);
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
@@ -521,6 +577,7 @@ export default {
   color: var(--white);
   border-color: var(--primary);
   transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .duration-btn.active {
@@ -543,35 +600,62 @@ export default {
   gap: 15px;
   margin-top: 30px;
 }
-.btn-ip {
-    flex: 1; /* Make buttons take equal width */
-    text-align: center;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    background: linear-gradient(0deg, rgba(20, 20, 21, 0.82), rgba(20, 20, 21, 0.82)),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 100%);
-    border: 1px solid var(--line);
-    box-shadow: 0px 1px 1px 0px #FFFFFF2E inset, 0px 0px 4px 0px #FFFFFF0F inset, 0px 0px 8px 0px #FFFFFF14 inset, 0px 0px 16px 0px #FFFFFF1F inset;
-    padding: 12px;
-    border-radius: 999px;
-    transition: all .3s ease;
-    color: var(--text-2);
-    text-decoration: none;
-}
-.btn-ip:hover {
-    color: var(--primary);
-    border-color: var(--primary);
-}
-.btn-confirm {
-    color: var(--white);
-    background: var(--primary);
-    border-color: var(--primary);
-}
-.btn-confirm:hover {
-    color: var(--white);
-    filter: brightness(1.1);
+
+/* Glass Button Styles */
+.glass-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--white);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: center;
 }
 
-/* Removed Starry background effect */
+.glass-btn .glass-filter {
+    filter: url(#liquid-lens);
+}
+
+.glass-btn .glass-specular {
+    box-shadow:
+    inset 1px 1px 0 var(--lg-highlight),
+    inset 0 0 5px var(--lg-highlight);
+}
+
+.btn-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+}
+
+.glass-btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-confirm {
+  font-weight: 600;
+}
+
+.btn-confirm.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.btn-cancel {
+  color: rgba(255, 255, 255, 0.7);
+}
+.btn-cancel:hover {
+    color: #fff;
+}
 
 .form-input.input-error {
   color: #b60e0e; /* A clear red color for error state */

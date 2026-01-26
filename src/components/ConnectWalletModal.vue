@@ -448,7 +448,7 @@ export default {
 
 .disconnect-btn .btn-content {
     justify-content: center;
-    color: #ff3b30;
+    color: #fff;
     font-weight: 600;
 }
 

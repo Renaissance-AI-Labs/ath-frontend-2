@@ -1,97 +1,107 @@
 <template>
   <div class="modal-overlay" @click.self="close">
-    <div class="modal-content">
-      <!-- Glow Effects -->
-      <div class="glow-effect-top-left"></div>
-      <div class="glow-effect-bottom"></div>
+    <div class="modal-content glass-card">
+      <div class="glass-filter"></div>
+      <div class="glass-overlay"></div>
+      <div class="glass-specular"></div>
       
-      <div class="modal-body">
-        <div class="title_holder">
-          <h3>{{ t('share.title') }}</h3>
-        </div>
-        
-        <div class="share-content" style="margin-top: 30px;">
-          <div class="input-wrapper">
-            <label class="share-link-label">{{ t('share.linkLabel') }}</label>
-            <textarea :value="referralLink" readonly class="share-link-input" @focus="$event.target.select()"></textarea>
-          </div>
-          <p class="share-hint">{{ t('share.hint') }}</p>
-          <a href="#" @click.prevent="copyLink" class="btn-ip ip-modern text-body-3 copy-btn">
-            {{ t('share.button') }}
-          </a>
-          <div class="divider" v-if="teamId"></div>
-          <div class="team-id-section" v-if="teamId">
-            <div class="referral-label-container">
-              <span class="referral-label-text">{{ t('share.teamId') }}</span>
-              <span class="referral-label-count team-id-value-inline">{{ teamId }}</span>
-            </div>
-          </div>
+      <div class="glass-content">
+        <!-- Glow Effects -->
+        <div class="glow-effect-top-left"></div>
+        <div class="glow-effect-bottom"></div>
 
-          <div class="team-id-section">
-            <div class="referral-label-container">
-              <span class="referral-label-text">{{ t('share.rewardsFromFriends') }}</span>
-              <span class="referral-label-count team-id-value-inline">{{ formattedEstimatedRewards }}</span>
-            </div>
-            <div class="rewards-disclaimer">
-              <span class="icon-info">i</span>
-              <p>{{ t('share.rewardsDisclaimer') }}</p>
-            </div>
+        <div class="modal-body">
+          <div class="title_holder">
+            <h3>{{ t('share.title') }}</h3>
           </div>
           
-          <!-- <div class="divider"></div> -->
+          <div class="share-content" style="margin-top: 30px;">
+            <div class="input-wrapper">
+              <label class="share-link-label">{{ t('share.linkLabel') }}</label>
+              <textarea :value="referralLink" readonly class="share-link-input" @focus="$event.target.select()"></textarea>
+            </div>
+            <p class="share-hint">{{ t('share.hint') }}</p>
+            
+            <a href="#" @click.prevent="copyLink" class="glass-btn copy-btn">
+               <div class="glass-filter"></div>
+               <div class="glass-specular"></div>
+               <div class="btn-content">
+                  {{ t('share.button') }}
+               </div>
+            </a>
 
-          <!-- New Referral Info Section -->
-          <div class="team-id-section">
-            <div class="referral-label-container">
-              <span class="referral-label-text">{{ t('share.myReferralsLabel') }}</span>
-              <span class="referral-label-count">{{ formattedReferralCount }}</span>
+            <div class="divider" v-if="teamId"></div>
+            <div class="team-id-section" v-if="teamId">
+              <div class="referral-label-container">
+                <span class="referral-label-text">{{ t('share.teamId') }}</span>
+                <span class="referral-label-count team-id-value-inline">{{ teamId }}</span>
+              </div>
+            </div>
+
+            <div class="team-id-section">
+              <div class="referral-label-container">
+                <span class="referral-label-text">{{ t('share.rewardsFromFriends') }}</span>
+                <span class="referral-label-count team-id-value-inline">{{ formattedEstimatedRewards }}</span>
+              </div>
+              <div class="rewards-disclaimer">
+                <span class="icon-info">i</span>
+                <p>{{ t('share.rewardsDisclaimer') }}</p>
+              </div>
             </div>
             
-            <!-- Loading State -->
-            <div v-if="isLoadingReferrals" class="loading-message">
-              <p>{{ t('share.loadingReferrals') }}</p>
-            </div>
-            
-            <!-- Data/Empty States -->
-            <div v-else>
-              <div v-if="referralCount > 0">
-                <div class="referral-switcher">
-                  <a href="#" @click.prevent="showPrevious" style="margin-top: 28px;" class="pagination-item" :class="{ 'disabled': currentIndex === 0 }">
-                    <span class="icon icon-CaretDoubleRight" style="transform: rotate(180deg);"></span>
-                  </a>
-                  <div class="switcher-content">
-                    <div>
-                      <p class="switcher-address">{{ currentReferralAddress }}</p>
-                      <div class="info-container">
-                        <div class="info-row asset-row">
-                          <span class="info-label">{{ t('share.assetsLabel') }}</span>
-                          <span class="info-value">{{ formattedBalance }}</span>
-                        </div>
-                        <div class="info-row kpi-row">
-                          <span class="info-label">{{ t('share.kpiLabel') }}</span>
-                          <span class="info-value">{{ formattedKpi }}</span>
+            <!-- New Referral Info Section -->
+            <div class="team-id-section">
+              <div class="referral-label-container">
+                <span class="referral-label-text">{{ t('share.myReferralsLabel') }}</span>
+                <span class="referral-label-count">{{ formattedReferralCount }}</span>
+              </div>
+              
+              <!-- Loading State -->
+              <div v-if="isLoadingReferrals" class="loading-message">
+                <p>{{ t('share.loadingReferrals') }}</p>
+              </div>
+              
+              <!-- Data/Empty States -->
+              <div v-else>
+                <div v-if="referralCount > 0">
+                  <div class="referral-switcher">
+                    <a href="#" @click.prevent="showPrevious" style="margin-top: 28px;" class="pagination-item" :class="{ 'disabled': currentIndex === 0 }">
+                      <span class="icon icon-CaretDoubleRight" style="transform: rotate(180deg);"></span>
+                    </a>
+                    <div class="switcher-content">
+                      <div>
+                        <p class="switcher-address">{{ currentReferralAddress }}</p>
+                        <div class="info-container">
+                          <div class="info-row asset-row">
+                            <span class="info-label">{{ t('share.assetsLabel') }}</span>
+                            <span class="info-value">{{ formattedBalance }}</span>
+                          </div>
+                          <div class="info-row kpi-row">
+                            <span class="info-label">{{ t('share.kpiLabel') }}</span>
+                            <span class="info-value">{{ formattedKpi }}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
+                    <a href="#" @click.prevent="showNext" style="margin-top: 28px;" class="pagination-item" :class="{ 'disabled': currentIndex >= referralCount - 1 }">
+                      <span class="icon icon-CaretDoubleRight"></span>
+                    </a>
                   </div>
-                  <a href="#" @click.prevent="showNext" style="margin-top: 28px;" class="pagination-item" :class="{ 'disabled': currentIndex >= referralCount - 1 }">
-                    <span class="icon icon-CaretDoubleRight"></span>
-                  </a>
+                  <p class="referral-counter">{{ currentIndex + 1 }} / {{ referralCount }}</p>
                 </div>
-                <p class="referral-counter">{{ currentIndex + 1 }} / {{ referralCount }}</p>
-              </div>
-              
-              <div v-else class="no-referrals-message">
-                <p>{{ t('share.noReferrals') }}</p>
+                
+                <div v-else class="no-referrals-message">
+                  <p>{{ t('share.noReferrals') }}</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
+        </div>
+        <button @click="close" class="close-button">
+          <i class="icon icon-close"></i>
+        </button>
       </div>
-      <button @click="close" class="close-button">
-        <i class="icon icon-close"></i>
-      </button>
     </div>
   </div>
 </template>
@@ -276,7 +286,6 @@ export default {
 </script>
 
 <style scoped>
-/* Reusing styles from ConnectWalletModal for consistency */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -295,26 +304,68 @@ export default {
   position: relative;
   width: 90%;
   max-width: 380px;
-  padding: 32px;
-  border-radius: 32px;
-  background: #0f0f11; /* Deep dark background */
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  padding: 0;
+  border-radius: 34px;
+  background: transparent;
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.25),
+    0 0 40px rgba(255, 255, 255, 0.05);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  overflow: hidden; /* Contain the glow */
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Glassmorphism Styles */
+.glass-filter {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  filter: url(#liquid-lens);
+}
+
+.glass-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--lg-bg-color);
+}
+
+.glass-specular {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  box-shadow:
+    inset 1px 1px 0 var(--lg-highlight),
+    inset 0 0 5px var(--lg-highlight);
+  pointer-events: none;
+}
+
+.glass-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Glow Effects */
 .glow-effect-bottom {
   position: absolute;
-  bottom: -25px; /* Positioned to show the bright core at the very bottom edge */
+  bottom: -25px;
   left: 50%;
   transform: translateX(-50%);
-  width: 120%; /* Wider to cover the bottom fully */
-  height: 120px; /* Compressed height for "parallel" look */
+  width: 120%;
+  height: 120px;
   background: radial-gradient(
     ellipse at center bottom,
     rgb(255, 255, 255) 0%,
@@ -326,7 +377,7 @@ export default {
   opacity: 1;
   filter: blur(35px);
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
   mix-blend-mode: screen;
 }
 
@@ -345,7 +396,7 @@ export default {
   opacity: 0.6;
   filter: blur(40px);
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
   mix-blend-mode: screen;
 }
 
@@ -370,7 +421,7 @@ export default {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 2;
+  z-index: 10;
   transition: all 0.2s ease;
 }
 
@@ -396,6 +447,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .divider {
@@ -415,16 +467,15 @@ export default {
 .team-id-section {
   width: 100%;
   text-align: left;
-  margin-bottom: 20px; /* Add margin to separate from the new section */
+  margin-bottom: 20px;
 }
 
-/* New styles for the split label */
 .referral-label-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: 8px; /* Same margin as the old label had */
+  margin-bottom: 8px;
 }
 
 .referral-label-text,
@@ -438,30 +489,27 @@ export default {
   font-family: 'monospace', 'BlinkMacSystemFont', sans-serif;
 }
 
-
-/* Remove the old wrapper class */
 .referral-switcher, .no-referrals-message, .loading-message {
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  padding: 10px 15px; /* Match team-id-value for consistency */
-  min-height: 80px; /* Ensure a consistent height */
+  padding: 10px 15px;
+  min-height: 80px;
 }
 
 .no-referrals-message, .loading-message {
   justify-content: center;
-  color: var(--text-2);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 14px;
-  min-height: 110px; /* Match the height of switcher + counter */
+  min-height: 110px;
 }
 .no-referrals-message p, .loading-message p {
   margin: 0;
 }
 
-/* Styles from HowToUseSection for pagination buttons */
 .pagination-item {
     display: inline-flex;
     justify-content: center;
@@ -470,16 +518,16 @@ export default {
     height: 36px;
     line-height: 36px;
     border-radius: 50%;
-    border: 1px solid var(--line);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     background: transparent;
-    color: var(--text-2);
+    color: rgba(255, 255, 255, 0.5);
     font-weight: 600;
     transition: all .3s ease;
     text-decoration: none;
 }
 
 .pagination-item:hover {
-    color: var(--primary);
+    color: var(--white);
     border-color: var(--primary);
 }
 
@@ -489,31 +537,13 @@ export default {
   pointer-events: none;
 }
 
-
-.switcher-arrow {
-  background: transparent;
-  border: none;
-  color: var(--white);
-  font-size: 24px;
-  cursor: pointer;
-  padding: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.switcher-arrow:disabled {
-  color: var(--text-2);
-  cursor: not-allowed;
-}
-
 .switcher-content {
   text-align: left;
   flex-grow: 1;
   padding: 0 10px;
 }
 
-.switcher-address, .switcher-kpi, .switcher-assets, .info-label, .info-value {
+.switcher-address, .info-label, .info-value {
   color: var(--white);
   font-size: 14px;
   font-family: 'monospace', 'BlinkMacSystemFont', sans-serif;
@@ -535,24 +565,15 @@ export default {
   align-items: center;
 }
 
-.info-row + .info-row {
-  margin-top: 0px;
-}
-
 .asset-row .info-label,
 .asset-row .info-value {
   font-weight: bold;
 }
 
-.switcher-loading {
-  font-size: 14px;
-  color: var(--text-2);
-}
-
 .referral-counter {
   margin-top: 15px;
   font-size: 12px;
-  color: var(--text-2);
+  color: rgba(255, 255, 255, 0.5);
   width: 100%;
   text-align: center;
 }
@@ -562,7 +583,7 @@ export default {
   align-items: flex-start;
   gap: 8px;
   font-size: 12px;
-  color: var(--text-2);
+  color: rgba(255, 255, 255, 0.5);
   margin-top: 8px;
   text-align: left;
 }
@@ -570,7 +591,7 @@ export default {
 .rewards-disclaimer p {
   margin: 0;
   line-height: 1.4;
-  color: #999; /* Set text color to gray */
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .icon-info {
@@ -580,34 +601,12 @@ export default {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  border: 1px solid #999; /* Set border color to gray */
+  border: 1px solid rgba(255, 255, 255, 0.5);
   font-size: 10px;
   font-weight: bold;
-  color: #999; /* Set icon color to gray */
+  color: rgba(255, 255, 255, 0.5);
   flex-shrink: 0;
   margin-top: 1px;
-}
-
-.team-id-label {
-  display: block;
-  color: var(--white);
-  font-size: 14px;
-  margin-bottom: 8px;
-  font-weight: 500;
-}
-
-.team-id-value {
-  display: block;
-  color: var(--white);
-  font-size: 14px;
-  font-family: 'monospace', 'BlinkMacSystemFont', sans-serif;
-  margin: 0;
-  padding: 10px 15px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  letter-spacing: 1px;
-  text-align: center;
 }
 
 .team-id-value-inline {
@@ -618,7 +617,7 @@ export default {
 }
 
 .share-hint {
-  color: var(--text-2);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 14px;
   margin-bottom: 4px;
   text-align: center;
@@ -641,7 +640,7 @@ export default {
 .share-link-input {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--white);
   padding: 10px 15px;
   border-radius: 8px;
@@ -657,31 +656,42 @@ export default {
   border-color: var(--primary);
 }
 
-.copy-btn {
+/* Glass Button Styles */
+.glass-btn {
   width: 100%;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 12px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--white);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: center;
 }
 
-/* Reusing button style from ConnectWalletModal */
-.btn-ip {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: linear-gradient(0deg, rgba(20, 20, 21, 0.82), rgba(20, 20, 21, 0.82)),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 100%);
-    border: 1px solid var(--line);
-    box-shadow: 0px 1px 1px 0px #FFFFFF2E inset, 0px 0px 4px 0px #FFFFFF0F inset, 0px 0px 8px 0px #FFFFFF14 inset, 0px 0px 16px 0px #FFFFFF1F inset;
-    padding: 7px 12px;
-    border-radius: 999px;
-    transition: all .3s ease;
-    color: var(--text-2);
-    text-decoration: none;
-}
-.btn-ip:hover {
-    color: var(--primary);
+.glass-btn .glass-filter {
+    filter: url(#liquid-lens);
 }
 
-/* Removed Starry background effect */
+.glass-btn .glass-specular {
+    box-shadow:
+    inset 1px 1px 0 var(--lg-highlight),
+    inset 0 0 5px var(--lg-highlight);
+}
+
+.btn-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+}
+
+.glass-btn:hover {
+  transform: translateY(-2px);
+}
 </style>
