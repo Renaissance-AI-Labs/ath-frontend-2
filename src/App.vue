@@ -26,6 +26,25 @@
     <transition name="modal">
       <LanguageModal v-if="isLanguageModalVisible" @close="closeLanguageModal" />
     </transition>
+    
+    <!-- SVG Filter for Glassmorphism -->
+    <svg style="display: none">
+      <filter id="liquid-lens" x="-50%" y="-50%" width="200%" height="200%">
+        <feImage x="0" y="0" result="normalMap" xlink:href="data:image/svg+xml;utf8,
+                <svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'>
+                  <radialGradient id='nmap' cx='50%' cy='50%' r='50%'>
+                    <stop offset='0%' stop-color='rgb(128,128,255)'/>
+                    <stop offset='100%' stop-color='rgb(255,255,255)'/>
+                  </radialGradient>
+                  <rect width='100%' height='100%' fill='url(#nmap)'/>
+                </svg>" />
+        <feDisplacementMap in="SourceGraphic" in2="normalMap" scale="60" xChannelSelector="R" yChannelSelector="G"
+          result="displaced" />
+        <feMerge>
+          <feMergeNode in="displaced" />
+        </feMerge>
+      </filter>
+    </svg>
   </div>
 </template>
 

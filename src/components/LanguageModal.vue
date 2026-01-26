@@ -1,29 +1,39 @@
 <template>
   <div class="modal-overlay" @click.self="close">
-    <div class="modal-content">
-      <!-- Glow Effects -->
-      <div class="glow-effect-top-left"></div>
-      <div class="glow-effect-bottom"></div>
+    <div class="modal-content glass-card">
+      <div class="glass-filter"></div>
+      <div class="glass-overlay"></div>
+      <div class="glass-specular"></div>
       
-      <div class="modal-body">
-        <div class="title_holder">
-          <h3>{{ t('language.switchTitle') }}</h3>
-          <p class="connect-text-1">{{ t('language.selectLanguage') }}</p>
+      <div class="glass-content">
+        <!-- Glow Effects -->
+        <div class="glow-effect-top-left"></div>
+        <div class="glow-effect-bottom"></div>
+
+        <div class="modal-body">
+          <div class="title_holder">
+            <h3>{{ t('language.switchTitle') }}</h3>
+            <p class="connect-text-1">{{ t('language.selectLanguage') }}</p>
+          </div>
+          <div class="language-list">
+            <ul>
+              <li v-for="language in languages" :key="language.code">
+                <a href="#" @click.prevent="selectLanguage(language.code)" class="glass-btn">
+                  <div class="glass-filter"></div>
+                  <div class="glass-specular"></div>
+                  <div class="btn-content">
+                    <span class="language-name">{{ language.name }}</span>
+                    <i class="icon icon-arrow-right"></i>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="language-list">
-          <ul>
-            <li v-for="language in languages" :key="language.code">
-              <a href="#" @click.prevent="selectLanguage(language.code)">
-                <span class="language-name">{{ language.name }}</span>
-                <i class="icon icon-arrow-right"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
+        <button @click="close" class="close-button">
+          <i class="icon icon-close"></i>
+        </button>
       </div>
-      <button @click="close" class="close-button">
-        <i class="icon icon-close"></i>
-      </button>
     </div>
   </div>
 </template>
@@ -74,26 +84,68 @@ export default {
   position: relative;
   width: 90%;
   max-width: 400px;
-  padding: 32px;
-  border-radius: 32px;
-  background: #0f0f11; /* Deep dark background */
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  padding: 0;
+  border-radius: 34px;
+  background: transparent;
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.25),
+    0 0 40px rgba(255, 255, 255, 0.05);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  overflow: hidden; /* Contain the glow */
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Glassmorphism Styles */
+.glass-filter {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  filter: url(#liquid-lens);
+}
+
+.glass-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--lg-bg-color);
+}
+
+.glass-specular {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  box-shadow:
+    inset 1px 1px 0 var(--lg-highlight),
+    inset 0 0 5px var(--lg-highlight);
+  pointer-events: none;
+}
+
+.glass-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Glow Effects */
 .glow-effect-bottom {
   position: absolute;
-  bottom: -25px; /* Positioned to show the bright core at the very bottom edge */
+  bottom: -25px;
   left: 50%;
   transform: translateX(-50%);
-  width: 120%; /* Wider to cover the bottom fully */
-  height: 120px; /* Compressed height for "parallel" look */
+  width: 120%;
+  height: 120px;
   background: radial-gradient(
     ellipse at center bottom,
     rgb(255, 255, 255) 0%,
@@ -105,7 +157,7 @@ export default {
   opacity: 1;
   filter: blur(35px);
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
   mix-blend-mode: screen;
 }
 
@@ -124,7 +176,7 @@ export default {
   opacity: 0.6;
   filter: blur(40px);
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
   mix-blend-mode: screen;
 }
 
@@ -149,7 +201,7 @@ export default {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 2;
+  z-index: 10;
   transition: all 0.2s ease;
 }
 
@@ -172,7 +224,7 @@ export default {
 }
 
 .title_holder p {
-  color: var(--text-2);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .connect-text-1 {
@@ -190,56 +242,49 @@ export default {
   margin-bottom: 15px;
 }
 
-.language-list a {
+/* Glass Button Styles */
+.glass-btn {
   display: flex;
   align-items: center;
   padding: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   text-decoration: none;
   color: var(--white);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  background: rgba(255, 255, 255, 0.03);
   position: relative;
   overflow: hidden;
+  border: none;
+  background: transparent;
   cursor: pointer;
 }
 
-/* Button top-left glow */
-.language-list a::before {
-  content: '';
-  position: absolute;
-  top: -20px;
-  left: -20px;
-  width: 60px;
-  height: 60px;
-  background: radial-gradient(
-    circle at center,
-    rgba(255, 255, 255, 0.8) 0%,
-    rgba(var(--primary-rgb, 59, 130, 246), 0.6) 30%,
-    transparent 70%
-  );
-  filter: blur(10px);
-  opacity: 0.6;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
+.glass-btn .glass-filter {
+    filter: url(#liquid-lens);
 }
 
-.language-list a:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.06);
+.glass-btn .glass-specular {
+    box-shadow:
+    inset 1px 1px 0 var(--lg-highlight),
+    inset 0 0 5px var(--lg-highlight);
+}
+
+.btn-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.glass-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.language-list a:hover::before {
-  opacity: 0.8;
 }
 
 .language-name {
   flex: 1;
   font-size: 16px;
   text-align: center;
+  color: #fff;
 }
 
 .language-list .icon-arrow-right {
@@ -247,7 +292,9 @@ export default {
   color: var(--text-2);
 }
 
-/* Removed Starry background effect */
+.glass-btn:hover .icon-arrow-right {
+    color: #fff;
+}
 
 /* Transitions */
 .modal-enter-active {
