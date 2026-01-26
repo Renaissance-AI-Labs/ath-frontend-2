@@ -17,24 +17,23 @@
 
           <!-- Amount Input Group -->
           <div class="form-group">
-            <label class="form-label">{{ t('inject.amountLabel') }}</label>
-            <div class="amount-input-group">
-              <div class="input-wrapper">
-                <input 
-                  type="text" 
-                  inputmode="decimal"
-                  :value="amount"
-                  @input="handleAmountInput"
-                  :placeholder="t('inject.amountPlaceholder')" 
-                  class="form-input"
-                  :class="{ 'input-error': isAmountInvalid }"
-                >
-              </div>
-              <div class="balance-info">
-                <a href="#" @click.prevent="fillMax" class="btn-ip ip-modern text-body-3 balance-btn">
-                {{ t('inject.maxAmount', { amount: formattedUsdtBalance }) }}
-                </a>
-              </div>
+            <div class="label-row">
+              <label class="form-label">{{ t('inject.amountLabel') }}</label>
+            </div>
+            <div class="input-wrapper">
+              <input 
+                type="text" 
+                inputmode="decimal"
+                :value="amount"
+                @input="handleAmountInput"
+                :placeholder="t('inject.amountPlaceholder')" 
+                class="form-input with-suffix-btn"
+                :class="{ 'input-error': isAmountInvalid }"
+              >
+              <button @click.prevent="fillMax" class="max-btn">MAX</button>
+            </div>
+            <div class="balance-row">
+              <span class="balance-text">{{ t('inject.maxAmount', { amount: formattedUsdtBalance }) }}</span>
             </div>
           </div>
 
@@ -471,18 +470,37 @@ export default {
 .form-group {
   margin: 20px 0 30px 0;
 }
-.form-label {
-  display: block;
-  text-align: left;
-  color: rgba(255, 255, 255, 0.5);
-  margin-bottom: 10px;
-  font-size: 14px;
-  padding-left: 5px; /* Align with balance button */
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-bottom: 10px; */
+  padding: 0 5px;
 }
+
+.form-label {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+}
+
+.balance-row {
+  margin-top: 8px;
+  text-align: left;
+}
+
+.balance-text {
+  color: rgba(255, 255, 255, 0.5); /* Muted color for balance under input */
+  font-size: 12px;
+  font-weight: 400;
+  cursor: default;
+}
+
 .input-wrapper {
   position: relative;
   width: 100%;
 }
+
 .form-input {
   width: 100%;
   padding: 15px 20px;
@@ -496,46 +514,35 @@ export default {
   appearance: none;
   transition: border-color 0.3s;
 }
+
+.form-input.with-suffix-btn {
+  padding-right: 70px;
+}
+
 .form-input:focus {
   outline: none;
   border-color: var(--primary);
 }
 
-.balance-info {
-  margin-top: 8px;
-  text-align: left;
-}
-.balance-btn {
-  background: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-  padding: 5px;
-  font-size: 14px;
-  text-decoration: underline;
-  box-shadow: none; /* Override btn-ip shadow */
-}
-.balance-btn:hover {
+.max-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(var(--primary-rgb, 59, 130, 246), 0.2);
+  border: 1px solid rgba(var(--primary-rgb, 59, 130, 246), 0.4);
   color: var(--primary);
-  border: none;
-  background: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.amount-input-group {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.amount-input-group .input-wrapper {
-  flex-grow: 1;
-}
-.amount-input-group .balance-info {
-  flex-shrink: 0;
-}
-.balance-btn {
-  padding: 8px 12px; /* Adjust padding to fit the text */
-  white-space: nowrap; /* Prevent text from wrapping */
-  font-size: 12px;
+.max-btn:hover {
+  background: rgba(var(--primary-rgb, 59, 130, 246), 0.4);
+  color: #fff;
 }
 
 .duration-button-group {
