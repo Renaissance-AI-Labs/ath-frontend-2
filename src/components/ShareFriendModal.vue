@@ -370,8 +370,8 @@ export default {
     ellipse at center bottom,
     rgb(255, 255, 255) 0%,
     rgb(255, 255, 255) 10%,
-    rgba(var(--primary-rgb, 59, 130, 246), 1) 25%,
-    rgba(var(--primary-rgb, 59, 130, 246), 0.8) 50%,
+    rgba(var(--primary-rgb, 0, 210, 255), 1) 25%,
+    rgba(var(--primary-rgb, 0, 210, 255), 0.8) 50%,
     transparent 80%
   );
   opacity: 1;
@@ -390,7 +390,7 @@ export default {
   background: radial-gradient(
     circle at center,
     rgba(255, 255, 255, 0.8) 0%,
-    rgba(var(--primary-rgb, 59, 130, 246), 0.8) 30%,
+    rgba(var(--primary-rgb, 0, 210, 255), 0.8) 30%,
     transparent 70%
   );
   opacity: 0.6;
