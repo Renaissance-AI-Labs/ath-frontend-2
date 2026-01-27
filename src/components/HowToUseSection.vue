@@ -150,14 +150,26 @@
                                 </li>
                             </ul>
                             <div v-if="totalPages > 1" class="pagination-list">
-                                <a href="#" class="pagination-item" @click.prevent="prevPage" :class="{ 'disabled': currentPage === 1 }">
-                                    <span class="icon icon-CaretDoubleRight fs-20" style="transform: rotate(180deg);"></span>
+                                <a href="#" class="pagination-item glass-btn" @click.prevent="prevPage" :class="{ 'disabled': currentPage === 1 }">
+                                    <div class="glass-filter"></div>
+                                    <div class="glass-specular"></div>
+                                    <div class="btn-content">
+                                        <span class="icon icon-CaretDoubleRight fs-20" style="transform: rotate(180deg);"></span>
+                                    </div>
                                 </a>
-                                <a v-for="page in displayedPages" :key="page" href="#" class="pagination-item" :class="{ 'active': currentPage === page }" @click.prevent="goToPage(page)">
-                                    <span>{{ page }}</span>
+                                <a v-for="page in displayedPages" :key="page" href="#" class="pagination-item glass-btn" :class="{ 'active': currentPage === page }" @click.prevent="goToPage(page)">
+                                    <div class="glass-filter"></div>
+                                    <div class="glass-specular"></div>
+                                    <div class="btn-content">
+                                        <span>{{ page }}</span>
+                                    </div>
                                 </a>
-                                <a href="#" class="pagination-item" @click.prevent="nextPage" :class="{ 'disabled': currentPage === totalPages }">
-                                    <span class="icon icon-CaretDoubleRight fs-20"></span>
+                                <a href="#" class="pagination-item glass-btn" @click.prevent="nextPage" :class="{ 'disabled': currentPage === totalPages }">
+                                    <div class="glass-filter"></div>
+                                    <div class="glass-specular"></div>
+                                    <div class="btn-content">
+                                        <span class="icon icon-CaretDoubleRight fs-20"></span>
+                                    </div>
                                 </a>
                             </div>
                         </template>
@@ -945,11 +957,6 @@ const displayedPages = computed(() => {
 .stars-bg-3 .stars2 { animation-delay: -20s; }
 .stars-bg-3 .stars3 { animation-delay: -30s; }
 
-.pagination-list .pagination-item {
-    width: 36px;
-    height: 36px;
-    line-height: 36px;
-}
 
 .redeem-glow {
   /* Constant glow effect */
@@ -960,6 +967,84 @@ const displayedPages = computed(() => {
 .redeem-text-glow {
     /* Constant text glow */
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+}
+
+/* Glass Effect Styles for Pagination */
+.glass-btn {
+    position: relative;
+    overflow: hidden;
+    /* border is handled by glass-specular or parent */
+}
+
+.glass-filter {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: inherit;
+    transition: all 0.3s ease;
+}
+
+.glass-specular {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
+    /* box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 5px rgba(255, 255, 255, 0.1); */
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.btn-content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.pagination-list .pagination-item {
+    width: 40px; /* Slightly larger for glass effect */
+    height: 40px;
+    line-height: 40px;
+    margin: 0 4px;
+    border-radius: 50%; /* Circle shape like roadmap */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Original Border */
+    color: rgba(255, 255, 255, 0.6); /* Original Color */
+    background: transparent; /* Glass filter handles bg */
+    transition: all 0.3s ease;
+    display: flex; /* Required for btn-content centering */
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination-list .pagination-item:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: scale(1.1); /* Slight zoom like roadmap */
+}
+
+.pagination-list .pagination-item:hover .glass-filter {
+    background: rgba(255, 85, 0, 0.1); /* Hover BG color */
+}
+
+.pagination-list .pagination-item.active {
+    border-color: var(--primary);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(255, 85, 0, 0.3);
+}
+
+.pagination-list .pagination-item.active .glass-filter {
+    background-color: rgba(255, 85, 0, 0.25); /* Active BG color */
+}
+
+.pagination-list .pagination-item.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 </style>
 
