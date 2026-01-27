@@ -4818,12 +4818,12 @@ input[type=number]::-webkit-outer-spin-button {
 
 .section-testimonial .sect-title {
   padding-top: 45px;
-  padding-bottom: 227px;
+  padding-bottom: 20px;
 }
 @media (max-width: 1199px) {
   .section-testimonial .sect-title {
     padding-top: 48px;
-    padding-bottom: 100px;
+    padding-bottom: 20px;
   }
 }
 

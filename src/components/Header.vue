@@ -54,10 +54,10 @@
                             </a> -->
                             <!-- Global icon for future internationalization -->
                             <img src="/asset/icon/custom/global.png" alt="Global" class="global-icon" style="width: 20px; height: 20px; margin-right: 2px; cursor: pointer; opacity: 0.8;" @click="openLanguageModal">
-                            <a v-if="!walletState.isConnected" href="#" @click.prevent="openModal" class="tf-btn text-body-3 style-2 animate-btn animate-dark">
+                            <a v-if="!walletState.isConnected" href="#" @click.prevent="openModal" class="tf-btn text-body-3 style-2 animate-btn animate-dark glass-btn">
                                 {{ t('header.connectWallet') }}
                             </a>
-                            <a v-else href="#" @click.prevent="openModal" class="wallet-address tf-btn text-body-3 style-2 animate-btn animate-dark">
+                            <a v-else href="#" @click.prevent="openModal" class="wallet-address tf-btn text-body-3 style-2 animate-btn animate-dark glass-btn">
                                 {{ formattedAddress }}
                             </a>
                             <a href="#mobileMenu" class="btn-menu_mobile d-none" data-bs-toggle="offcanvas">
@@ -69,6 +69,25 @@
             </div>
         </div>
     </header>
+    
+    <!-- Include the filter locally in Header if not globally available, or to ensure it works -->
+    <svg style="display: none">
+      <filter id="liquid-lens" x="-50%" y="-50%" width="200%" height="200%">
+        <feImage x="0" y="0" result="normalMap" xlink:href="data:image/svg+xml;utf8,
+                 <svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'>
+                   <radialGradient id='nmap' cx='50%' cy='50%' r='50%'>
+                     <stop offset='0%' stop-color='rgb(128,128,255)'/>
+                     <stop offset='100%' stop-color='rgb(255,255,255)'/>
+                   </radialGradient>
+                   <rect width='100%' height='100%' fill='url(#nmap)'/>
+                 </svg>" />
+        <feDisplacementMap in="SourceGraphic" in2="normalMap" scale="30" xChannelSelector="R" yChannelSelector="G"
+          result="displaced" />
+        <feMerge>
+          <feMergeNode in="displaced" />
+        </feMerge>
+      </filter>
+    </svg>
 </template>
 
 <script>
@@ -99,6 +118,57 @@ export default {
 </script>
 
 <style scoped>
+/* Glass Button Effect */
+.glass-btn {
+  /* Override default button backgrounds but keep layout properties */
+  background: transparent !important;
+  border: none !important;
+  position: relative;
+  /* overflow: hidden; */ /* Keep overflow visible if needed, but liquid effect usually needs it hidden on pseudoelements. Using border-radius inherit on pseudo elements */
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.1),
+    0 0 15px rgba(255, 255, 255, 0.05);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 1;
+  /* Ensure text color is readable */
+  color: #fff !important;
+  /* Maintain original padding/sizing from .tf-btn if possible, or force if broken */
+}
+
+.glass-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 
+    0 6px 12px rgba(0, 0, 0, 0.2),
+    0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.glass-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  /* Use the liquid lens filter defined globally in App.vue or re-define if scoped issues arise. 
+     Assuming #liquid-lens is available globally or needs to be included in Header if not. 
+     If SVG is only in HeroSection, it might not work here unless moved to App.vue or duplicated. 
+     Let's assume it's global or we might need to add the SVG here too. */
+  filter: url(#liquid-lens); 
+  border-radius: inherit; /* Matches button border-radius */
+  background: rgba(255, 255, 255, 0.1); /* Subtle background tint */
+}
+
+.glass-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 0 5px rgba(255, 255, 255, 0.4);
+  border-radius: inherit;
+  pointer-events: none;
+}
 </style>
 
 

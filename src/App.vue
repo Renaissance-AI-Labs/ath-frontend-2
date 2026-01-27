@@ -11,8 +11,7 @@
           <div class="bg-texture"></div>
       </div>
       <div class="hero-video" v-if="$route.path === '/'">
-          <div class="video-container">
-              <AuroraBackground class="video-width" />
+          <div class="video-container dynamic-glass-bg">
               <div class="video-fade-overlay"></div>
           </div>
       </div>
@@ -27,6 +26,25 @@
     <transition name="modal">
       <LanguageModal v-if="isLanguageModalVisible" @close="closeLanguageModal" />
     </transition>
+    
+    <!-- SVG Filter for Glassmorphism -->
+    <svg style="display: none">
+      <filter id="liquid-lens" x="-50%" y="-50%" width="200%" height="200%">
+        <feImage x="0" y="0" result="normalMap" xlink:href="data:image/svg+xml;utf8,
+                <svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'>
+                  <radialGradient id='nmap' cx='50%' cy='50%' r='50%'>
+                    <stop offset='0%' stop-color='rgb(128,128,255)'/>
+                    <stop offset='100%' stop-color='rgb(255,255,255)'/>
+                  </radialGradient>
+                  <rect width='100%' height='100%' fill='url(#nmap)'/>
+                </svg>" />
+        <feDisplacementMap in="SourceGraphic" in2="normalMap" scale="60" xChannelSelector="R" yChannelSelector="G"
+          result="displaced" />
+        <feMerge>
+          <feMergeNode in="displaced" />
+        </feMerge>
+      </filter>
+    </svg>
   </div>
 </template>
 
@@ -40,7 +58,7 @@ import LanguageModal from './components/LanguageModal.vue';
 import { autoConnectWallet } from './services/wallet.js';
 import ToastNotification from './components/ToastNotification.vue';
 import { initializeLanguage } from './i18n';
-import AuroraBackground from './components/AuroraBackground.vue';
+// import AuroraBackground from './components/AuroraBackground.vue';
 
 export default {
   name: 'App',
@@ -52,7 +70,7 @@ export default {
     ConnectWalletModal,
     LanguageModal,
     ToastNotification,
-    AuroraBackground
+    // AuroraBackground
   },
   data() {
     return {
@@ -140,7 +158,46 @@ export default {
   transform: translateX(-50%);
   top: 30px;
   max-width: none !important;
-  opacity: 0.6 !important; /* Ensure full visibility of the effect */
+  /* opacity: 0.6 !important; Remove opacity to let the new background shine */
+}
+
+.dynamic-glass-bg {
+  width: 100%;
+  height: 100%;
+  background-image: url("https://raw.githubusercontent.com/maxuiux/codepen/refs/heads/main/images/macbook/macOS-Tahoe-26-Light.png");
+  background-color: rgba(0, 255, 128, 0.4);
+  background-blend-mode: overlay;
+  background-size: 110%;
+  background-repeat: repeat-x;
+  animation: moveBackground 40s ease-in-out infinite alternate, colorCycle 60s linear infinite;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes colorCycle {
+  0% { background-color: rgba(0, 255, 128, 0.4); } /* Green */
+  20% { background-color: rgba(138, 43, 226, 0.4); } /* Purple */
+  40% { background-color: rgba(255, 255, 0, 0.4); } /* Yellow */
+  60% { background-color: rgba(255, 215, 0, 0.4); } /* Gold */
+  80% { background-color: rgba(0, 100, 255, 0.4); } /* Blue */
+  100% { background-color: rgba(0, 255, 128, 0.4); } /* Loop back */
+}
+
+@media(max-width:1110px) {
+  .dynamic-glass-bg {
+    background-size: cover;
+  }
+}
+
+@keyframes moveBackground {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 100% 0;
+  }
 }
 
 .video-width {
@@ -158,10 +215,10 @@ export default {
 .video-fade-overlay {
   content: '';
   position: absolute;
-  top: 0;
+  top: -2px;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 102%;
   pointer-events: none; /* Allows clicks to go through to video if needed */
   background: radial-gradient(ellipse 85% 65% at center, 
     rgba(12, 12, 14, 0) 25%, 
@@ -170,5 +227,34 @@ export default {
 
 .video-effect {
   filter: hue-rotate(193deg) saturate(1.13) brightness(1.0);
+}
+
+/* 全局隐藏装饰性骨骼线 */
+.br-line,
+.line_page,
+.line_section,
+.br-line.has-dot::after, 
+.br-line.has-dot::before,
+.br-line.type-hor::before,
+.br-line.type-hor::after {
+    display: none !important;
+    opacity: 0 !important;
+    border: none !important;
+}
+
+/* 隐藏 Header 区域的所有边框和装饰线 */
+#header .br-line,
+#header .line_page,
+#header .line_section,
+#header .menu-indicator {
+    display: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* 隐藏导航菜单的背景边框 */
+.box-navigation {
+    border: none !important;
+    background: transparent !important;
 }
 </style>
