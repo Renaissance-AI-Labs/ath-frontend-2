@@ -693,7 +693,7 @@ onUnmounted(() => {
   /* font-size: 1.4rem; */
   /* font-weight: 600; */
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-  padding: 20px 10px; /* Add some padding if needed, or rely on inner padding */
+  padding: 10px 10px 0 10px; /* Add some padding if needed, or rely on inner padding */
 }
 
 /* Apply Liquid Button Style to .btn-ip */
@@ -754,7 +754,7 @@ onUnmounted(() => {
     display: grid;
     grid-template-columns: 1fr;
     gap: 15px; /* Reduced gap */
-    margin-bottom: 20px; /* Reduced bottom margin */
+    margin-bottom: 40px; /* Reduced bottom margin */
     margin-top: 5px;
 }
 

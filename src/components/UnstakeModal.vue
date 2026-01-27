@@ -207,11 +207,13 @@ const selectExitType = (type) => {
   height: 120px;
   background: radial-gradient(
     ellipse at center bottom,
-    rgba(255, 255, 255, 0.2) 0%,
-    rgba(0, 210, 255, 0.2) 25%,
+    rgb(255, 255, 255) 0%,
+    rgb(255, 255, 255) 10%,
+    rgba(var(--primary-rgb, 0, 210, 255), 1) 25%,
+    rgba(var(--primary-rgb, 0, 210, 255), 0.8) 50%,
     transparent 80%
   );
-  opacity: 0.8;
+  opacity: 1;
   filter: blur(35px);
   pointer-events: none;
   z-index: -1;
@@ -226,8 +228,8 @@ const selectExitType = (type) => {
   height: 150px;
   background: radial-gradient(
     circle at center,
-    rgba(255, 255, 255, 0.1) 0%,
-    rgba(0, 210, 255, 0.15) 30%,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(var(--primary-rgb, 0, 210, 255), 0.8) 30%,
     transparent 70%
   );
   opacity: 0.6;
