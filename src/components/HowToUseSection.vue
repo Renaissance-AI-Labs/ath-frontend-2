@@ -134,15 +134,15 @@
                                                 <span v-else class="desc clock"></span>
                                                 <div class="status-box-button">
                                                     <button v-if="item.displayStatus === 'redeemable'" 
-                                                            class="tf-btn text-body-3 style-2 animate-btn animate-dark redeem-glow" 
+                                                            class="tf-btn text-body-3 style-2 btn-liquid animate-btn animate-dark redeem-glow" 
                                                             :disabled="unstackingStates[item.id]"
                                                             @click.prevent="handleUnstake(item.id)">
                                                         <span :class="{ 'redeem-text-glow': !unstackingStates[item.id] }">
                                                             {{ unstackingStates[item.id] ? t('howToUse.redeeming') : t('howToUse.redeem') }}
                                                         </span>
                                                     </button>
-                                                    <button v-else-if="item.displayStatus === 'redeemed'" class="tf-btn text-body-3 style-2 animate-btn animate-dark" disabled>{{ t('howToUse.redeemed') }}</button>
-                                                    <button v-else class="tf-btn text-body-3 style-2 animate-btn animate-dark" disabled>{{ t('howToUse.waitingRedeem') }}</button>
+                                                    <button v-else-if="item.displayStatus === 'redeemed'" class="tf-btn text-body-3 style-2 btn-liquid animate-btn animate-dark" disabled>{{ t('howToUse.redeemed') }}</button>
+                                                    <button v-else class="tf-btn text-body-3 style-2 btn-liquid animate-btn animate-dark" disabled>{{ t('howToUse.waitingRedeem') }}</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -490,9 +490,9 @@ const displayedPages = computed(() => {
 <style scoped>
 
 .section-how-to {
-    --primary: #FF5500; /* 橙红色主题色 */
-    --primary-rgb: 255, 85, 0;
-    --primary-gradient: linear-gradient(90deg, #FF5500 0%, #FF8800 100%);
+    --primary: #00d2ff; /* 湖蓝色主题 */
+    --primary-rgb: 0, 210, 255;
+    --primary-gradient: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
 }
 
 .tab-how_to,
@@ -514,31 +514,57 @@ const displayedPages = computed(() => {
 }
 
 .toggle-button {
-    /* Base styles from .btn-ip */
-    background: rgba(255, 85, 0, 0.25); /* 通透的橙红色背景 - 调亮 */
-    border: 1px solid rgba(255, 85, 0, 0.6); /* 细微的边框 - 调亮 */
-    backdrop-filter: blur(5px); /* 磨砂玻璃效果 */
-    border-radius: 12px;
-    padding: 10px 20px;
-    color: #fff;
+    /* Glass container similar to HeroSection */
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 100px; /* Pill shape */
+    padding: 6px;
+    color: rgba(255, 255, 255, 0.6);
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    width: 280px; /* Shorten the width */
+    width: 300px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     position: relative;
-}
-
-.toggle-button .tab-text {
-    transition: all 0.3s ease;
+    box-shadow: 
+        0 4px 10px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .toggle-button:hover {
-    background: rgba(255, 85, 0, 0.35); /* 悬停更亮 */
-    box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.5);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 6px 15px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.toggle-button .tab-text {
+    flex: 1;
+    text-align: center;
+    z-index: 2;
+    padding: 8px 0;
+    border-radius: 100px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+
+.toggle-button .tab-text.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.tab-divider {
+    display: none; /* Hide divider for pill style */
 }
 
 .toggle-button:hover .tab-text {
@@ -569,17 +595,17 @@ const displayedPages = computed(() => {
 .empty-state,
 .loading-state {
   /* Replicating the style of .btn_tab for consistency */
-  background: rgba(20, 20, 21, 0.5);
-  border: 1px solid var(--line);
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
   padding: 50px 20px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   text-align: center;
   color: #fff;
   position: relative;
   overflow: hidden;
-  /* Adjust font size or other properties as needed */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25), 0 0 40px rgba(255, 255, 255, 0.05);
 }
 
 .empty-state p,
@@ -601,9 +627,48 @@ const displayedPages = computed(() => {
     align-items: center;
 }
 
+/* 新增 Button Liquid 样式 (参考 HeroSection) */
+.btn-liquid {
+    position: relative;
+    font-weight: 600;
+    color: #fff !important;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 
+        0 4px 6px rgba(0,0,0,0.1), 
+        inset 0 1px 0 rgba(255,255,255,0.2) !important;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden;
+    z-index: 1;
+    border-radius: 100px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-liquid:hover {
+    transform: translateY(-2px) scale(1.05);
+    background: rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 
+        0 8px 15px rgba(0,0,0,0.2), 
+        inset 0 1px 0 rgba(255,255,255,0.3),
+        0 0 20px rgba(0, 210, 255, 0.3) !important; /* 使用主题色光晕 */
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.btn-liquid:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none !important;
+}
+
 .tf-btn.style-2 {
-    background-color: #161c416b;
-    width: 100px;
+    /* background-color: #161c416b; Removed */
+    width: 120px; /* Slightly wider */
 }
 
 .tf-btn[disabled] {
@@ -621,14 +686,14 @@ const displayedPages = computed(() => {
 .pagination-item:hover {
     border-color: var(--primary);
     color: var(--primary);
-    background: rgba(255, 85, 0, 0.1);
+    background: rgba(0, 210, 255, 0.1);
 }
 
 .pagination-item.active {
-    background-color: rgba(255, 85, 0, 0.25); /* 通透的主题色 */
+    background-color: rgba(0, 210, 255, 0.2); /* 通透的主题色 */
     border-color: var(--primary);
     color: #fff;
-    box-shadow: 0 0 15px rgba(255, 85, 0, 0.3);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
 }
 
 .pagination-item.disabled {
@@ -683,44 +748,57 @@ const displayedPages = computed(() => {
     opacity: 0.7;
 }
 
-/* 光带 1：主曲线 */
+/* 光带 1：主曲线 - 深湖蓝 */
 .aurora-item:nth-child(1) {
-    top: 10%;
-    left: -10%;
-    width: 120%;
-    height: 60%;
+    top: 5%;
+    left: -15%;
+    width: 130%;
+    height: 65%;
     background: transparent;
-    border-top: 15px solid rgba(255, 85, 0, 0.6);
+    border-top: 20px solid rgba(0, 210, 255, 0.5); /* 湖蓝色 */
     border-radius: 50%;
-    box-shadow: 0 -20px 80px rgba(255, 85, 0, 0.8), inset 0 20px 80px rgba(255, 85, 0, 0.4);
-    transform: rotate(-5deg);
-    animation: aurora-wave 12s infinite alternate ease-in-out;
+    box-shadow: 0 -20px 100px rgba(0, 210, 255, 0.7), inset 0 20px 100px rgba(0, 210, 255, 0.3);
+    transform: rotate(-8deg);
+    animation: aurora-wave 14s infinite alternate ease-in-out;
 }
 
-/* 光带 2：辅助辉光 */
+/* 光带 2：辅助辉光 - 青色 */
 .aurora-item:nth-child(2) {
-    top: 30%;
-    left: 10%;
-    width: 80%;
-    height: 50%;
-    background: radial-gradient(ellipse at center, rgba(255, 120, 0, 0.5), transparent 70%);
-    transform: rotate(0deg);
-    filter: blur(60px);
-    animation: aurora-pulse 8s infinite alternate ease-in-out;
+    top: 25%;
+    left: 5%;
+    width: 90%;
+    height: 55%;
+    background: radial-gradient(ellipse at center, rgba(58, 123, 213, 0.4), transparent 60%); /* 深蓝渐变 */
+    transform: rotate(2deg);
+    filter: blur(50px);
+    animation: aurora-pulse 10s infinite alternate ease-in-out;
 }
 
-/* 光带 3：反向曲线 */
+/* 光带 3：反向曲线 - 蓝紫色层次 */
 .aurora-item:nth-child(3) {
-    top: 15%;
+    top: 10%;
     left: -5%;
     width: 110%;
     height: 70%;
     background: transparent;
-    border-top: 10px solid rgba(255, 150, 50, 0.4);
+    border-top: 15px solid rgba(0, 198, 255, 0.4); /* 亮湖蓝 */
     border-radius: 50%;
-    box-shadow: 0 -15px 60px rgba(255, 150, 50, 0.5);
-    transform: rotate(3deg);
-    animation: aurora-wave-reverse 15s infinite alternate ease-in-out;
+    box-shadow: 0 -15px 80px rgba(0, 198, 255, 0.5);
+    transform: rotate(4deg);
+    animation: aurora-wave-reverse 18s infinite alternate ease-in-out;
+}
+
+/* 光带 4：底层深邃感 (New Layer) */
+.aurora-item:nth-child(3)::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 100, 255, 0.2), transparent 70%);
+    filter: blur(60px);
+    z-index: -1;
 }
 
 /* 极光波动动画 */
@@ -762,84 +840,59 @@ const displayedPages = computed(() => {
 }
 
 .tab-how_to .nav-tab-item .btn_tab {
-    background: rgba(20, 20, 21, 0.8);
-    border: none;
-    border-radius: 12px;
-    padding: 16px;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    transition: all .3s ease;
+    /* HeroSection Glass Card Style */
+    background: rgba(255, 255, 255, 0.05); /* Lighter glass */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px; /* More rounded like Hero glass cards */
+    padding: 20px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all .3s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
     overflow: hidden;
-    /* 基础阴影 */
-    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+    /* Hero shadows */
+    box-shadow: 
+        0 6px 12px rgba(0, 0, 0, 0.25), 
+        0 0 40px rgba(255, 255, 255, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1); /* Specular highlight simulation */
 }
 
-/* 1. 边框层：实现左右白色细边框，顶部透明 */
+/* Specular simulation via pseudo-element to match .glass-specular */
 .tab-how_to .nav-tab-item .btn_tab::before {
     content: "";
     position: absolute;
     inset: 0;
-    border-radius: 12px;
-    padding: 1px; /* 边框厚度 */
+    border-radius: 24px;
+    padding: 1px;
     background: linear-gradient(
         180deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.1) 20%,
-        rgba(255, 255, 255, 0.6) 100%
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0.1) 40%,
+        rgba(255, 255, 255, 0.05) 100%
     );
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
     z-index: 2;
+    opacity: 0.6;
 }
 
-/* 2. 底部光晕层：模拟底部的主题色辉光，向上晕染，染红底部的白色边框 */
+.tab-how_to .nav-tab-item .btn_tab:hover {
+    transform: scale(1.02);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.3), 
+        0 0 50px rgba(255, 255, 255, 0.1);
+}
+
+/* Remove old styles */
 .tab-how_to .nav-tab-item .btn_tab::after {
-    content: "";
-    position: absolute;
-    bottom: -20px;
-    left: 10%;
-    right: 10%;
-    height: 40px;
-    background: var(--primary);
-    filter: blur(25px); /* 大范围模糊，形成光晕 */
-    opacity: 0.5;
-    z-index: 1;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
+    display: none;
 }
 
-/* 3. 底部高亮光带：位于底部边缘的锐利亮线，增强轮廓 */
 .tab-how_to .nav-tab-item .btn_tab .bottom-glow-line {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.5) 20%,
-        var(--primary) 50%,
-        rgba(255, 255, 255, 0.5) 80%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    box-shadow: 0 0 10px var(--primary);
-    z-index: 3;
-    opacity: 0.8;
-}
-
-/* 悬停效果 */
-.tab-how_to .nav-tab-item .btn_tab:hover::after {
-    opacity: 0.8;
-    filter: blur(20px); /* 悬停时光晕更聚拢一点 */
-}
-
-.tab-how_to .nav-tab-item .btn_tab:hover .bottom-glow-line {
-    opacity: 1;
-    box-shadow: 0 0 15px var(--primary);
+    display: none;
 }
 
 /* .tab-how_to .nav-tab-item .btn_tab:hover {
@@ -907,21 +960,21 @@ const displayedPages = computed(() => {
 
 .stars {
   /* animation: animStar 20s linear infinite; */
-  box-shadow: 123px 45px rgba(255, 85, 0, 0.8), 255px 189px rgba(255, 85, 0, 0.8), 345px 8px rgba(255, 85, 0, 0.8), 99px 345px rgba(255, 85, 0, 0.8), 487px 233px rgba(255, 85, 0, 0.8), 321px 487px rgba(255, 85, 0, 0.8), 499px 10px rgba(255, 85, 0, 0.8), 23px 187px rgba(255, 85, 0, 0.8), 176px 455px rgba(255, 85, 0, 0.8), 433px 321px rgba(255, 85, 0, 0.8), 45px 23px rgba(255, 85, 0, 0.8), 231px 480px rgba(255, 85, 0, 0.8), 467px 98px rgba(255, 85, 0, 0.8), 33px 256px rgba(255, 85, 0, 0.8), 198px 321px rgba(255, 85, 0, 0.8), 349px 465px rgba(255, 85, 0, 0.8), 480px 12px rgba(255, 85, 0, 0.8), 12px 190px rgba(255, 85, 0, 0.8), 256px 432px rgba(255, 85, 0, 0.8), 490px 211px rgba(255, 85, 0, 0.8), 54px 49px rgba(255, 85, 0, 0.8), 289px 344px rgba(255, 85, 0, 0.8), 411px 189px rgba(255, 85, 0, 0.8), 76px 287px rgba(255, 85, 0, 0.8), 201px 477px rgba(255, 85, 0, 0.8), 389px 23px rgba(255, 85, 0, 0.8), 477px 376px rgba(255, 85, 0, 0.8), 156px 143px rgba(255, 85, 0, 0.8), 301px 499px rgba(255, 85, 0, 0.8), 432px 65px rgba(255, 85, 0, 0.8);
+  box-shadow: 123px 45px rgba(0, 210, 255, 0.6), 255px 189px rgba(0, 210, 255, 0.6), 345px 8px rgba(0, 210, 255, 0.6), 99px 345px rgba(0, 210, 255, 0.6), 487px 233px rgba(0, 210, 255, 0.6), 321px 487px rgba(0, 210, 255, 0.6), 499px 10px rgba(0, 210, 255, 0.6), 23px 187px rgba(0, 210, 255, 0.6), 176px 455px rgba(0, 210, 255, 0.6), 433px 321px rgba(0, 210, 255, 0.6), 45px 23px rgba(0, 210, 255, 0.6), 231px 480px rgba(0, 210, 255, 0.6), 467px 98px rgba(0, 210, 255, 0.6), 33px 256px rgba(0, 210, 255, 0.6), 198px 321px rgba(0, 210, 255, 0.6), 349px 465px rgba(0, 210, 255, 0.6), 480px 12px rgba(0, 210, 255, 0.6), 12px 190px rgba(0, 210, 255, 0.6), 256px 432px rgba(0, 210, 255, 0.6), 490px 211px rgba(0, 210, 255, 0.6), 54px 49px rgba(0, 210, 255, 0.6), 289px 344px rgba(0, 210, 255, 0.6), 411px 189px rgba(0, 210, 255, 0.6), 76px 287px rgba(0, 210, 255, 0.6), 201px 477px rgba(0, 210, 255, 0.6), 389px 23px rgba(0, 210, 255, 0.6), 477px 376px rgba(0, 210, 255, 0.6), 156px 143px rgba(0, 210, 255, 0.6), 301px 499px rgba(0, 210, 255, 0.6), 432px 65px rgba(0, 210, 255, 0.6);
 }
 
 .stars2 {
   width: 2px;
   height: 2px;
   /* animation: animStar 40s linear infinite; */
-  box-shadow: 234px 123px rgba(255, 85, 0, 0.8), 456px 345px rgba(255, 85, 0, 0.8), 12px 487px rgba(255, 85, 0, 0.8), 498px 65px rgba(255, 85, 0, 0.8), 213px 289px rgba(255, 85, 0, 0.8), 45px 456px rgba(255, 85, 0, 0.8), 345px 98px rgba(255, 85, 0, 0.8), 187px 399px rgba(255, 85, 0, 0.8), 432px 187px rgba(255, 85, 0, 0.8), 88px 88px rgba(255, 85, 0, 0.8), 287px 465px rgba(255, 85, 0, 0.8), 478px 243px rgba(255, 85, 0, 0.8), 143px 32px rgba(255, 85, 0, 0.8), 365px 398px rgba(255, 85, 0, 0.8), 499px 488px rgba(255, 85, 0, 0.8);
+  box-shadow: 234px 123px rgba(0, 210, 255, 0.6), 456px 345px rgba(0, 210, 255, 0.6), 12px 487px rgba(0, 210, 255, 0.6), 498px 65px rgba(0, 210, 255, 0.6), 213px 289px rgba(0, 210, 255, 0.6), 45px 456px rgba(0, 210, 255, 0.6), 345px 98px rgba(0, 210, 255, 0.6), 187px 399px rgba(0, 210, 255, 0.6), 432px 187px rgba(0, 210, 255, 0.6), 88px 88px rgba(0, 210, 255, 0.6), 287px 465px rgba(0, 210, 255, 0.6), 478px 243px rgba(0, 210, 255, 0.6), 143px 32px rgba(0, 210, 255, 0.6), 365px 398px rgba(0, 210, 255, 0.6), 499px 488px rgba(0, 210, 255, 0.6);
 }
 
 .stars3 {
   width: 3px;
   height: 3px;
   /* animation: animStar 60s linear infinite; */
-  box-shadow: 87px 345px rgba(255, 85, 0, 0.8), 465px 87px rgba(255, 85, 0, 0.8), 234px 487px rgba(255, 85, 0, 0.8), 487px 234px rgba(255, 85, 0, 0.8), 156px 156px rgba(255, 85, 0, 0.8), 387px 432px rgba(255, 85, 0, 0.8), 432px 32px rgba(255, 85, 0, 0.8);
+  box-shadow: 87px 345px rgba(0, 210, 255, 0.6), 465px 87px rgba(0, 210, 255, 0.6), 234px 487px rgba(0, 210, 255, 0.6), 487px 234px rgba(0, 210, 255, 0.6), 156px 156px rgba(0, 210, 255, 0.6), 387px 432px rgba(0, 210, 255, 0.6), 432px 32px rgba(0, 210, 255, 0.6);
 }
 
 .stars:after, .stars2:after, .stars3:after {
@@ -1028,17 +1081,17 @@ const displayedPages = computed(() => {
 }
 
 .pagination-list .pagination-item:hover .glass-filter {
-    background: rgba(255, 85, 0, 0.1); /* Hover BG color */
+    background: rgba(0, 210, 255, 0.1); /* Hover BG color */
 }
 
 .pagination-list .pagination-item.active {
     border-color: var(--primary);
     color: #fff;
-    box-shadow: 0 0 15px rgba(255, 85, 0, 0.3);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
 }
 
 .pagination-list .pagination-item.active .glass-filter {
-    background-color: rgba(255, 85, 0, 0.25); /* Active BG color */
+    background-color: rgba(0, 210, 255, 0.2); /* Active BG color */
 }
 
 .pagination-list .pagination-item.disabled {

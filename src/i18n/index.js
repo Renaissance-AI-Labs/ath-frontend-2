@@ -159,8 +159,8 @@ const languagePacks = {
     // HowToUse Section
     'howToUse.governFuture': '治理未来',
     'howToUse.ruleOverAll': 'Rule Over All',
-    'howToUse.controlWealth': '在这里 — 掌控你的财富',
-    'howToUse.controlWealthDesc': '捐赠至底池的资金，将依额度每日累积。最高享 1.2% 自动复利，周期不超过 30 天。',
+    'howToUse.controlWealth': '在此 — 驾驭您的财富',
+    'howToUse.controlWealthDesc': '注入底池的资金将按额度每日增值。尊享最高 1.2% 自动复利，周期仅限 30 天以内。',
     'howToUse.investmentList': '投资列表',
     'howToUse.redemptionList': '赎回列表',
     'howToUse.loadingStakingData': '正在加载质押数据...',
