@@ -705,12 +705,12 @@ const displayedPages = computed(() => {
 /* 极光背景容器 */
 .s-img_item {
     position: absolute; /* 改为绝对定位，以便重叠 */
-    top: -100px; /* 向上调整位置，覆盖标题区域 */
+    top: 50px; /* 向上调整位置，覆盖标题区域 */
     left: 0%;
     transform: translateX(-50%);
     width: 100%;
     max-width: 1000px;
-    height: 500px;
+    height: 1000px;
     margin: 0 auto;
     overflow: hidden;
     z-index: 0; /* 放在底层 */
@@ -757,7 +757,7 @@ const displayedPages = computed(() => {
     background: transparent;
     border-top: 20px solid rgba(0, 210, 255, 0.5); /* 湖蓝色 */
     border-radius: 50%;
-    box-shadow: 0 -20px 100px rgba(0, 210, 255, 0.7), inset 0 20px 100px rgba(0, 210, 255, 0.3);
+    box-shadow: 0 -20px 100px rgb(109 115 210), inset 0 20px 100px rgba(0, 210, 255, 0.3);
     transform: rotate(-8deg);
     animation: aurora-wave 14s infinite alternate ease-in-out;
 }
@@ -768,7 +768,7 @@ const displayedPages = computed(() => {
     left: 5%;
     width: 90%;
     height: 55%;
-    background: radial-gradient(ellipse at center, rgba(58, 123, 213, 0.4), transparent 60%); /* 深蓝渐变 */
+    background: radial-gradient(ellipse at center, rgb(98 159 179), #1f1111 60%);
     transform: rotate(2deg);
     filter: blur(50px);
     animation: aurora-pulse 10s infinite alternate ease-in-out;
@@ -783,7 +783,7 @@ const displayedPages = computed(() => {
     background: transparent;
     border-top: 15px solid rgba(0, 198, 255, 0.4); /* 亮湖蓝 */
     border-radius: 50%;
-    box-shadow: 0 -15px 80px rgba(0, 198, 255, 0.5);
+    box-shadow: 0 -15px 80px rgb(49 199 193);
     transform: rotate(4deg);
     animation: aurora-wave-reverse 18s infinite alternate ease-in-out;
 }

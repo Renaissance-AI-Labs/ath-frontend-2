@@ -547,58 +547,81 @@ export default {
 
 .duration-button-group {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
 }
 
 .duration-btn {
   flex: 1;
-  padding: 10px 8px;
+  padding: 16px 12px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  color: rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   justify-content: center;
   align-items: center;
-}
-
-.duration-btn .duration-days {
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.2;
-}
-
-.duration-btn .duration-rate {
-  font-size: 11px;
-  opacity: 0.8;
-  line-height: 1.2;
+  position: relative;
+  overflow: hidden;
 }
 
 .duration-btn:hover {
-  color: var(--white);
-  border-color: var(--primary);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .duration-btn.active {
-  background: var(--primary);
-  border-color: var(--primary);
-  color: var(--white);
+  background: rgba(0, 210, 255, 0.15);
+  border-color: #00d2ff;
+  color: #fff;
+  box-shadow: 
+    0 0 20px rgba(0, 210, 255, 0.2),
+    inset 0 0 20px rgba(0, 210, 255, 0.05);
+}
+
+.duration-btn.active::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.duration-btn .duration-days {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.2;
+  font-family: 'ChillRoundF', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.duration-btn .duration-rate {
+  font-size: 12px;
+  opacity: 0.7;
+  line-height: 1.2;
+  transition: all 0.3s ease;
 }
 
 .duration-btn.active .duration-days {
-  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
 }
 
 .duration-btn.active .duration-rate {
   opacity: 1;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .button-group {

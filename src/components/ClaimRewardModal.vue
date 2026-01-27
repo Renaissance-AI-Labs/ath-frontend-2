@@ -319,6 +319,10 @@ watch(() => walletState.isAuthenticated, (isAuth) => {
 }
 
 .modal-content {
+  /* Glass Card Base */
+  --primary: #00d2ff;
+  --primary-rgb: 0, 210, 255;
+  
   position: relative;
   width: 90%;
   max-width: 500px;
@@ -388,8 +392,8 @@ watch(() => walletState.isAuthenticated, (isAuth) => {
     ellipse at center bottom,
     rgb(255, 255, 255) 0%,
     rgb(255, 255, 255) 10%,
-    rgba(var(--primary-rgb, 59, 130, 246), 1) 25%,
-    rgba(var(--primary-rgb, 59, 130, 246), 0.8) 50%,
+    rgba(var(--primary-rgb, 0, 210, 255), 1) 25%,
+    rgba(var(--primary-rgb, 0, 210, 255), 0.8) 50%,
     transparent 80%
   );
   opacity: 1;
@@ -408,7 +412,7 @@ watch(() => walletState.isAuthenticated, (isAuth) => {
   background: radial-gradient(
     circle at center,
     rgba(255, 255, 255, 0.8) 0%,
-    rgba(var(--primary-rgb, 59, 130, 246), 0.8) 30%,
+    rgba(var(--primary-rgb, 0, 210, 255), 0.8) 30%,
     transparent 70%
   );
   opacity: 0.6;
@@ -555,7 +559,7 @@ watch(() => walletState.isAuthenticated, (isAuth) => {
     font-weight: 600;
     min-height: 20px;
     font-family: 'ChillRoundF', sans-serif;
-    text-shadow: 0 0 10px rgba(var(--primary-rgb, 59, 130, 246), 0.5);
+    text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
 }
 
 .unauthenticated-view {
