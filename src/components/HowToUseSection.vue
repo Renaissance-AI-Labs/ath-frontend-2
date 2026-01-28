@@ -104,45 +104,43 @@
                         </div>
                         <template v-else>
                             <ul class="tab-how_to position-relative mx-1 wow fadeInUp" role="tablist" :class="`list-${listMode}`">
-                                <li v-for="(item, index) in stakingItems" :key="item.id" class="nav-tab-item li-style" role="presentation">
-                                    <!-- <div class="br-line has-dot"></div> -->
-                                    <div data-bs-toggle="tab" data-bs-target="#step3" class="btn_tab" aria-selected="true" role="tab">
+                                <li v-for="item in stakingItems" :key="item.id" class="nav-tab-item" role="presentation">
+                                    <div data-bs-toggle="tab" class="btn_tab" aria-selected="true" role="tab">
                                         <div class="bottom-glow-line"></div>
-                                        <!-- <div :class="`stars-bg stars-bg-${(index % 3) + 1}`">
-                                            <div class="stars"></div>
-                                            <div class="stars2"></div>
-                                            <div class="stars3"></div>
-                                        </div> -->
                                         <div class="card-content">
-                                            <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                                                <h5 class="name h5-list-style" :data-text="`${activeTab === 'investment' ? t('howToUse.staking') : t('howToUse.redeemedStatus')}-CODE-${String(item.id + 1).padStart(2, '0')}`">
-                                                    {{ activeTab === 'investment' ? t('howToUse.staking') : t('howToUse.redeemedStatus') }}-CODE-{{ String(item.id + 1).padStart(2, '0') }}
-                                                </h5>
-                                                <h5 class="name h5-list-style" :data-text="item.stakeDate" style="min-width: 125px;">{{ item.stakeDate }}</h5>
+                                            <div class="card-header-row">
+                                                <div class="id-number-box">
+                                                    {{ String(item.id + 1).padStart(2, '0') }}
+                                                </div>
+                                                <div class="date-text">{{ item.stakeDate }}</div>
                                             </div>
-                                            <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                                                <p class="desc p-list-style">{{ t('howToUse.principal') }}$ <span style="margin-left: 0px;">{{ parseFloat(item.principal).toFixed(4) }}</span></p>
-                                                <div class="desc p-list-style" style="display: flex; flex-direction: row; justify-content: space-between; min-width: 125px;">
-                                                    <div style="width: 49%;">{{ t('howToUse.interest') }}$</div>
-                                                    <div style="width: 51%; margin-left: 2px;"><AnimatedNumber :value="parseFloat(item.principal) + parseFloat(item.interest)" :decimals="4" /></div>
-                                                     
+
+                                            <div class="card-data-stack">
+                                                <div class="data-row-item">
+                                                    <span class="label">{{ t('howToUse.principal') }}</span>
+                                                    <span class="value">$ {{ parseFloat(item.principal).toFixed(4) }}</span>
+                                                </div>
+                                                <div class="data-row-item">
+                                                    <span class="label">{{ t('howToUse.interest') }}</span>
+                                                    <span class="value highlight">$ <AnimatedNumber :value="parseFloat(item.principal) + parseFloat(item.interest)" :decimals="4" /></span>
                                                 </div>
                                             </div>
 
                                             <div class="status-box">
-                                                <CountdownTimer v-if="activeTab === 'investment'" :target-timestamp="item.expiryTimestamp" />
-                                                <span v-else class="desc clock"></span>
-                                                <div class="status-box-button">
+                                                <div v-if="activeTab === 'investment' && item.displayStatus === 'waiting'" class="countdown-wrapper">
+                                                     <CountdownTimer :target-timestamp="item.expiryTimestamp" />
+                                                </div>
+                                                
+                                                <div v-if="item.displayStatus === 'redeemable' || item.displayStatus === 'redeemed'" class="status-box-button w-100">
                                                     <button v-if="item.displayStatus === 'redeemable'" 
-                                                            class="tf-btn text-body-3 style-2 btn-liquid animate-btn animate-dark redeem-glow" 
+                                                            class="tf-btn text-body-3 style-2 btn-liquid animate-btn animate-dark redeem-glow full-width-btn" 
                                                             :disabled="unstackingStates[item.id]"
                                                             @click.prevent="handleUnstake(item.id)">
                                                         <span :class="{ 'redeem-text-glow': !unstackingStates[item.id] }">
                                                             {{ unstackingStates[item.id] ? t('howToUse.redeeming') : t('howToUse.redeem') }}
                                                         </span>
                                                     </button>
-                                                    <button v-else-if="item.displayStatus === 'redeemed'" class="tf-btn text-body-3 style-2 btn-liquid animate-btn animate-dark" disabled>{{ t('howToUse.redeemed') }}</button>
-                                                    <button v-else class="tf-btn text-body-3 style-2 btn-liquid animate-btn animate-dark" disabled>{{ t('howToUse.waitingRedeem') }}</button>
+                                                    <button v-else-if="item.displayStatus === 'redeemed'" class="tf-btn text-body-3 style-2 btn-liquid animate-btn animate-dark full-width-btn" disabled>{{ t('howToUse.redeemed') }}</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -232,7 +230,7 @@ const totalItems = ref(0); // New state for total records from contract
 const isLoading = ref(true);
 const activeTab = ref('investment'); // 'investment' or 'redemption'
 const currentPage = ref(1);
-const itemsPerPage = ref(4);
+const itemsPerPage = ref(8);
 const listMode = ref('show');
 let pollingInterval = null;
 const unstackingStates = reactive({});
@@ -917,9 +915,9 @@ const displayedPages = computed(() => {
 }
 
 .tab-how_to .nav-tab-item .btn_tab .status-box {
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid #ffffff2d;
+    /* margin-top: 12px; */
+    /* padding-top: 12px; */
+    /* border-top: 1px solid #ffffff2d; */
 }
 
 .li-style {
@@ -1098,6 +1096,233 @@ const displayedPages = computed(() => {
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
+}
+
+/* New Grid Layout for Order List */
+.tab-how_to {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 0;
+}
+
+.nav-tab-item {
+    width: 100%;
+    margin-bottom: 0 !important;
+}
+
+.btn_tab {
+    height: 100%;
+    padding: 20px !important;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Internal Card Layout */
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.card-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.id-number-box {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 14px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.date-text {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.card-data-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 15px;
+}
+
+.data-col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.data-col.text-end {
+    align-items: flex-end;
+}
+
+.data-col .label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.data-col .value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.data-col .value.highlight {
+    color: var(--primary); /* Theme color */
+    font-size: 18px;
+    text-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+}
+
+.status-box {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 40px; /* Ensure height consistency */
+}
+
+.countdown-wrapper {
+    white-space: nowrap;
+    font-size: 13px;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.status-box-button {
+    margin-left: auto; /* Push to right */
+}
+
+.full-width-btn {
+    width: auto !important;
+    min-width: 100px;
+    height: 36px !important;
+    font-size: 13px !important;
+    padding: 0 15px !important;
+}
+
+/* Mobile Adaptation */
+@media (max-width: 767px) {
+    .tab-how_to {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px;
+    }
+    
+    .btn_tab {
+        padding: 14px 14px 4px 14px !important;
+    }
+    
+    .id-number-box {
+        font-size: 12px;
+        padding: 2px 8px;
+    }
+    
+    .date-text {
+        font-size: 12px;
+        transform: scale(0.9);
+        transform-origin: right center;
+    }
+    
+    .data-col .label {
+        font-size: 10px;
+    }
+    
+    .data-col .value {
+        font-size: 13px;
+    }
+    
+    .data-col .value.highlight {
+        font-size: 14px;
+    }
+    
+    .countdown-wrapper {
+        font-size: 10px;
+    }
+    
+    .full-width-btn {
+        min-width: 70px;
+        height: 30px !important;
+        font-size: 13px !important;
+        padding: 0 10px !important;
+    }
+
+    /* Mobile overrides for new stack layout */
+    .data-row-item .label {
+        font-size: 10px;
+    }
+    .data-row-item .value {
+        font-size: 12px;
+    }
+    .data-row-item .value.highlight {
+        font-size: 13px;
+    }
+}
+
+/* New Stack Layout Styles */
+.card-data-stack {
+    display: flex;
+    flex-direction: column;
+    /* gap: 12px; */
+    /* margin-bottom: 15px; */
+    /* border-bottom: 1px solid rgba(255, 255, 255, 0.1); */
+    /* padding-bottom: 15px; */
+}
+
+.data-row-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.data-row-item .label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.data-row-item .value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.data-row-item .value.highlight {
+    color: #7bcee3;
+    font-size: 16px;
+    text-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+}
+
+.countdown-wrapper {
+    width: 100%;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 14px;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.status-box-button.w-100 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.full-width-btn {
+    width: 100% !important;
+    justify-content: center;
+    display: flex;
 }
 </style>
 
