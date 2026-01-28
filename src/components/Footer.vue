@@ -13,9 +13,9 @@
                     <div class="footer-main-grid">
                         <!-- Logo & Brand -->
                         <div class="footer-brand wow fadeInUp">
-                            <a class="footer-logo">
-                                <img class="logo-img" src="/asset/images/logo/ATNENA-logo-icon.png" alt="ATHENA Logo">
-                            </a>
+                            <!-- <a class="footer-logo">
+                                <img class="logo-img" src="/asset/images/logo/athenax-06.png" alt="ATHENA Logo">
+                            </a> -->
                             <p class="brand-desc">Athena Protocol</p>
                         </div>
 
@@ -127,7 +127,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    /* gap: 16px; */
 }
 
 .logo-img {
