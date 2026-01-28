@@ -63,7 +63,7 @@
               <div class="warning-icon-large">
                 <i class="icon icon-WarningCircle"></i>
               </div>
-              <p class="confirm-desc">{{ t('unstake.redeemConfirmDesc') }}</p>
+              <p class="confirm-desc" v-html="t('unstake.redeemConfirmDesc')"></p>
             </div>
 
             <div class="confirm-actions">
@@ -332,6 +332,7 @@ const cancelRedeem = () => {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  margin-top: 40px;
 }
 
 .option-card {
@@ -360,7 +361,7 @@ const cancelRedeem = () => {
 
 .option-card h4 {
   color: #fff;
-  font-size: 18px;
+  font-size: 16px;
   margin-bottom: 0;
   font-family: 'ChillRoundF', sans-serif;
   font-weight: 600;
@@ -393,7 +394,7 @@ const cancelRedeem = () => {
 
 .option-card p {
   color: rgba(255, 255, 255, 0.6);
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1.5;
   margin: 0;
 }
@@ -446,6 +447,13 @@ const cancelRedeem = () => {
   font-size: 16px;
   line-height: 1.6;
   opacity: 0.9;
+}
+
+:deep(.highlight-loss) {
+  color: #ff5252;
+  font-weight: 700;
+  font-size: 20px;
+  text-shadow: 0 0 10px rgba(255, 82, 82, 0.4);
 }
 
 .confirm-actions {

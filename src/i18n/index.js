@@ -22,7 +22,7 @@ const languagePacks = {
     // Footer
     'footer.aboutUs': '了解我们',
     'footer.whitepaper': '白皮书',
-    'footer.copyright': '© 2025 Athena Protocol. ALL RIGHTS RESERVED.',
+    'footer.copyright': '© 2026 Athena Protocol. ALL RIGHTS RESERVED.',
     
     // Hero Section
     'hero.subtitle': '纯粹的算法逻辑与数学法则，驱动 AI 自主运行的永续价值引擎',
@@ -186,7 +186,7 @@ const languagePacks = {
     'unstake.dailyLimit': '每日赎回额度受池子总量 5% 限制',
     'unstake.cancel': '取消',
     'unstake.redeemConfirmTitle': '确认放弃利息？',
-    'unstake.redeemConfirmDesc': '赎回本金将失去利息，是否继续？',
+    'unstake.redeemConfirmDesc': '赎回本金将<span class="highlight-loss">失去利息</span>，是否继续？',
     'unstake.confirm': '确定',
     
     // Share Friend Modal
@@ -371,7 +371,7 @@ const languagePacks = {
     // Footer
     'footer.aboutUs': '了解我們',
     'footer.whitepaper': '白皮書',
-    'footer.copyright': '© 2025 Athena Protocol. ALL RIGHTS RESERVED.',
+    'footer.copyright': '© 2026 Athena Protocol. ALL RIGHTS RESERVED.',
     
     // Hero Section
     'hero.subtitle': '純粹的演算法邏輯與數學法則，驅動 AI 自主運行的永續價值引擎',
@@ -695,7 +695,7 @@ const languagePacks = {
     'unstake.dailyLimit': '今日剩餘贖回額度',
     'unstake.cancel': '取消',
     'unstake.redeemConfirmTitle': '確認放棄利息？',
-    'unstake.redeemConfirmDesc': '贖回本金將失去利息，是否繼續？',
+    'unstake.redeemConfirmDesc': '贖回本金將<span class="highlight-loss">失去利息</span>，是否繼續？',
     'unstake.confirm': '確定',
     'toast.dailyLimitExceeded': '每日贖回限額已達上限',
     'toast.dailyLimitReached': '今日贖回額度不足 (Daily redeem limit reached)',
@@ -709,7 +709,7 @@ const languagePacks = {
     // Footer
     'footer.aboutUs': 'About Us',
     'footer.whitepaper': 'Whitepaper',
-    'footer.copyright': '© 2025 Athena Protocol. ALL RIGHTS RESERVED.',
+    'footer.copyright': '© 2026 Athena Protocol. ALL RIGHTS RESERVED.',
     
     // Hero Section
     'hero.subtitle': 'Pure algorithmic logic and mathematical principles, powering an autonomous AI-driven perpetual value engine',
@@ -1048,7 +1048,7 @@ const languagePacks = {
     // Footer
     'footer.aboutUs': '私たちについて',
     'footer.whitepaper': 'ホワイトペーパー',
-    'footer.copyright': '© 2025 Athena Protocol. ALL RIGHTS RESERVED.',
+    'footer.copyright': '© 2026 Athena Protocol. ALL RIGHTS RESERVED.',
     
     // Hero Section
     'hero.subtitle': '純粋なアルゴリズムロジックと数学的原理が、AI自律駆動型の永続的価値エンジンを実現',
@@ -1382,7 +1382,7 @@ const languagePacks = {
     // Footer
     'footer.aboutUs': '우리에 대해',
     'footer.whitepaper': '백서',
-    'footer.copyright': '© 2025 Athena Protocol. ALL RIGHTS RESERVED.',
+    'footer.copyright': '© 2026 Athena Protocol. ALL RIGHTS RESERVED.',
     
     // Hero Section
     'hero.subtitle': '순수한 알고리즘 논리와 수학적 원리가 구동하는 AI 자율 운영 영구 가치 엔진',
