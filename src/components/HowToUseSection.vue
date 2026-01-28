@@ -1141,7 +1141,7 @@ const displayedPages = computed(() => {
 }
 
 .date-text {
-    font-size: 12px;
+    font-size: 10px;
     color: rgba(255, 255, 255, 0.5);
 }
 
@@ -1226,7 +1226,7 @@ const displayedPages = computed(() => {
     }
     
     .date-text {
-        font-size: 12px;
+        font-size: 10px;
         transform: scale(0.9);
         transform-origin: right center;
     }
