@@ -11,44 +11,74 @@
         <div class="glow-effect-bottom"></div>
 
         <div class="modal-body-custom">
-          <div class="title_holder">
-            <h3>{{ t('unstake.title') }}</h3>
-          </div>
+          
+          <!-- Default View: Options -->
+          <div v-if="!showConfirmation">
+            <div class="title_holder">
+              <h3>{{ t('unstake.title') }}</h3>
+            </div>
 
-          <div class="options-container">
-            <!-- Option 1: Reinvest (exitType 2) -->
-            <!-- Placed prominently at top as requested -->
-            <div 
-              class="option-card glass-panel" 
-              @click="selectExitType(2)"
-              :class="{ 'disabled': processing }"
-            >
-              <div class="option-content">
-                <div class="header-with-badge">
-                    <h4>{{ t('unstake.reinvestTitle') }}</h4>
-                    <span class="badge-recommend">{{ t('common.recommend') }}</span>
+            <div class="options-container">
+              <!-- Option 1: Reinvest (exitType 2) -->
+              <div 
+                class="option-card glass-panel" 
+                @click="selectExitType(2)"
+                :class="{ 'disabled': processing }"
+              >
+                <div class="option-content">
+                  <div class="header-with-badge">
+                      <h4>{{ t('unstake.reinvestTitle') }}</h4>
+                      <span class="badge-recommend">{{ t('common.recommend') }}</span>
+                  </div>
+                  <div class="separator"></div>
+                  <p>{{ t('unstake.reinvestDesc') }}</p>
                 </div>
-                <div class="separator"></div>
-                <p>{{ t('unstake.reinvestDesc') }}</p>
               </div>
-            </div>
 
-            <!-- Option 2: Redeem Principal (exitType 1) -->
-            <div 
-              class="option-card glass-panel" 
-              @click="selectExitType(1)"
-              :class="{ 'disabled': processing }"
-            >
-              <div class="option-content">
-                <h4>{{ t('unstake.redeemTitle') }}</h4>
-                <div class="separator"></div>
-                <p class="warning-desc">
-                  <i class="icon icon-WarningCircle"></i>
-                  {{ t('unstake.redeemDesc') }}
-                </p>
+              <!-- Option 2: Redeem Principal (exitType 1) -->
+              <div 
+                class="option-card glass-panel" 
+                @click="selectExitType(1)"
+                :class="{ 'disabled': processing }"
+              >
+                <div class="option-content">
+                  <h4>{{ t('unstake.redeemTitle') }}</h4>
+                  <div class="separator"></div>
+                  <p class="warning-desc">
+                    <i class="icon icon-WarningCircle"></i>
+                    {{ t('unstake.redeemDesc') }}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
+
+          <!-- Confirmation View -->
+          <div v-else class="confirmation-view">
+            <div class="title_holder">
+              <h3>{{ t('unstake.redeemConfirmTitle') }}</h3>
+            </div>
+            
+            <div class="confirm-content">
+              <div class="warning-icon-large">
+                <i class="icon icon-WarningCircle"></i>
+              </div>
+              <p class="confirm-desc">{{ t('unstake.redeemConfirmDesc') }}</p>
+            </div>
+
+            <div class="confirm-actions">
+              <!-- Confirm Button (Secondary/Left) -->
+              <button class="glass-btn btn-secondary" @click="confirmRedeem" :disabled="processing">
+                {{ t('unstake.confirm') }}
+              </button>
+              
+              <!-- Cancel Button (Primary/Right) - Prioritized -->
+              <button class="glass-btn btn-primary" @click="cancelRedeem" :disabled="processing">
+                {{ t('unstake.cancel') }}
+              </button>
+            </div>
+          </div>
+
         </div>
         
         <button @click="$emit('close')" class="close-button" :disabled="processing">
@@ -91,6 +121,7 @@ const props = defineProps({
 
 const emit = defineEmits(['close', 'confirm']);
 const maxUnstakeAmount = ref('0');
+const showConfirmation = ref(false);
 
 onMounted(async () => {
   maxUnstakeAmount.value = await getMaxUnstakeAmount();
@@ -116,9 +147,21 @@ const selectExitType = (type) => {
       showToast(t('toast.dailyLimitReached'));
       return;
     }
+    // Show confirmation view
+    showConfirmation.value = true;
+    return;
   }
 
   emit('confirm', type);
+};
+
+const confirmRedeem = () => {
+  emit('confirm', 1);
+  showConfirmation.value = false;
+};
+
+const cancelRedeem = () => {
+  showConfirmation.value = false;
 };
 </script>
 
@@ -366,5 +409,87 @@ const selectExitType = (type) => {
   opacity: 0.5;
   cursor: not-allowed;
   filter: grayscale(1);
+}
+
+/* Confirmation View Styles */
+.confirmation-view {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+  align-items: center;
+}
+
+.confirm-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.warning-icon-large {
+  font-size: 48px;
+  color: #ff9f43; /* Amber warning color */
+  text-shadow: 0 0 20px rgba(255, 159, 67, 0.4);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.confirm-desc {
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.glass-btn {
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+  border-color: transparent;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 210, 255, 0.5);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
 }
 </style>
