@@ -133,10 +133,10 @@
                                                 
                                                 <div v-if="item.displayStatus === 'redeemable' || item.displayStatus === 'redeemed'" class="status-box-button w-100">
                                                     <button v-if="item.displayStatus === 'redeemable'" 
-                                                            class="tf-btn text-body-3 style-2 btn-liquid animate-btn animate-dark redeem-glow full-width-btn" 
+                                                            class="tf-btn text-body-3 style-2 btn-liquid animate-btn animate-dark full-width-btn" 
                                                             :disabled="unstackingStates[item.id]"
                                                             @click.prevent="handleUnstake(item.id)">
-                                                        <span :class="{ 'redeem-text-glow': !unstackingStates[item.id] }">
+                                                        <span>
                                                             {{ unstackingStates[item.id] ? t('howToUse.redeeming') : t('howToUse.redeem') }}
                                                         </span>
                                                     </button>
@@ -514,7 +514,7 @@ const displayedPages = computed(() => {
 .toggle-button {
     /* Glass container similar to HeroSection */
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* border: 1px solid rgba(255, 255, 255, 0.1); */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: 100px; /* Pill shape */
@@ -840,7 +840,7 @@ const displayedPages = computed(() => {
 .tab-how_to .nav-tab-item .btn_tab {
     /* HeroSection Glass Card Style */
     background: rgba(255, 255, 255, 0.05); /* Lighter glass */
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* border: 1px solid rgba(255, 255, 255, 0.1); */
     border-radius: 24px; /* More rounded like Hero glass cards */
     padding: 20px;
     backdrop-filter: blur(12px);
@@ -1009,16 +1009,14 @@ const displayedPages = computed(() => {
 .stars-bg-3 .stars3 { animation-delay: -30s; }
 
 
-.redeem-glow {
-  /* Constant glow effect */
+/* .redeem-glow {
   box-shadow: 0 0 2px rgba(220, 220, 220, 0.5);
-  border: 1px solid rgba(220, 220, 220, 0.3); /* A subtle border to complement the glow */
+  border: 1px solid rgba(220, 220, 220, 0.3);
 }
 
 .redeem-text-glow {
-    /* Constant text glow */
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
-}
+} */
 
 /* Glass Effect Styles for Pagination */
 .glass-btn {
@@ -1215,7 +1213,7 @@ const displayedPages = computed(() => {
 @media (max-width: 767px) {
     .tab-how_to {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px;
+        gap: 12px;
     }
     
     .btn_tab {

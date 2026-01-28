@@ -354,9 +354,9 @@ const languagePacks = {
     
     // Unstake Modal
     'unstake.title': '选择赎回方式',
-    'unstake.reinvestTitle': '收获利息并复投',
+    'unstake.reinvestTitle': '收获利息，复投本金',
     'unstake.reinvestDesc': '将获取利息，并将此订单到期本金以同周期复投',
-    'unstake.redeemTitle': '赎回本金',
+    'unstake.redeemTitle': '赎回本金，放弃利息',
     'unstake.redeemDesc': '将放弃利息，仅赎回本金',
     'unstake.dailyLimit': '今日剩余赎回额度',
     'toast.dailyLimitExceeded': '每日赎回限额已达上限',

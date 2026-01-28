@@ -67,13 +67,13 @@
             </div>
 
             <div class="confirm-actions">
-              <!-- Confirm Button (Secondary/Left) -->
-              <button class="glass-btn btn-secondary" @click="confirmRedeem" :disabled="processing">
+              <!-- Confirm Button (Left) -->
+              <button class="confirm-btn glass-btn btn-liquid" @click="confirmRedeem" :disabled="processing">
                 {{ t('unstake.confirm') }}
               </button>
               
-              <!-- Cancel Button (Primary/Right) - Prioritized -->
-              <button class="glass-btn btn-primary" @click="cancelRedeem" :disabled="processing">
+              <!-- Cancel Button (Right) -->
+              <button class="cancel-btn glass-btn btn-liquid" @click="cancelRedeem" :disabled="processing">
                 {{ t('unstake.cancel') }}
               </button>
             </div>
@@ -467,29 +467,42 @@ const cancelRedeem = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.btn-primary {
-  background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
-  color: #fff;
-  box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
-  border-color: transparent;
+/* Liquid Button Style from HeroSection */
+.btn-liquid {
+    position: relative;
+    font-weight: 600;
+    color: #fff !important;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 4px 6px rgba(0,0,0,0.1), 
+        inset 0 1px 0 rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    z-index: 1;
 }
 
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 210, 255, 0.5);
+.btn-liquid:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 
+        0 8px 15px rgba(0,0,0,0.2), 
+        inset 0 1px 0 rgba(255,255,255,0.3),
+        0 0 20px rgba(255, 255, 255, 0.1); /* Glow */
 }
 
-.btn-secondary {
-  background: rgba(255, 255, 255, 0.05);
-  color: rgba(255, 255, 255, 0.6);
+/* Confirm Button Specifics */
+.confirm-btn {
+    /* No extra styles needed if using base liquid style, 
+       but can add specific color tints if desired */
 }
 
-.btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.3);
+/* Cancel Button Specifics */
+.cancel-btn {
+    /* No extra styles needed if using base liquid style */
 }
 </style>
