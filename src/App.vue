@@ -169,19 +169,18 @@ export default {
   background-blend-mode: overlay;
   background-size: 110%;
   background-repeat: repeat-x;
-  animation: moveBackground 40s ease-in-out infinite alternate, colorCycle 60s linear infinite;
+  animation: moveBackground 40s ease-in-out infinite alternate, colorCycle 40s linear infinite;
   position: absolute;
   top: 0;
   left: 0;
 }
 
 @keyframes colorCycle {
-  0% { background-color: rgba(0, 255, 128, 0.4); } /* Green */
-  20% { background-color: rgba(138, 43, 226, 0.4); } /* Purple */
-  40% { background-color: rgba(255, 255, 0, 0.4); } /* Yellow */
-  60% { background-color: rgba(255, 215, 0, 0.4); } /* Gold */
-  80% { background-color: rgba(0, 100, 255, 0.4); } /* Blue */
-  100% { background-color: rgba(0, 255, 128, 0.4); } /* Loop back */
+  0% { background-color: rgba(138, 43, 226, 0.4); }   /* Purple */
+  25% { background-color: rgba(255, 215, 0, 0.4); }   /* Gold */
+  50% { background-color: rgba(0, 255, 128, 0.4); }   /* Green */
+  75% { background-color: rgba(0, 210, 255, 0.4); }   /* Blue */
+  100% { background-color: rgba(138, 43, 226, 0.4); } /* Purple */
 }
 
 @media(max-width:1110px) {

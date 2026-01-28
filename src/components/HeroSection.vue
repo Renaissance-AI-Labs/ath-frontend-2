@@ -143,8 +143,8 @@
                                                 <a href="#" @click.prevent="shareFriendLink" class="btn-liquid compact-btn">
                                                     {{ t('hero.shareFriend') }}
                                                 </a>
-                                                <div class="reward-button-wrapper">
-                                                    <a href="#" @click.prevent="handleClaimLevelReward" class="btn-liquid compact-btn" v-if="isAuthenticated">
+                                                <div class="reward-button-wrapper" v-if="isAuthenticated">
+                                                    <a href="#" @click.prevent="handleClaimLevelReward" class="btn-liquid compact-btn">
                                                         {{ t('hero.achievementReward') }}
                                                     </a>
                                                     <div v-if="walletState.hasClaimableRewards" class="red-dot-liquid"></div>
@@ -831,18 +831,21 @@ onUnmounted(() => {
 }
 
 .btn-liquid.compact-btn {
-    padding: 0 12px; /* Remove vertical padding, rely on height/line-height */
+    padding: 0 5px; /* Reduced horizontal padding */
     height: 36px; /* Fixed height for consistency */
     line-height: 34px; /* Vertically center text (height - border*2) */
     font-size: 12px; /* Smaller font */
     border-radius: 50px;
     white-space: nowrap;
-    flex: 1; /* Distribute space evenly if needed, or set max-width */
-    min-width: fit-content; /* Ensure text fits */
+    flex: 1 1 0px; /* Ensure equal distribution */
+    width: 0; /* Force equal width */
+    min-width: 0; /* Allow shrinking */
     text-align: center;
     display: inline-flex; /* Use flex for centering */
     align-items: center; /* Vertical center */
     justify-content: center; /* Horizontal center */
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Specific fix for reward button wrapper to match height */

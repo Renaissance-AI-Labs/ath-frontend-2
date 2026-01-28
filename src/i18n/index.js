@@ -185,6 +185,9 @@ const languagePacks = {
     'unstake.redeemDesc': '将放弃利息，仅赎回本金',
     'unstake.dailyLimit': '每日赎回额度受池子总量 5% 限制',
     'unstake.cancel': '取消',
+    'unstake.redeemConfirmTitle': '确认放弃利息？',
+    'unstake.redeemConfirmDesc': '赎回本金将失去利息，是否继续？',
+    'unstake.confirm': '确定',
     
     // Share Friend Modal
     'share.title': '分享链接给好友',
@@ -351,9 +354,9 @@ const languagePacks = {
     
     // Unstake Modal
     'unstake.title': '选择赎回方式',
-    'unstake.reinvestTitle': '收获利息并复投',
+    'unstake.reinvestTitle': '收获利息，复投本金',
     'unstake.reinvestDesc': '将获取利息，并将此订单到期本金以同周期复投',
-    'unstake.redeemTitle': '赎回本金',
+    'unstake.redeemTitle': '赎回本金，放弃利息',
     'unstake.redeemDesc': '将放弃利息，仅赎回本金',
     'unstake.dailyLimit': '今日剩余赎回额度',
     'toast.dailyLimitExceeded': '每日赎回限额已达上限',
@@ -690,6 +693,10 @@ const languagePacks = {
     'unstake.redeemTitle': '贖回本金',
     'unstake.redeemDesc': '將放棄利息，僅贖回本金',
     'unstake.dailyLimit': '今日剩餘贖回額度',
+    'unstake.cancel': '取消',
+    'unstake.redeemConfirmTitle': '確認放棄利息？',
+    'unstake.redeemConfirmDesc': '贖回本金將失去利息，是否繼續？',
+    'unstake.confirm': '確定',
     'toast.dailyLimitExceeded': '每日贖回限額已達上限',
     'toast.dailyLimitReached': '今日贖回額度不足 (Daily redeem limit reached)',
     'toast.invalidType': '傳入的類型參數錯誤 (Invalid Type)'
@@ -831,6 +838,9 @@ const languagePacks = {
     'unstake.redeemDesc': 'Forfeit interest, redeem principal only',
     'unstake.dailyLimit': 'Daily redemption limit is 5% of total pool',
     'unstake.cancel': 'Cancel',
+    'unstake.redeemConfirmTitle': 'Confirm Forfeit Interest?',
+    'unstake.redeemConfirmDesc': 'Redeeming principal will forfeit interest. Continue?',
+    'unstake.confirm': 'Confirm',
     
     // Toast Notifications
     'toast.connectWalletFirst': 'Please connect and authorize your wallet first',
@@ -1167,6 +1177,9 @@ const languagePacks = {
     'unstake.redeemDesc': '利息を放棄し、元本のみを償還します',
     'unstake.dailyLimit': '1日の償還限度額はプール総額の5%です',
     'unstake.cancel': 'キャンセル',
+    'unstake.redeemConfirmTitle': '利息の放棄を確認？',
+    'unstake.redeemConfirmDesc': '元本を償還すると利息が失われます。続けますか？',
+    'unstake.confirm': '確認',
     
     // Toast Notifications
     'toast.connectWalletFirst': 'まずウォレットを接続して承認してください',
@@ -1498,6 +1511,9 @@ const languagePacks = {
     'unstake.redeemDesc': '이자를 포기하고 원금만 상환합니다',
     'unstake.dailyLimit': '일일 상환 한도는 전체 풀의 5%로 제한됩니다',
     'unstake.cancel': '취소',
+    'unstake.redeemConfirmTitle': '이자 포기 확인?',
+    'unstake.redeemConfirmDesc': '원금을 상환하면 이자를 잃게 됩니다. 계속하시겠습니까?',
+    'unstake.confirm': '확인',
     
     // Toast Notifications
     'toast.connectWalletFirst': '먼저 지갑을 연결하고 승인하세요',
