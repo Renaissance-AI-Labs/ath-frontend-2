@@ -839,7 +839,7 @@ const displayedPages = computed(() => {
 
 .tab-how_to .nav-tab-item .btn_tab {
     /* HeroSection Glass Card Style */
-    background: rgba(255, 255, 255, 0.05); /* Lighter glass */
+    /* background: rgba(255, 255, 255, 0.05);  */
     /* border: 1px solid rgba(255, 255, 255, 0.1); */
     border-radius: 24px; /* More rounded like Hero glass cards */
     padding: 20px;
