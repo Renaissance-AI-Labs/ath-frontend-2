@@ -2,7 +2,7 @@
     <div class="offcanvas offcanvas-start canvas-mb" id="mobileMenu">
         <div class="canvas-header">
             <div class="logo-site">
-                <img class="lazyload" src="/asset/images/logo/ATNENA-logo-icon.png" data-src="/asset/images/logo/ATNENA-logo-icon.png" alt="LOGO">
+                <img class="lazyload" src="/asset/images/logo/ATNENA-logo-icon-X.png" data-src="/asset/images/logo/ATNENA-logo-icon-X.png" alt="LOGO">
             </div>
             <div class="btn_group">
                 <span class="icon-close-popup" data-bs-dismiss="offcanvas">
