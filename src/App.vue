@@ -156,7 +156,7 @@ export default {
   width: 100% !important; /* Override global width: 100% */
   left: 50% !important; /* Center horizontally */
   transform: translateX(-50%);
-  top: 30px;
+  /* top: 30px; */
   max-width: none !important;
   /* opacity: 0.6 !important; Remove opacity to let the new background shine */
 }

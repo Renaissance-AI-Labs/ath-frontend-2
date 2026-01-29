@@ -52,8 +52,14 @@
                             <!-- <a href="#" class="tf-btn text-body-3 animate-btn d-none d-sm-flex">
                                 Log in
                             </a> -->
-                            <!-- Global icon for future internationalization -->
-                            <img src="/asset/icon/custom/global.png" alt="Global" class="global-icon" style="width: 20px; height: 20px; margin-right: 2px; cursor: pointer; opacity: 0.8;" @click="openLanguageModal">
+                            <!-- Global icon replaced with SVG -->
+                            <div class="language-selector" @click="openLanguageModal" style="cursor: pointer; display: flex; align-items: center; opacity: 0.8;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                </svg>
+                            </div>
                             <a v-if="!walletState.isConnected" href="#" @click.prevent="openModal" class="tf-btn text-body-3 style-2 animate-btn animate-dark glass-btn">
                                 {{ t('header.connectWallet') }}
                             </a>
@@ -121,53 +127,51 @@ export default {
 /* Glass Button Effect */
 .glass-btn {
   /* Override default button backgrounds but keep layout properties */
-  background: transparent !important;
-  border: none !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
   position: relative;
-  /* overflow: hidden; */ /* Keep overflow visible if needed, but liquid effect usually needs it hidden on pseudoelements. Using border-radius inherit on pseudo elements */
+  /* overflow: hidden; */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   box-shadow: 
     0 4px 6px rgba(0, 0, 0, 0.1),
-    0 0 15px rgba(255, 255, 255, 0.05);
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    inset 0 1px 0 rgba(255, 255, 255, 0.2); /* Top inner highlight for glass edge */
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   z-index: 1;
   /* Ensure text color is readable */
   color: #fff !important;
-  /* Maintain original padding/sizing from .tf-btn if possible, or force if broken */
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .glass-btn:hover {
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
   box-shadow: 
-    0 6px 12px rgba(0, 0, 0, 0.2),
-    0 0 20px rgba(255, 255, 255, 0.1);
+    0 8px 15px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 0 20px rgba(255, 255, 255, 0.15); /* Soft glow */
 }
+
+/* Optional: remove the pseudo-elements if we rely on box-shadow for performance and cleaner look, 
+   or keep them if the liquid effect (SVG filter) is desired. 
+   The user said "like the website style", and HeroSection uses simpler liquid-btn for actions.
+   Let's keep the filter if it works, but make it subtle. */
 
 .glass-btn::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  /* Use the liquid lens filter defined globally in App.vue or re-define if scoped issues arise. 
-     Assuming #liquid-lens is available globally or needs to be included in Header if not. 
-     If SVG is only in HeroSection, it might not work here unless moved to App.vue or duplicated. 
-     Let's assume it's global or we might need to add the SVG here too. */
-  filter: url(#liquid-lens); 
-  border-radius: inherit; /* Matches button border-radius */
-  background: rgba(255, 255, 255, 0.1); /* Subtle background tint */
+  /* Remove backdrop-filter here as it's on the main element now */
+  /* filter: url(#liquid-lens); */ /* Temporarily disable complex filter if it looks messy, or keep subtle */
+  border-radius: inherit;
+  background: transparent;
 }
 
 .glass-btn::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  box-shadow:
-    inset 1px 1px 0 rgba(255, 255, 255, 0.4),
-    inset 0 0 5px rgba(255, 255, 255, 0.4);
-  border-radius: inherit;
-  pointer-events: none;
+  content: none; /* Simplify: use box-shadow inset on main element */
 }
 </style>
 
