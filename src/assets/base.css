@@ -34,6 +34,11 @@
   --color-text: var(--vt-c-text-light-1);
 
   --section-gap: 160px;
+
+  /* Glassmorphism Variables */
+  --lg-bg-color: rgba(255, 255, 255, 0.15);
+  --lg-highlight: rgba(255, 255, 255, 0.75);
+  --lg-text: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {

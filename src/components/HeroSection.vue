@@ -1,7 +1,7 @@
 <template>
     <section class="section-hero">
         <!-- == Head Section -->
-        <div class="sect-header">
+        <!-- <div class="sect-header">
             <div class="container">
                 <div class="s-meta text-caption font-2">
                     <p class="s-number_order wg-counter">
@@ -10,10 +10,10 @@
                     <p class="s-label">[ <span class="text-white hacker-text_transform">FUTURE</span> ]</p>
                 </div>
             </div>
-        </div>
-        <span class="br-line"></span>
+        </div> -->
+        <!-- <span class="br-line"></span> -->
         <!-- == Tagline Section -->
-        <div class="sect-tagline">
+        <!-- <div class="sect-tagline">
             <div class="container">
                 <div class="sect-tagline_inner">
                     <span class="hafl-plus pst-left_bot wow bounceInScale"></span>
@@ -31,8 +31,8 @@
                     </p>
                 </div>
             </div>
-        </div>
-        <span class="br-line"></span>
+        </div> -->
+        <!-- <span class="br-line"></span> -->
         <!-- == Main Section -->
         <div class="sect-main">
             <div class="container">
@@ -52,12 +52,13 @@
                             </span> -->
                         </h1>
                     </div>
-                    <p class="s-sub_title" style="color: #fff;">
-                        {{ t('hero.subtitle') }}
+                    <p class="s-sub_title" style="color: #fff; margin-top: 20px; flex-direction: column;">
+                        <span class="d-block">{{ t('hero.subtitle_line1') || '纯粹的算法逻辑与数学法则' }}</span>
+                        <span class="d-block">{{ t('hero.subtitle_line2') || '驱动 AI 自主运行的永续价值引擎' }}</span>
                     </p>
                 </div>
             </div>
-            <span class="br-line"></span>
+            <!-- <span class="br-line"></span> -->
             <div class="container"> 
                 <div class="leave-somthing"> 
                     <!-- ----- 保留节目 ---- -->
@@ -69,130 +70,117 @@
                 </div>
             </div> -->
             <div class="container">
-                <div class="sect-content position-relative">
+                <div class="sect-content position-relative" style="padding: 0 10px;">
                     <div class="box-ask-wrap">
-                        <div class="box-ask">
-                            <form class="form-ask wow fadeInUp form-ask-bg">
-                                <div class="box-ask-inner">
-                                    <!-- S5~S7 Level Watermark -->
-                                    <div v-if="userLevel && ['S5', 'S6', 'S7'].includes(userLevel)" 
-                                         class="level-watermark"
-                                         :class="`level-${userLevel.toLowerCase()}`">
-                                        {{ userLevel }}
-                                    </div>
-                                    <div class="form-content" style="margin-bottom: 20px;">
-                                        <div class="tf-brand assets-title">
-                                            <div class="container">
-                                                <h5 class="title text-caption font-2 letter-space-0 fw-normal wg-counter wow fadeInUp assets-title-content">{{ t('hero.assetsTitle') }}</h5>
-                                            </div>
+                        <div class="box-ask glass-card">
+                            <div class="glass-filter"></div>
+                            <div class="glass-overlay"></div>
+                            <div class="glass-specular"></div>
+                            <div class="glass-content">
+                                <form class="form-ask wow fadeInUp form-ask-bg">
+                                    <div class="box-ask-inner">
+                                        <!-- S5~S7 Level Watermark -->
+                                        <div v-if="userLevel && ['S5', 'S6', 'S7'].includes(userLevel)" 
+                                             class="level-watermark"
+                                             :class="`level-${userLevel.toLowerCase()}`">
+                                            {{ userLevel }}
                                         </div>
-                                        <p class="style-2 coins-title" style="text-align: center; padding: 7px 11px; margin-bottom: 26px;">
-                                          <span v-if="isLoading">{{ t('common.loading') }}</span>
-                                          <span v-else>
-                                            <AnimatedNumber :value="stakedBalance" :decimals="6" /> {{ t('common.token') }}
-                                          </span>
-                                        </p>
+                                        <div class="form-content" style="margin-bottom: 20px;">
+                                            
+                                            <!-- Dashboard Grid Layout -->
+                                            <div class="dashboard-grid compact-grid">
+                                                <!-- 1. Assets Staked (Primary) -->
+                                                <div class="dashboard-item primary-item">
+                                                    <h5 class="item-label label-large">{{ t('hero.assetsTitle') }}</h5>
+                                                    <p class="item-value value-large">
+                                                        <span v-if="isLoading">{{ t('common.loading') }}</span>
+                                                        <span v-else>
+                                                            <AnimatedNumber :value="stakedBalance" :decimals="6" /> 
+                                                            <span class="unit">{{ t('common.token') }}</span>
+                                                        </span>
+                                                    </p>
+                                                </div>
 
-                                        <div class="tf-brand assets-title">
-                                            <div class="container">
-                                                <h3 class="title text-caption font-2 letter-space-0 fw-normal wg-counter wow fadeInUp assets-title-content" style="font-size: 16px !important;">{{ t('hero.totalInvestment') }}</h3>
-                                            </div>
-                                        </div>
-                                        <p class="style-2 coins-title" style="text-align: center; padding: 7px 11px; margin-bottom: -16px !important; font-size: 14px !important;">
-                                          <span v-if="isLoading">{{ t('common.loading') }}</span>
-                                          <span v-else>
-                                            <AnimatedNumber :value="totalInvestmentValue" :decimals="6" /> {{ t('common.token') }}
-                                          </span>
-                                        </p>
+                                                <!-- 2. Total Investment -->
+                                                <div class="dashboard-item">
+                                                    <h5 class="item-label">{{ t('hero.totalInvestment') }}</h5>
+                                                    <p class="item-value">
+                                                        <span v-if="isLoading">{{ t('common.loading') }}</span>
+                                                        <span v-else>
+                                                            <AnimatedNumber :value="totalInvestmentValue" :decimals="6" /> 
+                                                            <span class="unit">{{ t('common.token') }}</span>
+                                                        </span>
+                                                    </p>
+                                                </div>
 
-                                        <div class="tf-brand assets-title">
-                                            <div class="container">
-                                                <h3 class="title text-caption font-2 letter-space-0 fw-normal wg-counter wow fadeInUp assets-title-content" style="font-size: 16px !important;">{{ t('hero.friendsBoost') }}</h3>
-                                            </div>
-                                        </div>
-                                        <p class="style-2 coins-title" style="text-align: center; padding: 7px 11px; margin-bottom: 26px; font-size: 14px !important;">
-                                          <span v-if="isLoading">{{ t('common.loading') }}</span>
-                                           <span v-else>
-                                            <AnimatedNumber :value="friendsBoost" :decimals="6" /> {{ t('common.token') }}
-                                            <span v-if="userLevel" class="user-level-badge">{{ userLevel }}</span>
-                                          </span>
-                                        </p>
-
-                                        <fieldset class="field-bottom button-add-pool">
-                                            <div class="field_left">
-                                                <a href="#" @click.prevent="handleInjectPoolClick" class="btn-ip ip-modern text-body-3" style="padding: 7px 7px !important; gap: 4px !important; font-size: 12px !important;">
-                                                    <i class="icon-plus fs-10"></i>
-                                                    {{ t('hero.injectPool') }}
-                                                </a>
-                                                <a href="#" @click.prevent="shareFriendLink" class="btn-ip ip-modern text-body-3" style="padding: 7px 7px !important; gap: 4px !important; font-size: 12px !important;">
-                                                    <i class="icon-arrow-caret-down  fs-8"></i>
-                                                    {{ t('hero.shareFriend') }}
-                                                </a>
-                                                <div class="reward-button-wrapper">
-                                                    <a href="#" @click.prevent="handleClaimLevelReward" class="btn-ip ip-modern text-body-3" v-if="isAuthenticated" style="padding: 7px 7px !important; gap: 4px !important; font-size: 12px !important;">
-                                                        <i class="icon-arrow-top fs-14"></i>
-                                                        {{ t('hero.achievementReward') }}
-                                                    </a>
-                                                    <div v-if="walletState.hasClaimableRewards" class="red-dot"></div>
+                                                <!-- 3. Friends Boost & Badge -->
+                                                <div class="dashboard-item">
+                                                    <h5 class="item-label">{{ t('hero.friendsBoost') }}</h5>
+                                                    <div class="value-badge-group row-layout">
+                                                        <p class="item-value">
+                                                            <span v-if="isLoading">{{ t('common.loading') }}</span>
+                                                            <span v-else>
+                                                                <AnimatedNumber :value="friendsBoost" :decimals="6" /> 
+                                                                <span class="unit">{{ t('common.token') }}</span>
+                                                            </span>
+                                                        </p>
+                                                        <!-- Liquid Glass Badge -->
+                                                        <div v-if="userLevel" class="liquid-badge-container">
+                                                            <span class="liquid-badge" :class="`badge-${userLevel.toLowerCase()}`">
+                                                                {{ userLevel }}
+                                                                <span class="glare"></span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </fieldset>
+
+                                            <!-- Action Buttons (No Icons, Single Line) -->
+                                            <div class="button-group-liquid nowrap-group">
+                                                <a href="#" @click.prevent="handleInjectPoolClick" class="btn-liquid compact-btn">
+                                                    {{ t('hero.injectPool') }}
+                                                </a>
+                                                <a href="#" @click.prevent="shareFriendLink" class="btn-liquid compact-btn">
+                                                    {{ t('hero.shareFriend') }}
+                                                </a>
+                                                <div class="reward-button-wrapper" v-if="isAuthenticated">
+                                                    <a href="#" @click.prevent="handleClaimLevelReward" class="btn-liquid compact-btn">
+                                                        {{ t('hero.achievementReward') }}
+                                                    </a>
+                                                    <div v-if="walletState.hasClaimableRewards" class="red-dot-liquid"></div>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
-                        <span class="hafl-plus pst-left_bot item_bot wow bounceInScale"></span>
-                        <span class="hafl-plus pst-right_bot item_bot wow bounceInScale"></span>
-                        <span class="hafl-plus pst-left_top item_top wow bounceInScale"></span>
-                        <span class="hafl-plus pst-right_top item_top wow bounceInScale"></span>
-                    </div>
-                    <span class="line_section"></span>
+                       </div>
 
                 </div>
             </div>
-            <span class="br-line"></span>
-            <!-- == Brand -->
-            <!-- <div class="tf-brand"> -->
-                <!-- <div class="container"> -->
-                    <!-- <div class="tf-brand_inner"> -->
-                        <!-- <h5 class="title text-caption font-2 letter-space-0 fw-normal wg-counter wow fadeInUp">TRUSTED
-                            BY <span class="odometer" data-number="6000">1000</span>+ HIGHLY PRODUCTIVE COMPANY</h5> -->
-                        <!-- <div class="infiniteSlide infiniteSlide_brand" data-clone="3">
-                            <div class="image-brand">
-                                <img class="lazyload" src="/asset/images/brand/brand-1.png"
-                                    data-src="/asset/images/brand/brand-1.png" alt="Brand">
-                            </div>
-                            <div class="image-brand">
-                                <img class="lazyload" src="/asset/images/brand/brand-2.png"
-                                    data-src="/asset/images/brand/brand-2.png" alt="Brand">
-                            </div>
-                            <div class="image-brand">
-                                <img class="lazyload" src="/asset/images/brand/brand-3.png"
-                                    data-src="/asset/images/brand/brand-3.png" alt="Brand">
-                            </div>
-                            <div class="image-brand">
-                                <img class="lazyload" src="/asset/images/brand/brand-4.png"
-                                    data-src="/asset/images/brand/brand-4.png" alt="Brand">
-                            </div>
-                            <div class="image-brand">
-                                <img class="lazyload" src="/asset/images/brand/brand-5.png"
-                                    data-src="/asset/images/brand/brand-5.png" alt="Brand">
-                            </div>
-                            <div class="image-brand">
-                                <img class="lazyload" src="/asset/images/brand/brand-6.png"
-                                    data-src="/asset/images/brand/brand-6.png" alt="Brand">
-                            </div>
-                        </div> -->
-                        <!-- <span class="hafl-plus pst-left_bot item_bot wow bounceInScale"></span>
-                        <span class="hafl-plus pst-right_bot item_bot wow bounceInScale"></span> -->
-                    <!-- </div> -->
-                <!-- </div> -->
-            <!-- </div> -->
-            <!-- <span class="br-line"></span> -->
-            <!-- == Bottom Section -->
             <div class="sect-bottom">
             </div>
         </div>
+        
+        <svg style="display: none">
+            <filter id="liquid-lens" x="-50%" y="-50%" width="200%" height="200%">
+            <feImage x="0" y="0" result="normalMap" xlink:href="data:image/svg+xml;utf8,
+                    <svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'>
+                        <radialGradient id='nmap' cx='50%' cy='50%' r='50%'>
+                        <stop offset='0%' stop-color='rgb(128,128,255)'/>
+                        <stop offset='100%' stop-color='rgb(255,255,255)'/>
+                        </radialGradient>
+                        <rect width='100%' height='100%' fill='url(#nmap)'/>
+                    </svg>" />
+            <feDisplacementMap in="SourceGraphic" in2="normalMap" scale="60" xChannelSelector="R" yChannelSelector="G"
+                result="displaced" />
+            <feMerge>
+                <feMergeNode in="displaced" />
+            </feMerge>
+            </filter>
+        </svg>
     </section>
 </template>
 
@@ -377,10 +365,20 @@ onUnmounted(() => {
 }
 
 .title-big {
-    font-size: 48px;
-    color: #fff;
+    font-size: 64px;
+    line-height: 1.1;
+    font-weight: 800;
+    /* Clean White with subtle glass gradient */
+    background: linear-gradient(180deg, #FFFFFF 40%, #E0EFFF 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #fff; /* Fallback */
     position: relative;
     z-index: 2;
+    /* Soft glowing shadow */
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+    letter-spacing: -1px;
 }
 
 .title-container {
@@ -392,85 +390,55 @@ onUnmounted(() => {
     position: absolute;
     top: 50%;
     left: 50%;
-    /* 拉宽 1.4 倍，营造宽体史诗感 */
-    transform: translate(-50%, -63%) scaleX(1.1);
-    font-size: 120px;
+    transform: translate(-50%, -55%);
+    font-size: 240px; /* Massive Glass X */
     line-height: 1;
-    /* 加粗 */
     font-weight: 900;
-    font-style: normal;
-    font-family: 'Playfair Display', 'Didot', 'Bodoni MT', 'Times New Roman', serif;
+    font-family: 'Geist', serif;
     
-    /* 高级古典流金质感 - 颜色更醇厚 */
+    /* Liquid Glass Aesthetics */
+    color: transparent;
+    -webkit-text-stroke: 3px rgba(255, 255, 255, 0.2); /* Frosted glass edge */
+    
+    /* Dynamic Liquid Sheen */
     background: linear-gradient(
-        180deg, 
-        #bf953f 0%, 
-        #fcf6ba 25%, 
-        #b38728 50%, 
-        #fbf5b7 75%, 
-        #aa771c 100%
+        110deg, 
+        rgba(255, 255, 255, 0) 30%, 
+        rgba(255, 255, 255, 0.6) 50%, 
+        rgba(255, 255, 255, 0) 70%
     );
-    background-size: 200% 200%;
+    background-size: 200% 100%;
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
     
     z-index: 0;
     pointer-events: none;
     user-select: none;
     
-    /* 提高不透明度，移除混合模式，让它清晰可见 */
-    opacity: 0.85;
-    mix-blend-mode: normal;
+    /* Blend smoothly with background */
+    mix-blend-mode: overlay;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
     
-    animation: liquidGoldFlow 8s ease-in-out infinite;
-    /* 增加投影深度，让文字从背景中浮现出来 */
-    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.8));
+    animation: glassSheen 5s linear infinite;
 }
 
-/* 装饰性光晕 - 轮廓更清晰 */
-.protocol-version-bg::before {
-    content: 'X';
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: -1;
-    color: transparent;
-    /* 增加描边清晰度 */
-    -webkit-text-stroke: 2px rgba(255, 223, 0, 0.4);
-    filter: blur(1px);
-    opacity: 1;
-}
-
-/* 氛围背光 - 减弱一点以免影响前景 */
+/* Remove old pseudo-elements to clean up */
+.protocol-version-bg::before,
 .protocol-version-bg::after {
-    content: 'X';
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(0.9);
-    z-index: -2;
-    background: linear-gradient(to bottom, transparent, rgba(184, 134, 11, 0.6));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: blur(20px);
-    opacity: 0.6;
+    content: none;
+    display: none;
+}
+
+@keyframes glassSheen {
+    0% { background-position: 150% 0; }
+    100% { background-position: -50% 0; }
 }
 
 @keyframes liquidGoldFlow {
-    0% {
-        background-position: 0% 50%;
-        filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.2));
-    }
-    50% {
-        background-position: 100% 50%;
-        filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.5));
-    }
-    100% {
-        background-position: 0% 50%;
-        filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.2));
-    }
+    /* Kept for safety if referenced elsewhere, but effectively unused by X now */
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 @keyframes cinemaGlow {
@@ -516,7 +484,10 @@ onUnmounted(() => {
 }
 
 .form-ask-bg {
-    background-color: #11111300;
+    background-color: transparent; /* Changed from #11111300 but effectively same */
+    border: none !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
 }
 
 .level-watermark {
@@ -661,6 +632,322 @@ onUnmounted(() => {
   border-radius: 50%;
   border: 1px solid white;
 }
+
+/* Glassmorphism Styles */
+.glass-card {
+  --lg-bg-color: rgba(255, 255, 255, 0.15);
+  --lg-highlight: rgba(255, 255, 255, 0.75);
+  --lg-text: #ffffff;
+  
+  position: relative;
+  /* Match previous box-ask sizing or allow it to size by content */
+  /* width: 320px;  REMOVE fixed width */
+  /* height: 220px; REMOVE fixed height */
+  border-radius: 34px;
+  overflow: hidden;
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.25),
+    0 0 40px rgba(255, 255, 255, 0.05);
+  background: transparent;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.glass-card:hover {
+  transform: scale(1.02); /* Slight scale on hover, less aggressive than 1.2 */
+}
+
+.glass-filter {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  filter: url(#liquid-lens);
+}
+
+.glass-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--lg-bg-color);
+}
+
+.glass-specular {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  box-shadow:
+    inset 1px 1px 0 var(--lg-highlight),
+    inset 0 0 5px var(--lg-highlight);
+    pointer-events: none;
+}
+
+.glass-content {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  /* display: flex; align-items: center; justify-content: center; */
+  /* Remove flex centering to keep original layout flow */
+  color: var(--lg-text);
+  /* font-size: 1.4rem; */
+  /* font-weight: 600; */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  padding: 10px 10px 0 10px; /* Add some padding if needed, or rely on inner padding */
+}
+
+/* Apply Liquid Button Style to .btn-ip */
+.btn-ip {
+  position: relative;
+  /* overflow: hidden; */ /* Conflict with red-dot if overflow hidden? red-dot is outside? */
+  /* .reward-button-wrapper contains btn-ip and red-dot, so btn-ip overflow hidden is fine */
+  /* Wait, btn-ip itself needs overflow hidden for the liquid effect to be contained? */
+  /* The reference uses overflow: hidden on the button */
+  
+  /* Reset existing styles if needed, but keeping layout */
+  background: transparent !important; /* Override existing bg */
+  border: none !important;
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.25),
+    0 0 40px rgba(255, 255, 255, 0.05);
+  z-index: 1; /* Ensure z-index context */
+  border-radius: 100px; /* Match existing or desired radius */
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-ip:hover {
+  transform: scale(1.05);
+}
+
+.btn-ip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  filter: url(#liquid-lens);
+  border-radius: inherit;
+}
+
+.btn-ip::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  box-shadow:
+    inset 1px 1px 0 var(--lg-highlight),
+    inset 0 0 5px var(--lg-highlight);
+  border-radius: inherit;
+}
+
+/* Fix for icons and text inside button to be visible and on top */
+.btn-ip i, .btn-ip span {
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+/* --- New Dashboard Styles --- */
+
+.dashboard-grid.compact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px; /* Reduced gap */
+    margin-bottom: 40px; /* Reduced bottom margin */
+    margin-top: 5px;
+}
+
+@media (min-width: 768px) {
+    .dashboard-grid.compact-grid {
+        grid-template-columns: repeat(3, 1fr);
+        align-items: start; /* Top align */
+        text-align: center;
+        gap: 10px; /* Tighter gap on desktop */
+    }
+}
+
+.dashboard-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.item-label {
+    font-size: 13px; /* Smaller default label */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 4px !important; /* Reduced margin */
+    font-weight: 500 !important;
+}
+
+/* Primary Item ("Assets Staked") Styling */
+.dashboard-item.primary-item .item-label.label-large {
+    font-size: 16px; /* Larger font size */
+    color: #fff; /* Brighter color */
+    font-weight: 700 !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.item-value {
+    font-family: 'monospace', sans-serif;
+    font-size: 18px; /* Slightly smaller default value */
+    font-weight: 700;
+    margin: 0 !important;
+    background: linear-gradient(180deg, #FFFFFF 0%, #B0C4DE 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.dashboard-item.primary-item .item-value.value-large {
+    font-size: 22px; /* Larger value for primary item */
+}
+
+.item-value .unit {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Row Layout for Value + Badge */
+.value-badge-group.row-layout {
+    display: flex;
+    flex-direction: row; /* Horizontal alignment */
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Gap between value and badge */
+}
+
+/* Liquid Buttons Compact */
+.button-group-liquid.nowrap-group {
+    display: flex;
+    justify-content: center;
+    gap: 8px; /* Tighter gap */
+    flex-wrap: nowrap; /* No wrapping */
+    margin-top: 5px;
+    width: 100%;
+}
+
+.btn-liquid.compact-btn {
+    padding: 0 5px; /* Reduced horizontal padding */
+    height: 36px; /* Fixed height for consistency */
+    line-height: 34px; /* Vertically center text (height - border*2) */
+    font-size: 12px; /* Smaller font */
+    border-radius: 50px;
+    white-space: nowrap;
+    flex: 1 1 0px; /* Ensure equal distribution */
+    width: 0; /* Force equal width */
+    min-width: 0; /* Allow shrinking */
+    text-align: center;
+    display: inline-flex; /* Use flex for centering */
+    align-items: center; /* Vertical center */
+    justify-content: center; /* Horizontal center */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Specific fix for reward button wrapper to match height */
+.reward-button-wrapper {
+    position: relative;
+    display: flex; /* Ensure wrapper behaves like a flex item */
+    flex: 1;
+}
+
+.reward-button-wrapper .btn-liquid {
+    width: 100%; /* Fill wrapper */
+}
+
+.btn-liquid {
+    position: relative;
+    /* padding: 10px 20px; REMOVED - using compact-btn */ 
+    font-weight: 600;
+    color: #fff !important;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 4px 6px rgba(0,0,0,0.1), 
+        inset 0 1px 0 rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-liquid:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 
+        0 8px 15px rgba(0,0,0,0.2), 
+        inset 0 1px 0 rgba(255,255,255,0.3),
+        0 0 20px rgba(255, 255, 255, 0.1); /* Glow */
+}
+
+/* Red Dot on Button */
+.red-dot-liquid {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  background-color: #ff4d4f;
+  border-radius: 50%;
+  box-shadow: 0 0 5px #ff4d4f;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Liquid Badge Styles */
+.liquid-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.1);
+    backdrop-filter: blur(4px);
+}
+
+.liquid-badge .glare {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    border-radius: 12px 12px 60% 60%;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Badge Colors */
+.badge-s1, .badge-s2, .badge-s3 {
+    background: linear-gradient(135deg, rgba(205, 127, 50, 0.3), rgba(160, 82, 45, 0.5));
+    border-color: rgba(205, 127, 50, 0.6);
+}
+
+.badge-s4, .badge-s5 {
+    background: linear-gradient(135deg, rgba(70, 130, 180, 0.3), rgba(0, 191, 255, 0.5));
+    border-color: rgba(135, 206, 250, 0.6);
+    box-shadow: 0 0 8px rgba(0, 191, 255, 0.4);
+}
+
+.badge-s6, .badge-s7 {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 140, 0, 0.5));
+    border-color: rgba(255, 215, 0, 0.8);
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+    animation: badgePulse 2s infinite alternate;
+}
+
+@keyframes badgePulse {
+    from { box-shadow: 0 0 8px rgba(255, 215, 0, 0.4); }
+    to { box-shadow: 0 0 16px rgba(255, 215, 0, 0.8); }
+}
 </style>
-
-

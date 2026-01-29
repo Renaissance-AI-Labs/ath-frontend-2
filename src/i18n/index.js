@@ -22,10 +22,12 @@ const languagePacks = {
     // Footer
     'footer.aboutUs': '了解我们',
     'footer.whitepaper': '白皮书',
-    'footer.copyright': '© 2025 Athena Protocol. ALL RIGHTS RESERVED.',
+    'footer.copyright': '© 2026 Athena Protocol. ALL RIGHTS RESERVED.',
     
     // Hero Section
     'hero.subtitle': '纯粹的算法逻辑与数学法则，驱动 AI 自主运行的永续价值引擎',
+    'hero.subtitle_line1': '纯粹的算法逻辑与数学法则',
+    'hero.subtitle_line2': '驱动 AI 自主运行的永续价值引擎',
     'hero.assetsTitle': '尊享资产托管',
     'hero.friendsBoost': '社交网络价值加成',
     'hero.injectPool': '战略注资',
@@ -131,20 +133,20 @@ const languagePacks = {
     // Testimonial Section
     'testimonial.connectFuture': '连接未来',
     'testimonial.yourselfShapesFuture': 'Yourself shapes the future.',
-    'testimonial.futureJourneyLine1': '一同探索',
-    'testimonial.futureJourneyLine2': '未来的旅途',
+    'testimonial.futureJourneyLine1': '共启征程',
+    'testimonial.futureJourneyLine2': '探索未来无界',
     'testimonial.genesis': '创世',
     'testimonial.genesisEn': 'Genesis',
-    'testimonial.genesisDesc': '协议部署，LCC 功能上线，Athena AI™ v1.0 开始自主运行，开启一个前所未有的未来。',
-    'testimonial.expansion': '扩张',
+    'testimonial.genesisDesc': '协议核心部署完成，LCC 模块正式上线。Athena AI™ v1.0 启动自主运行机制，由此揭开未来纪元的宏伟序幕。',
+    'testimonial.expansion': '拓界',
     'testimonial.expansionEn': 'Expansion',
-    'testimonial.expansionDesc': '金库贴现票据 (TDN) V1 的合约接口被激活，协议开始主动进行资产负债表管理， 望眼前所未有的蓝图。',
-    'testimonial.handover': '移交',
+    'testimonial.expansionDesc': '金库贴现票据 (TDN) V1 接口激活，协议启动主动式资产负债管理。宏伟蓝图已然展开，重塑价值新维度。',
+    'testimonial.handover': '交接',
     'testimonial.handoverEn': 'The Handover',
-    'testimonial.handoverDesc': '协议的最高管理权限被转移至一个时间锁合约，AthenaDAO 的治理模块上线， 忠诚调停时间线秩序。',
-    'testimonial.dissolution': '消亡',
+    'testimonial.handoverDesc': '最高管理权限移交至时间锁合约，AthenaDAO 治理模块正式上线。以绝对忠诚捍卫时间线秩序，实现去中心化治理的平稳过渡。',
+    'testimonial.dissolution': '涅槃',
     'testimonial.dissolutionEn': 'The Nyx Dissolution',
-    'testimonial.dissolutionDesc': '在投票确认协议稳定后，时间锁到期，The Nyx Collective 的部署密钥将被永久销毁以进入自主进化阶段。',
+    'testimonial.dissolutionDesc': '经投票确认协议稳健运行后，时间锁期满。The Nyx Collective 部署密钥将永久销毁，协议彻底完成去中心化，迈入自主进化的永恒阶段。',
     
     // Countdown Timer
     'countdown.remaining': '剩余：',
@@ -157,8 +159,8 @@ const languagePacks = {
     // HowToUse Section
     'howToUse.governFuture': '治理未来',
     'howToUse.ruleOverAll': 'Rule Over All',
-    'howToUse.controlWealth': '在这里 — 掌控你的财富',
-    'howToUse.controlWealthDesc': '捐赠至底池的资金，将依额度每日累积。最高享 1.2% 自动复利，周期不超过 30 天。',
+    'howToUse.controlWealth': '在此 — 驾驭您的财富',
+    'howToUse.controlWealthDesc': '注入底池的资金将按额度每日增值。尊享最高 1.2% 自动复利，周期仅限 30 天以内。',
     'howToUse.investmentList': '投资列表',
     'howToUse.redemptionList': '赎回列表',
     'howToUse.loadingStakingData': '正在加载质押数据...',
@@ -183,6 +185,9 @@ const languagePacks = {
     'unstake.redeemDesc': '将放弃利息，仅赎回本金',
     'unstake.dailyLimit': '每日赎回额度受池子总量 5% 限制',
     'unstake.cancel': '取消',
+    'unstake.redeemConfirmTitle': '确认放弃利息？',
+    'unstake.redeemConfirmDesc': '赎回本金将<span class="highlight-loss">失去利息</span>，是否继续？',
+    'unstake.confirm': '确定',
     
     // Share Friend Modal
     'share.title': '分享链接给好友',
@@ -349,9 +354,9 @@ const languagePacks = {
     
     // Unstake Modal
     'unstake.title': '选择赎回方式',
-    'unstake.reinvestTitle': '收获利息并复投',
+    'unstake.reinvestTitle': '收获利息，复投本金',
     'unstake.reinvestDesc': '将获取利息，并将此订单到期本金以同周期复投',
-    'unstake.redeemTitle': '赎回本金',
+    'unstake.redeemTitle': '赎回本金，放弃利息',
     'unstake.redeemDesc': '将放弃利息，仅赎回本金',
     'unstake.dailyLimit': '今日剩余赎回额度',
     'toast.dailyLimitExceeded': '每日赎回限额已达上限',
@@ -366,7 +371,7 @@ const languagePacks = {
     // Footer
     'footer.aboutUs': '了解我們',
     'footer.whitepaper': '白皮書',
-    'footer.copyright': '© 2025 Athena Protocol. ALL RIGHTS RESERVED.',
+    'footer.copyright': '© 2026 Athena Protocol. ALL RIGHTS RESERVED.',
     
     // Hero Section
     'hero.subtitle': '純粹的演算法邏輯與數學法則，驅動 AI 自主運行的永續價值引擎',
@@ -688,6 +693,10 @@ const languagePacks = {
     'unstake.redeemTitle': '贖回本金',
     'unstake.redeemDesc': '將放棄利息，僅贖回本金',
     'unstake.dailyLimit': '今日剩餘贖回額度',
+    'unstake.cancel': '取消',
+    'unstake.redeemConfirmTitle': '確認放棄利息？',
+    'unstake.redeemConfirmDesc': '贖回本金將<span class="highlight-loss">失去利息</span>，是否繼續？',
+    'unstake.confirm': '確定',
     'toast.dailyLimitExceeded': '每日贖回限額已達上限',
     'toast.dailyLimitReached': '今日贖回額度不足 (Daily redeem limit reached)',
     'toast.invalidType': '傳入的類型參數錯誤 (Invalid Type)'
@@ -700,7 +709,7 @@ const languagePacks = {
     // Footer
     'footer.aboutUs': 'About Us',
     'footer.whitepaper': 'Whitepaper',
-    'footer.copyright': '© 2025 Athena Protocol. ALL RIGHTS RESERVED.',
+    'footer.copyright': '© 2026 Athena Protocol. ALL RIGHTS RESERVED.',
     
     // Hero Section
     'hero.subtitle': 'Pure algorithmic logic and mathematical principles, powering an autonomous AI-driven perpetual value engine',
@@ -829,6 +838,9 @@ const languagePacks = {
     'unstake.redeemDesc': 'Forfeit interest, redeem principal only',
     'unstake.dailyLimit': 'Daily redemption limit is 5% of total pool',
     'unstake.cancel': 'Cancel',
+    'unstake.redeemConfirmTitle': 'Confirm Forfeit Interest?',
+    'unstake.redeemConfirmDesc': 'Redeeming principal will forfeit interest. Continue?',
+    'unstake.confirm': 'Confirm',
     
     // Toast Notifications
     'toast.connectWalletFirst': 'Please connect and authorize your wallet first',
@@ -1036,7 +1048,7 @@ const languagePacks = {
     // Footer
     'footer.aboutUs': '私たちについて',
     'footer.whitepaper': 'ホワイトペーパー',
-    'footer.copyright': '© 2025 Athena Protocol. ALL RIGHTS RESERVED.',
+    'footer.copyright': '© 2026 Athena Protocol. ALL RIGHTS RESERVED.',
     
     // Hero Section
     'hero.subtitle': '純粋なアルゴリズムロジックと数学的原理が、AI自律駆動型の永続的価値エンジンを実現',
@@ -1165,6 +1177,9 @@ const languagePacks = {
     'unstake.redeemDesc': '利息を放棄し、元本のみを償還します',
     'unstake.dailyLimit': '1日の償還限度額はプール総額の5%です',
     'unstake.cancel': 'キャンセル',
+    'unstake.redeemConfirmTitle': '利息の放棄を確認？',
+    'unstake.redeemConfirmDesc': '元本を償還すると利息が失われます。続けますか？',
+    'unstake.confirm': '確認',
     
     // Toast Notifications
     'toast.connectWalletFirst': 'まずウォレットを接続して承認してください',
@@ -1367,7 +1382,7 @@ const languagePacks = {
     // Footer
     'footer.aboutUs': '우리에 대해',
     'footer.whitepaper': '백서',
-    'footer.copyright': '© 2025 Athena Protocol. ALL RIGHTS RESERVED.',
+    'footer.copyright': '© 2026 Athena Protocol. ALL RIGHTS RESERVED.',
     
     // Hero Section
     'hero.subtitle': '순수한 알고리즘 논리와 수학적 원리가 구동하는 AI 자율 운영 영구 가치 엔진',
@@ -1496,6 +1511,9 @@ const languagePacks = {
     'unstake.redeemDesc': '이자를 포기하고 원금만 상환합니다',
     'unstake.dailyLimit': '일일 상환 한도는 전체 풀의 5%로 제한됩니다',
     'unstake.cancel': '취소',
+    'unstake.redeemConfirmTitle': '이자 포기 확인?',
+    'unstake.redeemConfirmDesc': '원금을 상환하면 이자를 잃게 됩니다. 계속하시겠습니까?',
+    'unstake.confirm': '확인',
     
     // Toast Notifications
     'toast.connectWalletFirst': '먼저 지갑을 연결하고 승인하세요',

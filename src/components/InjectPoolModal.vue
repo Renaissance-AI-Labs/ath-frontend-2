@@ -1,21 +1,25 @@
 <template>
   <div class="modal-overlay" @click.self="close">
-    <div class="modal-content">
-      <!-- Starry Background Effect -->
-      <div class="stars-bg">
-          <div class="stars"></div>
-          <div class="stars2"></div>
-          <div class="stars3"></div>
-      </div>
-      <div class="modal-body">
-        <div class="title_holder">
-          <h3>{{ t('inject.title') }}</h3>
-        </div>
+    <div class="modal-content glass-card">
+      <div class="glass-filter"></div>
+      <div class="glass-overlay"></div>
+      <div class="glass-specular"></div>
+      
+      <div class="glass-content">
+        <!-- Glow Effects -->
+        <div class="glow-effect-top-left"></div>
+        <div class="glow-effect-bottom"></div>
 
-        <!-- Amount Input Group -->
-        <div class="form-group">
-          <label class="form-label">{{ t('inject.amountLabel') }}</label>
-          <div class="amount-input-group">
+        <div class="modal-body">
+          <div class="title_holder">
+            <h3>{{ t('inject.title') }}</h3>
+          </div>
+
+          <!-- Amount Input Group -->
+          <div class="form-group">
+            <div class="label-row">
+              <label class="form-label">{{ t('inject.amountLabel') }}</label>
+            </div>
             <div class="input-wrapper">
               <input 
                 type="text" 
@@ -23,45 +27,55 @@
                 :value="amount"
                 @input="handleAmountInput"
                 :placeholder="t('inject.amountPlaceholder')" 
-                class="form-input"
+                class="form-input with-suffix-btn"
                 :class="{ 'input-error': isAmountInvalid }"
               >
+              <button @click.prevent="fillMax" class="max-btn">MAX</button>
             </div>
-            <div class="balance-info">
-              <a href="#" @click.prevent="fillMax" class="btn-ip ip-modern text-body-3 balance-btn">
-              {{ t('inject.maxAmount', { amount: formattedUsdtBalance }) }}
-              </a>
+            <div class="balance-row">
+              <span class="balance-text">{{ t('inject.maxAmount', { amount: formattedUsdtBalance }) }}</span>
             </div>
           </div>
-        </div>
 
-        <!-- Duration Button Group -->
-        <div class="form-group">
-          <label class="form-label">{{ t('inject.durationLabel') }}</label>
-          <div class="duration-button-group">
-            <button 
-              v-for="option in durationOptions" 
-              :key="option.value"
-              @click="selectedDuration = option.value"
-              :class="['duration-btn', { 'active': selectedDuration === option.value }]"
-              type="button"
-            >
-              <span class="duration-days">{{ option.days }}</span>
-              <span class="duration-rate">{{ option.rate }}</span>
-            </button>
+          <!-- Duration Button Group -->
+          <div class="form-group">
+            <label class="form-label">{{ t('inject.durationLabel') }}</label>
+            <div class="duration-button-group">
+              <button 
+                v-for="option in durationOptions" 
+                :key="option.value"
+                @click="selectedDuration = option.value"
+                :class="['duration-btn', { 'active': selectedDuration === option.value }]"
+                type="button"
+              >
+                <span class="duration-days">{{ option.days }}</span>
+                <span class="duration-rate">{{ option.rate }}</span>
+              </button>
+            </div>
           </div>
-        </div>
 
-        <!-- Action Buttons -->
-        <div class="button-group">
-          <a href="#" @click.prevent="close" class="btn-ip ip-modern text-body-3 btn-cancel">
-            {{ t('inject.cancel') }}
-          </a>
-          <a href="#" @click.prevent="handleMainAction" class="btn-ip ip-modern text-body-3 btn-confirm">
-            {{ mainButtonState.text }}
-          </a>
-        </div>
+          <!-- Action Buttons -->
+          <div class="button-group">
+            <a href="#" @click.prevent="close" class="glass-btn btn-cancel">
+               <div class="glass-filter"></div>
+               <div class="glass-specular"></div>
+               <div class="btn-content">
+                  {{ t('inject.cancel') }}
+               </div>
+            </a>
+            <a href="#" @click.prevent="handleMainAction" class="glass-btn btn-confirm" :class="{ 'disabled': mainButtonState.disabled }">
+               <div class="glass-filter"></div>
+               <div class="glass-specular"></div>
+               <div class="btn-content">
+                  {{ mainButtonState.text }}
+               </div>
+            </a>
+          </div>
 
+        </div>
+        <button @click="close" class="close-button">
+          <i class="icon icon-close"></i>
+        </button>
       </div>
     </div>
   </div>
@@ -306,151 +320,308 @@ export default {
 </script>
 
 <style scoped>
-/* Reusing styles from ConnectWalletModal and adding new ones */
 .modal-overlay {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-  background-color: rgba(12, 12, 14, 0.8);
-  display: flex; justify-content: center; align-items: center; z-index: 1050;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
 }
+
 .modal-content {
-  position: relative; width: 90%; max-width: 380px; padding: 20px;
-  border: 1px solid var(--line); backdrop-filter: blur(16px);
-  border-radius: 28px; background: var(--bg-2);
+  position: relative;
+  width: 90%;
+  max-width: 380px;
+  padding: 0;
+  border-radius: 34px;
+  background: transparent;
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.25),
+    0 0 40px rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-.modal-body { width: 100%; }
+
+/* Glassmorphism Styles */
+.glass-filter {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  filter: url(#liquid-lens);
+}
+
+.glass-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--lg-bg-color);
+}
+
+.glass-specular {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  box-shadow:
+    inset 1px 1px 0 var(--lg-highlight),
+    inset 0 0 5px var(--lg-highlight);
+  pointer-events: none;
+}
+
+.glass-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Glow Effects */
+.glow-effect-bottom {
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  height: 120px;
+  background: radial-gradient(
+    ellipse at center bottom,
+    rgb(255, 255, 255) 0%,
+    rgb(255, 255, 255) 10%,
+    rgba(var(--primary-rgb, 0, 210, 255), 1) 25%,
+    rgba(var(--primary-rgb, 0, 210, 255), 0.8) 50%,
+    transparent 80%
+  );
+  opacity: 1;
+  filter: blur(35px);
+  pointer-events: none;
+  z-index: -1;
+  mix-blend-mode: screen;
+}
+
+.glow-effect-top-left {
+  position: absolute;
+  top: -60px;
+  left: -60px;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(var(--primary-rgb, 0, 210, 255), 0.8) 30%,
+    transparent 70%
+  );
+  opacity: 0.6;
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: -1;
+  mix-blend-mode: screen;
+}
+
+.modal-body {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
 .close-button {
-  position: absolute; top: 20px; right: 20px; background: transparent;
-  border: none; color: var(--white); font-size: 24px; cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
 }
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
 .title_holder { text-align: center; margin-bottom: 30px; }
-.title_holder h3 { font-size: 24px; color: #ffffff; }
+.title_holder h3 { font-size: 24px; color: #ffffff; font-weight: 600; letter-spacing: -0.5px; }
 
 .form-group {
   margin: 20px 0 30px 0;
 }
-.form-label {
-  display: block;
-  text-align: left;
-  color: var(--text-2);
-  margin-bottom: 10px;
-  font-size: 14px;
-  padding-left: 5px; /* Align with balance button */
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-bottom: 10px; */
+  padding: 0 5px;
 }
+
+.form-label {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+}
+
+.balance-row {
+  margin-top: 8px;
+  text-align: left;
+}
+
+.balance-text {
+  color: rgba(255, 255, 255, 0.5); /* Muted color for balance under input */
+  font-size: 12px;
+  font-weight: 400;
+  cursor: default;
+}
+
 .input-wrapper {
   position: relative;
+  width: 100%;
 }
-.form-input, .form-select {
+
+.form-input {
   width: 100%;
   padding: 15px 20px;
-  background-color: #0c0c0e;
-  border: 1px solid var(--line);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   color: var(--white);
   font-size: 16px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  transition: border-color 0.3s;
 }
-.form-input:focus, .form-select:focus {
+
+.form-input.with-suffix-btn {
+  padding-right: 70px;
+}
+
+.form-input:focus {
   outline: none;
   border-color: var(--primary);
 }
-.form-select {
-  cursor: pointer;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23888' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 1rem center;
-  background-size: 1em;
-}
 
-.balance-info {
-  margin-top: 8px;
-  text-align: left;
-}
-.balance-btn {
-  background: none;
-  border: none;
-  color: var(--text-2);
-  cursor: pointer;
-  padding: 5px;
-  font-size: 14px;
-  text-decoration: underline;
-}
-.balance-btn:hover {
+.max-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(var(--primary-rgb, 0, 210, 255), 0.2);
+  border: 1px solid rgba(var(--primary-rgb, 0, 210, 255), 0.4);
   color: var(--primary);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.amount-input-group {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.amount-input-group .input-wrapper {
-  flex-grow: 1;
-}
-.amount-input-group .balance-info {
-  flex-shrink: 0;
-}
-.balance-btn {
-  padding: 8px 12px; /* Adjust padding to fit the text */
-  white-space: nowrap; /* Prevent text from wrapping */
-  font-size: 12px;
+.max-btn:hover {
+  background: rgba(var(--primary-rgb, 0, 210, 255), 0.4);
+  color: #fff;
 }
 
 .duration-button-group {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
 }
 
 .duration-btn {
   flex: 1;
-  padding: 10px 8px;
-  background: linear-gradient(0deg, rgba(20, 20, 21, 0.82), rgba(20, 20, 21, 0.82)),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 100%);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  color: var(--text-2);
+  padding: 16px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   justify-content: center;
   align-items: center;
-}
-
-.duration-btn .duration-days {
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.2;
-}
-
-.duration-btn .duration-rate {
-  font-size: 11px;
-  opacity: 0.8;
-  line-height: 1.2;
+  position: relative;
+  overflow: hidden;
 }
 
 .duration-btn:hover {
-  color: var(--white);
-  border-color: var(--primary);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .duration-btn.active {
-  background: var(--primary);
-  border-color: var(--primary);
-  color: var(--white);
+  background: rgba(0, 210, 255, 0.15);
+  border-color: #00d2ff;
+  color: #fff;
+  box-shadow: 
+    0 0 20px rgba(0, 210, 255, 0.2),
+    inset 0 0 20px rgba(0, 210, 255, 0.05);
+}
+
+.duration-btn.active::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.duration-btn .duration-days {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.2;
+  font-family: 'ChillRoundF', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.duration-btn .duration-rate {
+  font-size: 12px;
+  opacity: 0.7;
+  line-height: 1.2;
+  transition: all 0.3s ease;
 }
 
 .duration-btn.active .duration-days {
-  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
 }
 
 .duration-btn.active .duration-rate {
   opacity: 1;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .button-group {
@@ -459,90 +630,61 @@ export default {
   gap: 15px;
   margin-top: 30px;
 }
-.btn-ip {
-    flex: 1; /* Make buttons take equal width */
-    text-align: center;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    background: linear-gradient(0deg, rgba(20, 20, 21, 0.82), rgba(20, 20, 21, 0.82)),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 100%);
-    border: 1px solid var(--line);
-    box-shadow: 0px 1px 1px 0px #FFFFFF2E inset, 0px 0px 4px 0px #FFFFFF0F inset, 0px 0px 8px 0px #FFFFFF14 inset, 0px 0px 16px 0px #FFFFFF1F inset;
-    padding: 12px;
-    border-radius: 999px;
-    transition: all .3s ease;
-    color: var(--text-2);
-    text-decoration: none;
-}
-.btn-ip:hover {
-    color: var(--primary);
-    border-color: var(--primary);
-}
-.btn-confirm {
-    color: var(--white);
-    background: var(--primary);
-    border-color: var(--primary);
-}
-.btn-confirm:hover {
-    color: var(--white);
-    filter: brightness(1.1);
+
+/* Glass Button Styles */
+.glass-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--white);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: center;
 }
 
-/* Starry background effect from HowToUseSection */
-.stars-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
+.glass-btn .glass-filter {
+    filter: url(#liquid-lens);
+}
+
+.glass-btn .glass-specular {
+    box-shadow:
+    inset 1px 1px 0 var(--lg-highlight),
+    inset 0 0 5px var(--lg-highlight);
+}
+
+.btn-content {
+  position: relative;
+  z-index: 3;
   width: 100%;
-  height: 100%;
-  z-index: 0;
-  border-radius: 28px; /* Match modal content's border-radius */
-  overflow: hidden; /* Ensure stars don't leak outside rounded corners */
-}
-.modal-body {
-    position: relative;
-    z-index: 1; /* Ensure modal content is on top of the background */
 }
 
-.stars, .stars2, .stars3 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1px;
-  height: 1px;
-  background: transparent;
+.glass-btn:hover {
+  transform: translateY(-2px);
 }
-.stars {
-  animation: animStar 50s linear infinite;
-  box-shadow: 123px 45px #FFF, 255px 189px #FFF, 345px 8px #FFF, 99px 345px #FFF, 487px 233px #FFF, 321px 487px #FFF, 499px 10px #FFF, 23px 187px #FFF, 176px 455px #FFF, 433px 321px #FFF, 45px 23px #FFF, 231px 480px #FFF, 467px 98px #FFF, 33px 256px #FFF, 198px 321px #FFF, 349px 465px #FFF, 480px 12px #FFF, 12px 190px #FFF, 256px 432px #FFF, 490px 211px #FFF, 54px 49px #FFF, 289px 344px #FFF, 411px 189px #FFF, 76px 287px #FFF, 201px 477px #FFF, 389px 23px #FFF, 477px 376px #FFF, 156px 143px #FFF, 301px 499px #FFF, 432px 65px #FFF;
+
+.btn-confirm {
+  font-weight: 600;
 }
-.stars2 {
-  width: 2px;
-  height: 2px;
-  animation: animStar 100s linear infinite;
-  box-shadow: 234px 123px #FFF, 456px 345px #FFF, 12px 487px #FFF, 498px 65px #FFF, 213px 289px #FFF, 45px 456px #FFF, 345px 98px #FFF, 187px 399px #FFF, 432px 187px #FFF, 88px 88px #FFF, 287px 465px #FFF, 478px 243px #FFF, 143px 32px #FFF, 365px 398px #FFF, 499px 488px #FFF;
+
+.btn-confirm.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
 }
-.stars3 {
-  width: 3px;
-  height: 3px;
-  animation: animStar 150s linear infinite;
-  box-shadow: 87px 345px #FFF, 465px 87px #FFF, 234px 487px #FFF, 487px 234px #FFF, 156px 156px #FFF, 387px 432px #FFF, 432px 32px #FFF;
+
+.btn-cancel {
+  color: rgba(255, 255, 255, 0.7);
 }
-.stars:after, .stars2:after, .stars3:after {
-  content: " ";
-  position: absolute;
-  top: 250px;
-  width: inherit;
-  height: inherit;
-  background: transparent;
-  box-shadow: inherit;
-}
-@keyframes animStar {
-  from {
-    transform: translateY(0px);
-  }
-  to {
-    transform: translateY(-250px);
-  }
+.btn-cancel:hover {
+    color: #fff;
 }
 
 .form-input.input-error {

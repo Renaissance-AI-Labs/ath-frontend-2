@@ -1,99 +1,107 @@
 <template>
   <div class="modal-overlay" @click.self="close">
-    <div class="modal-content">
-      <!-- Starry Background Effect -->
-      <div class="stars-bg">
-          <div class="stars"></div>
-          <div class="stars2"></div>
-          <div class="stars3"></div>
-      </div>
-      <div class="modal-body">
-        <div class="title_holder">
-          <h3>{{ t('share.title') }}</h3>
-        </div>
-        
-        <div class="share-content" style="margin-top: 30px;">
-          <div class="input-wrapper">
-            <label class="share-link-label">{{ t('share.linkLabel') }}</label>
-            <textarea :value="referralLink" readonly class="share-link-input" @focus="$event.target.select()"></textarea>
-          </div>
-          <p class="share-hint">{{ t('share.hint') }}</p>
-          <a href="#" @click.prevent="copyLink" class="btn-ip ip-modern text-body-3 copy-btn">
-            {{ t('share.button') }}
-          </a>
-          <div class="divider" v-if="teamId"></div>
-          <div class="team-id-section" v-if="teamId">
-            <div class="referral-label-container">
-              <span class="referral-label-text">{{ t('share.teamId') }}</span>
-              <span class="referral-label-count team-id-value-inline">{{ teamId }}</span>
-            </div>
-          </div>
+    <div class="modal-content glass-card">
+      <div class="glass-filter"></div>
+      <div class="glass-overlay"></div>
+      <div class="glass-specular"></div>
+      
+      <div class="glass-content">
+        <!-- Glow Effects -->
+        <div class="glow-effect-top-left"></div>
+        <div class="glow-effect-bottom"></div>
 
-          <div class="team-id-section">
-            <div class="referral-label-container">
-              <span class="referral-label-text">{{ t('share.rewardsFromFriends') }}</span>
-              <span class="referral-label-count team-id-value-inline">{{ formattedEstimatedRewards }}</span>
-            </div>
-            <div class="rewards-disclaimer">
-              <span class="icon-info">i</span>
-              <p>{{ t('share.rewardsDisclaimer') }}</p>
-            </div>
+        <div class="modal-body">
+          <div class="title_holder">
+            <h3>{{ t('share.title') }}</h3>
           </div>
           
-          <!-- <div class="divider"></div> -->
+          <div class="share-content" style="margin-top: 30px;">
+            <div class="input-wrapper">
+              <label class="share-link-label">{{ t('share.linkLabel') }}</label>
+              <textarea :value="referralLink" readonly class="share-link-input" @focus="$event.target.select()"></textarea>
+            </div>
+            <p class="share-hint">{{ t('share.hint') }}</p>
+            
+            <a href="#" @click.prevent="copyLink" class="glass-btn copy-btn">
+               <div class="glass-filter"></div>
+               <div class="glass-specular"></div>
+               <div class="btn-content">
+                  {{ t('share.button') }}
+               </div>
+            </a>
 
-          <!-- New Referral Info Section -->
-          <div class="team-id-section">
-            <div class="referral-label-container">
-              <span class="referral-label-text">{{ t('share.myReferralsLabel') }}</span>
-              <span class="referral-label-count">{{ formattedReferralCount }}</span>
+            <div class="divider" v-if="teamId"></div>
+            <div class="team-id-section" v-if="teamId">
+              <div class="referral-label-container">
+                <span class="referral-label-text">{{ t('share.teamId') }}</span>
+                <span class="referral-label-count team-id-value-inline">{{ teamId }}</span>
+              </div>
+            </div>
+
+            <div class="team-id-section">
+              <div class="referral-label-container">
+                <span class="referral-label-text">{{ t('share.rewardsFromFriends') }}</span>
+                <span class="referral-label-count team-id-value-inline">{{ formattedEstimatedRewards }}</span>
+              </div>
+              <div class="rewards-disclaimer">
+                <span class="icon-info">i</span>
+                <p>{{ t('share.rewardsDisclaimer') }}</p>
+              </div>
             </div>
             
-            <!-- Loading State -->
-            <div v-if="isLoadingReferrals" class="loading-message">
-              <p>{{ t('share.loadingReferrals') }}</p>
-            </div>
-            
-            <!-- Data/Empty States -->
-            <div v-else>
-              <div v-if="referralCount > 0">
-                <div class="referral-switcher">
-                  <a href="#" @click.prevent="showPrevious" style="margin-top: 28px;" class="pagination-item" :class="{ 'disabled': currentIndex === 0 }">
-                    <span class="icon icon-CaretDoubleRight" style="transform: rotate(180deg);"></span>
-                  </a>
-                  <div class="switcher-content">
-                    <div>
-                      <p class="switcher-address">{{ currentReferralAddress }}</p>
-                      <div class="info-container">
-                        <div class="info-row asset-row">
-                          <span class="info-label">{{ t('share.assetsLabel') }}</span>
-                          <span class="info-value">{{ formattedBalance }}</span>
-                        </div>
-                        <div class="info-row kpi-row">
-                          <span class="info-label">{{ t('share.kpiLabel') }}</span>
-                          <span class="info-value">{{ formattedKpi }}</span>
+            <!-- New Referral Info Section -->
+            <div class="team-id-section">
+              <div class="referral-label-container">
+                <span class="referral-label-text">{{ t('share.myReferralsLabel') }}</span>
+                <span class="referral-label-count">{{ formattedReferralCount }}</span>
+              </div>
+              
+              <!-- Loading State -->
+              <div v-if="isLoadingReferrals" class="loading-message">
+                <p>{{ t('share.loadingReferrals') }}</p>
+              </div>
+              
+              <!-- Data/Empty States -->
+              <div v-else>
+                <div v-if="referralCount > 0">
+                  <div class="referral-switcher">
+                    <a href="#" @click.prevent="showPrevious" style="margin-top: 28px;" class="pagination-item" :class="{ 'disabled': currentIndex === 0 }">
+                      <span class="icon icon-CaretDoubleRight" style="transform: rotate(180deg);"></span>
+                    </a>
+                    <div class="switcher-content">
+                      <div>
+                        <p class="switcher-address">{{ currentReferralAddress }}</p>
+                        <div class="info-container">
+                          <div class="info-row asset-row">
+                            <span class="info-label">{{ t('share.assetsLabel') }}</span>
+                            <span class="info-value">{{ formattedBalance }}</span>
+                          </div>
+                          <div class="info-row kpi-row">
+                            <span class="info-label">{{ t('share.kpiLabel') }}</span>
+                            <span class="info-value">{{ formattedKpi }}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
+                    <a href="#" @click.prevent="showNext" style="margin-top: 28px;" class="pagination-item" :class="{ 'disabled': currentIndex >= referralCount - 1 }">
+                      <span class="icon icon-CaretDoubleRight"></span>
+                    </a>
                   </div>
-                  <a href="#" @click.prevent="showNext" style="margin-top: 28px;" class="pagination-item" :class="{ 'disabled': currentIndex >= referralCount - 1 }">
-                    <span class="icon icon-CaretDoubleRight"></span>
-                  </a>
+                  <p class="referral-counter">{{ currentIndex + 1 }} / {{ referralCount }}</p>
                 </div>
-                <p class="referral-counter">{{ currentIndex + 1 }} / {{ referralCount }}</p>
-              </div>
-              
-              <div v-else class="no-referrals-message">
-                <p>{{ t('share.noReferrals') }}</p>
+                
+                <div v-else class="no-referrals-message">
+                  <p>{{ t('share.noReferrals') }}</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
+        </div>
+        <button @click="close" class="close-button">
+          <i class="icon icon-close"></i>
+        </button>
       </div>
-      <button @click="close" class="close-button">
-        <i class="icon icon-close"></i>
-      </button>
     </div>
   </div>
 </template>
@@ -278,50 +286,148 @@ export default {
 </script>
 
 <style scoped>
-/* Reusing styles from ConnectWalletModal for consistency */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background-color: rgba(12, 12, 14, 0.8);
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1050;
-  height: 100vh; /* Use viewport height to ensure full screen coverage */
 }
 
 .modal-content {
   position: relative;
   width: 90%;
-  max-width: 350px;
-  padding: 20px;
-  border: 1px solid var(--line);
-  backdrop-filter: blur(16px);
-  border-radius: 28px;
-  background: var(--bg-2);
+  max-width: 380px;
+  padding: 0;
+  border-radius: 34px;
+  background: transparent;
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.25),
+    0 0 40px rgba(255, 255, 255, 0.05);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Glassmorphism Styles */
+.glass-filter {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  filter: url(#liquid-lens);
+}
+
+.glass-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--lg-bg-color);
+}
+
+.glass-specular {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  box-shadow:
+    inset 1px 1px 0 var(--lg-highlight),
+    inset 0 0 5px var(--lg-highlight);
+  pointer-events: none;
+}
+
+.glass-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Glow Effects */
+.glow-effect-bottom {
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  height: 120px;
+  background: radial-gradient(
+    ellipse at center bottom,
+    rgb(255, 255, 255) 0%,
+    rgb(255, 255, 255) 10%,
+    rgba(var(--primary-rgb, 0, 210, 255), 1) 25%,
+    rgba(var(--primary-rgb, 0, 210, 255), 0.8) 50%,
+    transparent 80%
+  );
+  opacity: 1;
+  filter: blur(35px);
+  pointer-events: none;
+  z-index: -1;
+  mix-blend-mode: screen;
+}
+
+.glow-effect-top-left {
+  position: absolute;
+  top: -60px;
+  left: -60px;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(var(--primary-rgb, 0, 210, 255), 0.8) 30%,
+    transparent 70%
+  );
+  opacity: 0.6;
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: -1;
+  mix-blend-mode: screen;
 }
 
 .modal-body {
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .close-button {
   position: absolute;
   top: 20px;
   right: 20px;
-  background: transparent;
-  border: none;
-  color: var(--white);
-  font-size: 24px;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  z-index: 2;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
 }
 
 .title_holder {
@@ -331,14 +437,17 @@ export default {
 
 .title_holder h3 {
   font-size: 24px;
+  font-weight: 600;
   margin-bottom: 10px;
   color: #ffffff;
+  letter-spacing: -0.5px;
 }
 
 .share-content {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .divider {
@@ -358,16 +467,15 @@ export default {
 .team-id-section {
   width: 100%;
   text-align: left;
-  margin-bottom: 20px; /* Add margin to separate from the new section */
+  margin-bottom: 20px;
 }
 
-/* New styles for the split label */
 .referral-label-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: 8px; /* Same margin as the old label had */
+  margin-bottom: 8px;
 }
 
 .referral-label-text,
@@ -381,30 +489,27 @@ export default {
   font-family: 'monospace', 'BlinkMacSystemFont', sans-serif;
 }
 
-
-/* Remove the old wrapper class */
 .referral-switcher, .no-referrals-message, .loading-message {
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  padding: 10px 15px; /* Match team-id-value for consistency */
-  min-height: 80px; /* Ensure a consistent height */
+  padding: 10px 15px;
+  min-height: 80px;
 }
 
 .no-referrals-message, .loading-message {
   justify-content: center;
-  color: var(--text-2);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 14px;
-  min-height: 110px; /* Match the height of switcher + counter */
+  min-height: 110px;
 }
 .no-referrals-message p, .loading-message p {
   margin: 0;
 }
 
-/* Styles from HowToUseSection for pagination buttons */
 .pagination-item {
     display: inline-flex;
     justify-content: center;
@@ -413,16 +518,16 @@ export default {
     height: 36px;
     line-height: 36px;
     border-radius: 50%;
-    border: 1px solid var(--line);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     background: transparent;
-    color: var(--text-2);
+    color: rgba(255, 255, 255, 0.5);
     font-weight: 600;
     transition: all .3s ease;
     text-decoration: none;
 }
 
 .pagination-item:hover {
-    color: var(--primary);
+    color: var(--white);
     border-color: var(--primary);
 }
 
@@ -432,31 +537,13 @@ export default {
   pointer-events: none;
 }
 
-
-.switcher-arrow {
-  background: transparent;
-  border: none;
-  color: var(--white);
-  font-size: 24px;
-  cursor: pointer;
-  padding: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.switcher-arrow:disabled {
-  color: var(--text-2);
-  cursor: not-allowed;
-}
-
 .switcher-content {
   text-align: left;
   flex-grow: 1;
   padding: 0 10px;
 }
 
-.switcher-address, .switcher-kpi, .switcher-assets, .info-label, .info-value {
+.switcher-address, .info-label, .info-value {
   color: var(--white);
   font-size: 14px;
   font-family: 'monospace', 'BlinkMacSystemFont', sans-serif;
@@ -478,24 +565,15 @@ export default {
   align-items: center;
 }
 
-.info-row + .info-row {
-  margin-top: 0px;
-}
-
 .asset-row .info-label,
 .asset-row .info-value {
   font-weight: bold;
 }
 
-.switcher-loading {
-  font-size: 14px;
-  color: var(--text-2);
-}
-
 .referral-counter {
   margin-top: 15px;
   font-size: 12px;
-  color: var(--text-2);
+  color: rgba(255, 255, 255, 0.5);
   width: 100%;
   text-align: center;
 }
@@ -505,7 +583,7 @@ export default {
   align-items: flex-start;
   gap: 8px;
   font-size: 12px;
-  color: var(--text-2);
+  color: rgba(255, 255, 255, 0.5);
   margin-top: 8px;
   text-align: left;
 }
@@ -513,7 +591,7 @@ export default {
 .rewards-disclaimer p {
   margin: 0;
   line-height: 1.4;
-  color: #999; /* Set text color to gray */
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .icon-info {
@@ -523,34 +601,12 @@ export default {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  border: 1px solid #999; /* Set border color to gray */
+  border: 1px solid rgba(255, 255, 255, 0.5);
   font-size: 10px;
   font-weight: bold;
-  color: #999; /* Set icon color to gray */
+  color: rgba(255, 255, 255, 0.5);
   flex-shrink: 0;
   margin-top: 1px;
-}
-
-.team-id-label {
-  display: block;
-  color: var(--white);
-  font-size: 14px;
-  margin-bottom: 8px;
-  font-weight: 500;
-}
-
-.team-id-value {
-  display: block;
-  color: var(--white);
-  font-size: 14px;
-  font-family: 'monospace', 'BlinkMacSystemFont', sans-serif;
-  margin: 0;
-  padding: 10px 15px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  letter-spacing: 1px;
-  text-align: center;
 }
 
 .team-id-value-inline {
@@ -561,7 +617,7 @@ export default {
 }
 
 .share-hint {
-  color: var(--text-2);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 14px;
   margin-bottom: 4px;
   text-align: center;
@@ -584,7 +640,7 @@ export default {
 .share-link-input {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--white);
   padding: 10px 15px;
   border-radius: 8px;
@@ -600,86 +656,42 @@ export default {
   border-color: var(--primary);
 }
 
-.copy-btn {
+/* Glass Button Styles */
+.glass-btn {
   width: 100%;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 12px;
-}
-
-/* Reusing button style from ConnectWalletModal */
-.btn-ip {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: linear-gradient(0deg, rgba(20, 20, 21, 0.82), rgba(20, 20, 21, 0.82)),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 100%);
-    border: 1px solid var(--line);
-    box-shadow: 0px 1px 1px 0px #FFFFFF2E inset, 0px 0px 4px 0px #FFFFFF0F inset, 0px 0px 8px 0px #FFFFFF14 inset, 0px 0px 16px 0px #FFFFFF1F inset;
-    padding: 7px 12px;
-    border-radius: 999px;
-    transition: all .3s ease;
-    color: var(--text-2);
-    text-decoration: none;
-}
-.btn-ip:hover {
-    color: var(--primary);
-}
-
-/* Starry background effect */
-.stars-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  border-radius: 28px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--white);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
   overflow: hidden;
-}
-.modal-body {
-    position: relative;
-    z-index: 1;
-}
-.stars, .stars2, .stars3 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1px;
-  height: 1px;
+  border: none;
   background: transparent;
+  cursor: pointer;
+  text-align: center;
 }
-.stars {
-  animation: animStar 50s linear infinite;
-  box-shadow: 123px 45px #FFF, 255px 189px #FFF, 345px 8px #FFF, 99px 345px #FFF, 487px 233px #FFF, 321px 487px #FFF, 499px 10px #FFF, 23px 187px #FFF, 176px 455px #FFF, 433px 321px #FFF, 45px 23px #FFF, 231px 480px #FFF, 467px 98px #FFF, 33px 256px #FFF, 198px 321px #FFF, 349px 465px #FFF, 480px 12px #FFF, 12px 190px #FFF, 256px 432px #FFF, 490px 211px #FFF, 54px 49px #FFF, 289px 344px #FFF, 411px 189px #FFF, 76px 287px #FFF, 201px 477px #FFF, 389px 23px #FFF, 477px 376px #FFF, 156px 143px #FFF, 301px 499px #FFF, 432px 65px #FFF;
+
+.glass-btn .glass-filter {
+    filter: url(#liquid-lens);
 }
-.stars2 {
-  width: 2px;
-  height: 2px;
-  animation: animStar 100s linear infinite;
-  box-shadow: 234px 123px #FFF, 456px 345px #FFF, 12px 487px #FFF, 498px 65px #FFF, 213px 289px #FFF, 45px 456px #FFF, 345px 98px #FFF, 187px 399px #FFF, 432px 187px #FFF, 88px 88px #FFF, 287px 465px #FFF, 478px 243px #FFF, 143px 32px #FFF, 365px 398px #FFF, 499px 488px #FFF;
+
+.glass-btn .glass-specular {
+    box-shadow:
+    inset 1px 1px 0 var(--lg-highlight),
+    inset 0 0 5px var(--lg-highlight);
 }
-.stars3 {
-  width: 3px;
-  height: 3px;
-  animation: animStar 150s linear infinite;
-  box-shadow: 87px 345px #FFF, 465px 87px #FFF, 234px 487px #FFF, 487px 234px #FFF, 156px 156px #FFF, 387px 432px #FFF, 432px 32px #FFF;
+
+.btn-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
 }
-.stars:after, .stars2:after, .stars3:after {
-  content: " ";
-  position: absolute;
-  top: 250px;
-  width: inherit;
-  height: inherit;
-  background: transparent;
-  box-shadow: inherit;
-}
-@keyframes animStar {
-  from {
-    transform: translateY(0px);
-  }
-  to {
-    transform: translateY(-250px);
-  }
+
+.glass-btn:hover {
+  transform: translateY(-2px);
 }
 </style>

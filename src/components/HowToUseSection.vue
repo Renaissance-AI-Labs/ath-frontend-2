@@ -1,7 +1,7 @@
 <template>
     <section class="section-how-to" id="howToUse">
         <!-- == Head Section -->
-        <div class="sect-header">
+        <!-- <div class="sect-header">
             <div class="container">
                 <div class="s-meta text-caption font-2">
                     <p class="s-number_order wg-counter">
@@ -11,9 +11,9 @@
                 </div>
             </div>
         </div>
-        <span class="br-line"></span>
+        <span class="br-line"></span> -->
         <!-- == Tagline Section -->
-        <div class="sect-tagline">
+        <!-- <div class="sect-tagline">
             <div class="container">
                 <div class="sect-tagline_inner">
                     <span class="hafl-plus pst-left_bot wow bounceInScale"></span>
@@ -32,7 +32,7 @@
                 </div>
             </div>
         </div>
-        <span class="br-line"></span>
+        <span class="br-line"></span> -->
         <!-- == Main Section -->
         <div class="sect-main flat-animate-tab img-position">
             <!-- <div class="visual-object">
@@ -43,8 +43,11 @@
                 </div>
             </div> -->
             <div class="s-img_item wow bounceInScale">
-                <img class="lazyload" src="/asset/images/section/gradient-ring-bg.webp"
-                    data-src="/asset/images/section/gradient-ring-bg.webp" alt="Background">
+                <div class="aurora-bg">
+                    <div class="aurora-item"></div>
+                    <div class="aurora-item"></div>
+                    <div class="aurora-item"></div>
+                </div>
             </div>
             <div class="container">
                 <div class="sect-title wow fadeInUp title-position">
@@ -101,44 +104,43 @@
                         </div>
                         <template v-else>
                             <ul class="tab-how_to position-relative mx-1 wow fadeInUp" role="tablist" :class="`list-${listMode}`">
-                                <li v-for="(item, index) in stakingItems" :key="item.id" class="nav-tab-item li-style" role="presentation">
-                                    <div class="br-line has-dot"></div>
-                                    <div data-bs-toggle="tab" data-bs-target="#step3" class="btn_tab" aria-selected="true" role="tab">
-                                        <div :class="`stars-bg stars-bg-${(index % 3) + 1}`">
-                                            <div class="stars"></div>
-                                            <div class="stars2"></div>
-                                            <div class="stars3"></div>
-                                        </div>
+                                <li v-for="item in stakingItems" :key="item.id" class="nav-tab-item" role="presentation">
+                                    <div data-bs-toggle="tab" class="btn_tab" aria-selected="true" role="tab">
+                                        <div class="bottom-glow-line"></div>
                                         <div class="card-content">
-                                            <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                                                <h5 class="name h5-list-style" :data-text="`${activeTab === 'investment' ? t('howToUse.staking') : t('howToUse.redeemedStatus')}-CODE-${String(item.id + 1).padStart(2, '0')}`">
-                                                    {{ activeTab === 'investment' ? t('howToUse.staking') : t('howToUse.redeemedStatus') }}-CODE-{{ String(item.id + 1).padStart(2, '0') }}
-                                                </h5>
-                                                <h5 class="name h5-list-style" :data-text="item.stakeDate" style="min-width: 125px;">{{ item.stakeDate }}</h5>
+                                            <div class="card-header-row">
+                                                <div class="id-number-box">
+                                                    {{ String(item.id + 1).padStart(2, '0') }}
+                                                </div>
+                                                <div class="date-text">{{ item.stakeDate }}</div>
                                             </div>
-                                            <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                                                <p class="desc p-list-style">{{ t('howToUse.principal') }}$ <span style="margin-left: 0px;">{{ parseFloat(item.principal).toFixed(4) }}</span></p>
-                                                <div class="desc p-list-style" style="display: flex; flex-direction: row; justify-content: space-between; min-width: 125px;">
-                                                    <div style="width: 49%;">{{ t('howToUse.interest') }}$</div>
-                                                    <div style="width: 51%; margin-left: 2px;"><AnimatedNumber :value="parseFloat(item.principal) + parseFloat(item.interest)" :decimals="4" /></div>
-                                                     
+
+                                            <div class="card-data-stack">
+                                                <div class="data-row-item">
+                                                    <span class="label">{{ t('howToUse.principal') }}</span>
+                                                    <span class="value">$ {{ parseFloat(item.principal).toFixed(4) }}</span>
+                                                </div>
+                                                <div class="data-row-item">
+                                                    <span class="label">{{ t('howToUse.interest') }}</span>
+                                                    <span class="value highlight">$ <AnimatedNumber :value="parseFloat(item.principal) + parseFloat(item.interest)" :decimals="4" /></span>
                                                 </div>
                                             </div>
 
                                             <div class="status-box">
-                                                <CountdownTimer v-if="activeTab === 'investment'" :target-timestamp="item.expiryTimestamp" />
-                                                <span v-else class="desc clock"></span>
-                                                <div class="status-box-button">
+                                                <div v-if="activeTab === 'investment' && item.displayStatus === 'waiting'" class="countdown-wrapper">
+                                                     <CountdownTimer :target-timestamp="item.expiryTimestamp" />
+                                                </div>
+                                                
+                                                <div v-if="item.displayStatus === 'redeemable' || item.displayStatus === 'redeemed'" class="status-box-button w-100">
                                                     <button v-if="item.displayStatus === 'redeemable'" 
-                                                            class="tf-btn text-body-3 style-2 animate-btn animate-dark redeem-glow" 
+                                                            class="tf-btn text-body-3 style-2 btn-liquid animate-btn animate-dark full-width-btn" 
                                                             :disabled="unstackingStates[item.id]"
                                                             @click.prevent="handleUnstake(item.id)">
-                                                        <span :class="{ 'redeem-text-glow': !unstackingStates[item.id] }">
+                                                        <span>
                                                             {{ unstackingStates[item.id] ? t('howToUse.redeeming') : t('howToUse.redeem') }}
                                                         </span>
                                                     </button>
-                                                    <button v-else-if="item.displayStatus === 'redeemed'" class="tf-btn text-body-3 style-2 animate-btn animate-dark" disabled>{{ t('howToUse.redeemed') }}</button>
-                                                    <button v-else class="tf-btn text-body-3 style-2 animate-btn animate-dark" disabled>{{ t('howToUse.waitingRedeem') }}</button>
+                                                    <button v-else-if="item.displayStatus === 'redeemed'" class="tf-btn text-body-3 style-2 btn-liquid animate-btn animate-dark full-width-btn" disabled>{{ t('howToUse.redeemed') }}</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -146,28 +148,36 @@
                                 </li>
                             </ul>
                             <div v-if="totalPages > 1" class="pagination-list">
-                                <a href="#" class="pagination-item" @click.prevent="prevPage" :class="{ 'disabled': currentPage === 1 }">
-                                    <span class="icon icon-CaretDoubleRight fs-20" style="transform: rotate(180deg);"></span>
+                                <a href="#" class="pagination-item glass-btn" @click.prevent="prevPage" :class="{ 'disabled': currentPage === 1 }">
+                                    <div class="glass-filter"></div>
+                                    <div class="glass-specular"></div>
+                                    <div class="btn-content">
+                                        <span class="icon icon-CaretDoubleRight fs-20" style="transform: rotate(180deg);"></span>
+                                    </div>
                                 </a>
-                                <a v-for="page in displayedPages" :key="page" href="#" class="pagination-item" :class="{ 'active': currentPage === page }" @click.prevent="goToPage(page)">
-                                    <span>{{ page }}</span>
+                                <a v-for="page in displayedPages" :key="page" href="#" class="pagination-item glass-btn" :class="{ 'active': currentPage === page }" @click.prevent="goToPage(page)">
+                                    <div class="glass-filter"></div>
+                                    <div class="glass-specular"></div>
+                                    <div class="btn-content">
+                                        <span>{{ page }}</span>
+                                    </div>
                                 </a>
-                                <a href="#" class="pagination-item" @click.prevent="nextPage" :class="{ 'disabled': currentPage === totalPages }">
-                                    <span class="icon icon-CaretDoubleRight fs-20"></span>
+                                <a href="#" class="pagination-item glass-btn" @click.prevent="nextPage" :class="{ 'disabled': currentPage === totalPages }">
+                                    <div class="glass-filter"></div>
+                                    <div class="glass-specular"></div>
+                                    <div class="btn-content">
+                                        <span class="icon icon-CaretDoubleRight fs-20"></span>
+                                    </div>
                                 </a>
                             </div>
                         </template>
                     </div>
                 </div>
-                <div class="position-relative has-hafl_plus">
-                    <span class="hafl-plus pst-left_bot item_bot wow bounceInScale"></span>
-                    <span class="hafl-plus pst-right_bot item_bot wow bounceInScale"></span>
-                </div>
             </div>
         </div>
-        <span class="br-line"></span>
+        <!-- <span class="br-line"></span> -->
         <!-- == Bottom Section -->
-        <div class="sect-bottom">
+        <!-- <div class="sect-bottom">
             <div class="container">
                 <div class="box-hacker has-overlay_linear mx-1">
                     <p class="hacker-text text-caption font-2 text-uppercase hackerText">
@@ -176,7 +186,7 @@
                 </div>
             </div>
         </div>
-        <span class="br-line"></span>
+        <span class="br-line"></span> -->
         <UnstakeModal 
             v-if="showUnstakeModal" 
             :processing="unstackingStates[selectedStakingId]" 
@@ -220,7 +230,7 @@ const totalItems = ref(0); // New state for total records from contract
 const isLoading = ref(true);
 const activeTab = ref('investment'); // 'investment' or 'redemption'
 const currentPage = ref(1);
-const itemsPerPage = ref(4);
+const itemsPerPage = ref(8);
 const listMode = ref('show');
 let pollingInterval = null;
 const unstackingStates = reactive({});
@@ -477,6 +487,12 @@ const displayedPages = computed(() => {
 </script>
 <style scoped>
 
+.section-how-to {
+    --primary: #00d2ff; /* 湖蓝色主题 */
+    --primary-rgb: 0, 210, 255;
+    --primary-gradient: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
+}
+
 .tab-how_to,
 .empty-state,
 .loading-state {
@@ -496,69 +512,98 @@ const displayedPages = computed(() => {
 }
 
 .toggle-button {
-    /* Base styles from .btn-ip */
-    background: var(--primary-gradient);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 10px 20px;
-    color: #fff;
+    /* Glass container similar to HeroSection */
+    background: rgba(255, 255, 255, 0.05);
+    /* border: 1px solid rgba(255, 255, 255, 0.1); */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 100px; /* Pill shape */
+    padding: 6px;
+    color: rgba(255, 255, 255, 0.6);
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    width: 280px; /* Shorten the width */
+    width: 300px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     position: relative;
-}
-
-.toggle-button .tab-text {
-    transition: all 0.3s ease;
+    box-shadow: 
+        0 4px 10px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .toggle-button:hover {
-    box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.5);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 6px 15px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.toggle-button .tab-text {
+    flex: 1;
+    text-align: center;
+    z-index: 2;
+    padding: 8px 0;
+    border-radius: 100px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+
+.toggle-button .tab-text.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.tab-divider {
+    display: none; /* Hide divider for pill style */
 }
 
 .toggle-button:hover .tab-text {
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
 }
 
 .tab-text {
     flex-grow: 1;
     text-align: center;
-    color: rgba(255, 255, 255, 0.7); /* Dim inactive tabs */
+    color: rgba(255, 255, 255, 0.9); /* Dim inactive tabs - 调亮 */
     transition: all 0.3s ease;
 }
 
 .tab-text.active {
     color: #fff;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+    font-weight: 600;
 }
 
 .tab-divider {
     width: 1px;
     height: 20px; /* Adjust height as needed */
     background: linear-gradient(to bottom, transparent, #fff, transparent);
-    opacity: 0.5;
+    opacity: 0.8; /* 调亮 */
 }
 
 
 .empty-state,
 .loading-state {
   /* Replicating the style of .btn_tab for consistency */
-  background: rgba(20, 20, 21, 0.5);
-  border: 1px solid var(--line);
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
   padding: 50px 20px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   text-align: center;
   color: #fff;
   position: relative;
   overflow: hidden;
-  /* Adjust font size or other properties as needed */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25), 0 0 40px rgba(255, 255, 255, 0.05);
 }
 
 .empty-state p,
@@ -580,9 +625,48 @@ const displayedPages = computed(() => {
     align-items: center;
 }
 
+/* 新增 Button Liquid 样式 (参考 HeroSection) */
+.btn-liquid {
+    position: relative;
+    font-weight: 600;
+    color: #fff !important;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 
+        0 4px 6px rgba(0,0,0,0.1), 
+        inset 0 1px 0 rgba(255,255,255,0.2) !important;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden;
+    z-index: 1;
+    border-radius: 100px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-liquid:hover {
+    transform: translateY(-2px) scale(1.05);
+    background: rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 
+        0 8px 15px rgba(0,0,0,0.2), 
+        inset 0 1px 0 rgba(255,255,255,0.3),
+        0 0 20px rgba(0, 210, 255, 0.3) !important; /* 使用主题色光晕 */
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.btn-liquid:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none !important;
+}
+
 .tf-btn.style-2 {
-    background-color: #161c416b;
-    width: 100px;
+    /* background-color: #161c416b; Removed */
+    width: 120px; /* Slightly wider */
 }
 
 .tf-btn[disabled] {
@@ -590,10 +674,24 @@ const displayedPages = computed(() => {
   cursor: not-allowed;
 }
 
+.pagination-item {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.6);
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.pagination-item:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: rgba(0, 210, 255, 0.1);
+}
+
 .pagination-item.active {
-  background-color: #fff;
-  border-color: #fff;
-  color: #222;
+    background-color: rgba(0, 210, 255, 0.2); /* 通透的主题色 */
+    border-color: var(--primary);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
 }
 
 .pagination-item.disabled {
@@ -602,12 +700,125 @@ const displayedPages = computed(() => {
   pointer-events: none;
 }
 
-.img-position {
-    margin-top: 30px;
+/* 极光背景容器 */
+.s-img_item {
+    position: absolute; /* 改为绝对定位，以便重叠 */
+    top: 50px; /* 向上调整位置，覆盖标题区域 */
+    left: 0%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1000px;
+    height: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+    z-index: 0; /* 放在底层 */
+    pointer-events: none;
+}
+
+/* 确保父容器相对定位 */
+.sect-main {
+    position: relative;
+}
+
+/* 确保内容在极光之上 */
+.container {
+    position: relative;
+    z-index: 2;
+}
+
+/* 极光背景基础 */
+.aurora-bg {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    /* filter: blur(40px); */ /* 移除整体模糊，单独控制 */
+}
+
+/* 极光光斑单元 - 改为曲线光带 */
+.aurora-item {
+    position: absolute;
+    border-radius: 50%;
+    mix-blend-mode: screen;
+    filter: blur(40px);
+    opacity: 0.7;
+}
+
+/* 光带 1：主曲线 - 深湖蓝 */
+.aurora-item:nth-child(1) {
+    top: 5%;
+    left: -15%;
+    width: 130%;
+    height: 65%;
+    background: transparent;
+    border-top: 20px solid rgba(0, 210, 255, 0.5); /* 湖蓝色 */
+    border-radius: 50%;
+    box-shadow: 0 -20px 100px rgb(109 115 210), inset 0 20px 100px rgba(0, 210, 255, 0.3);
+    transform: rotate(-8deg);
+    animation: aurora-wave 14s infinite alternate ease-in-out;
+}
+
+/* 光带 2：辅助辉光 - 青色 */
+.aurora-item:nth-child(2) {
+    top: 25%;
+    left: 5%;
+    width: 90%;
+    height: 55%;
+    background: radial-gradient(ellipse at center, rgb(98 159 179), #1f1111 60%);
+    transform: rotate(2deg);
+    filter: blur(50px);
+    animation: aurora-pulse 10s infinite alternate ease-in-out;
+}
+
+/* 光带 3：反向曲线 - 蓝紫色层次 */
+.aurora-item:nth-child(3) {
+    top: 10%;
+    left: -5%;
+    width: 110%;
+    height: 70%;
+    background: transparent;
+    border-top: 15px solid rgba(0, 198, 255, 0.4); /* 亮湖蓝 */
+    border-radius: 50%;
+    box-shadow: 0 -15px 80px rgb(49 199 193);
+    transform: rotate(4deg);
+    animation: aurora-wave-reverse 18s infinite alternate ease-in-out;
+}
+
+/* 光带 4：底层深邃感 (New Layer) */
+.aurora-item:nth-child(3)::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 100, 255, 0.2), transparent 70%);
+    filter: blur(60px);
+    z-index: -1;
+}
+
+/* 极光波动动画 */
+@keyframes aurora-wave {
+    0% { transform: rotate(-5deg) translateY(0) scaleX(1); opacity: 0.6; }
+    50% { transform: rotate(-3deg) translateY(-10px) scaleX(1.05); opacity: 0.8; }
+    100% { transform: rotate(-7deg) translateY(10px) scaleX(0.95); opacity: 0.6; }
+}
+
+@keyframes aurora-wave-reverse {
+    0% { transform: rotate(3deg) translateY(0) scaleX(1); opacity: 0.5; }
+    100% { transform: rotate(6deg) translateY(15px) scaleX(1.1); opacity: 0.7; }
+}
+
+@keyframes aurora-pulse {
+    0% { transform: scale(1); opacity: 0.4; }
+    100% { transform: scale(1.2); opacity: 0.6; }
 }
 
 .title-position {
     padding-top: 0px;
+    margin-top: 100px;
 }
 
 .pagination-list {
@@ -627,15 +838,59 @@ const displayedPages = computed(() => {
 }
 
 .tab-how_to .nav-tab-item .btn_tab {
-    background: rgba(20, 20, 21, 0.5);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 16px;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    transition: all .3s ease;
+    /* HeroSection Glass Card Style */
+    /* background: rgba(255, 255, 255, 0.05);  */
+    /* border: 1px solid rgba(255, 255, 255, 0.1); */
+    border-radius: 24px; /* More rounded like Hero glass cards */
+    padding: 20px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all .3s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
     overflow: hidden;
+    /* Hero shadows */
+    box-shadow: 
+        0 6px 12px rgba(0, 0, 0, 0.25), 
+        0 0 40px rgba(255, 255, 255, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1); /* Specular highlight simulation */
+}
+
+/* Specular simulation via pseudo-element to match .glass-specular */
+.tab-how_to .nav-tab-item .btn_tab::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    padding: 1px;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0.1) 40%,
+        rgba(255, 255, 255, 0.05) 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.6;
+}
+
+.tab-how_to .nav-tab-item .btn_tab:hover {
+    transform: scale(1.02);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.3), 
+        0 0 50px rgba(255, 255, 255, 0.1);
+}
+
+/* Remove old styles */
+.tab-how_to .nav-tab-item .btn_tab::after {
+    display: none;
+}
+
+.tab-how_to .nav-tab-item .btn_tab .bottom-glow-line {
+    display: none;
 }
 
 /* .tab-how_to .nav-tab-item .btn_tab:hover {
@@ -660,9 +915,9 @@ const displayedPages = computed(() => {
 }
 
 .tab-how_to .nav-tab-item .btn_tab .status-box {
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid #ffffff2d;
+    /* margin-top: 12px; */
+    /* padding-top: 12px; */
+    /* border-top: 1px solid #ffffff2d; */
 }
 
 .li-style {
@@ -702,22 +957,22 @@ const displayedPages = computed(() => {
 }
 
 .stars {
-  animation: animStar 20s linear infinite;
-  box-shadow: 123px 45px #FFF, 255px 189px #FFF, 345px 8px #FFF, 99px 345px #FFF, 487px 233px #FFF, 321px 487px #FFF, 499px 10px #FFF, 23px 187px #FFF, 176px 455px #FFF, 433px 321px #FFF, 45px 23px #FFF, 231px 480px #FFF, 467px 98px #FFF, 33px 256px #FFF, 198px 321px #FFF, 349px 465px #FFF, 480px 12px #FFF, 12px 190px #FFF, 256px 432px #FFF, 490px 211px #FFF, 54px 49px #FFF, 289px 344px #FFF, 411px 189px #FFF, 76px 287px #FFF, 201px 477px #FFF, 389px 23px #FFF, 477px 376px #FFF, 156px 143px #FFF, 301px 499px #FFF, 432px 65px #FFF;
+  /* animation: animStar 20s linear infinite; */
+  box-shadow: 123px 45px rgba(0, 210, 255, 0.6), 255px 189px rgba(0, 210, 255, 0.6), 345px 8px rgba(0, 210, 255, 0.6), 99px 345px rgba(0, 210, 255, 0.6), 487px 233px rgba(0, 210, 255, 0.6), 321px 487px rgba(0, 210, 255, 0.6), 499px 10px rgba(0, 210, 255, 0.6), 23px 187px rgba(0, 210, 255, 0.6), 176px 455px rgba(0, 210, 255, 0.6), 433px 321px rgba(0, 210, 255, 0.6), 45px 23px rgba(0, 210, 255, 0.6), 231px 480px rgba(0, 210, 255, 0.6), 467px 98px rgba(0, 210, 255, 0.6), 33px 256px rgba(0, 210, 255, 0.6), 198px 321px rgba(0, 210, 255, 0.6), 349px 465px rgba(0, 210, 255, 0.6), 480px 12px rgba(0, 210, 255, 0.6), 12px 190px rgba(0, 210, 255, 0.6), 256px 432px rgba(0, 210, 255, 0.6), 490px 211px rgba(0, 210, 255, 0.6), 54px 49px rgba(0, 210, 255, 0.6), 289px 344px rgba(0, 210, 255, 0.6), 411px 189px rgba(0, 210, 255, 0.6), 76px 287px rgba(0, 210, 255, 0.6), 201px 477px rgba(0, 210, 255, 0.6), 389px 23px rgba(0, 210, 255, 0.6), 477px 376px rgba(0, 210, 255, 0.6), 156px 143px rgba(0, 210, 255, 0.6), 301px 499px rgba(0, 210, 255, 0.6), 432px 65px rgba(0, 210, 255, 0.6);
 }
 
 .stars2 {
   width: 2px;
   height: 2px;
-  animation: animStar 40s linear infinite;
-  box-shadow: 234px 123px #FFF, 456px 345px #FFF, 12px 487px #FFF, 498px 65px #FFF, 213px 289px #FFF, 45px 456px #FFF, 345px 98px #FFF, 187px 399px #FFF, 432px 187px #FFF, 88px 88px #FFF, 287px 465px #FFF, 478px 243px #FFF, 143px 32px #FFF, 365px 398px #FFF, 499px 488px #FFF;
+  /* animation: animStar 40s linear infinite; */
+  box-shadow: 234px 123px rgba(0, 210, 255, 0.6), 456px 345px rgba(0, 210, 255, 0.6), 12px 487px rgba(0, 210, 255, 0.6), 498px 65px rgba(0, 210, 255, 0.6), 213px 289px rgba(0, 210, 255, 0.6), 45px 456px rgba(0, 210, 255, 0.6), 345px 98px rgba(0, 210, 255, 0.6), 187px 399px rgba(0, 210, 255, 0.6), 432px 187px rgba(0, 210, 255, 0.6), 88px 88px rgba(0, 210, 255, 0.6), 287px 465px rgba(0, 210, 255, 0.6), 478px 243px rgba(0, 210, 255, 0.6), 143px 32px rgba(0, 210, 255, 0.6), 365px 398px rgba(0, 210, 255, 0.6), 499px 488px rgba(0, 210, 255, 0.6);
 }
 
 .stars3 {
   width: 3px;
   height: 3px;
-  animation: animStar 60s linear infinite;
-  box-shadow: 87px 345px #FFF, 465px 87px #FFF, 234px 487px #FFF, 487px 234px #FFF, 156px 156px #FFF, 387px 432px #FFF, 432px 32px #FFF;
+  /* animation: animStar 60s linear infinite; */
+  box-shadow: 87px 345px rgba(0, 210, 255, 0.6), 465px 87px rgba(0, 210, 255, 0.6), 234px 487px rgba(0, 210, 255, 0.6), 487px 234px rgba(0, 210, 255, 0.6), 156px 156px rgba(0, 210, 255, 0.6), 387px 432px rgba(0, 210, 255, 0.6), 432px 32px rgba(0, 210, 255, 0.6);
 }
 
 .stars:after, .stars2:after, .stars3:after {
@@ -753,21 +1008,319 @@ const displayedPages = computed(() => {
 .stars-bg-3 .stars2 { animation-delay: -20s; }
 .stars-bg-3 .stars3 { animation-delay: -30s; }
 
-.pagination-list .pagination-item {
-    width: 36px;
-    height: 36px;
-    line-height: 36px;
-}
 
-.redeem-glow {
-  /* Constant glow effect */
-  box-shadow: 0 0 12px rgba(220, 220, 220, 0.7);
-  border: 1px solid rgba(220, 220, 220, 0.3); /* A subtle border to complement the glow */
+/* .redeem-glow {
+  box-shadow: 0 0 2px rgba(220, 220, 220, 0.5);
+  border: 1px solid rgba(220, 220, 220, 0.3);
 }
 
 .redeem-text-glow {
-    /* Constant text glow */
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+} */
+
+/* Glass Effect Styles for Pagination */
+.glass-btn {
+    position: relative;
+    overflow: hidden;
+    /* border is handled by glass-specular or parent */
+}
+
+.glass-filter {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: inherit;
+    transition: all 0.3s ease;
+}
+
+.glass-specular {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
+    /* box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 5px rgba(255, 255, 255, 0.1); */
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.btn-content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.pagination-list .pagination-item {
+    width: 40px; /* Slightly larger for glass effect */
+    height: 40px;
+    line-height: 40px;
+    margin: 0 4px;
+    border-radius: 50%; /* Circle shape like roadmap */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Original Border */
+    color: rgba(255, 255, 255, 0.6); /* Original Color */
+    background: transparent; /* Glass filter handles bg */
+    transition: all 0.3s ease;
+    display: flex; /* Required for btn-content centering */
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination-list .pagination-item:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: scale(1.1); /* Slight zoom like roadmap */
+}
+
+.pagination-list .pagination-item:hover .glass-filter {
+    background: rgba(0, 210, 255, 0.1); /* Hover BG color */
+}
+
+.pagination-list .pagination-item.active {
+    border-color: var(--primary);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+}
+
+.pagination-list .pagination-item.active .glass-filter {
+    background-color: rgba(0, 210, 255, 0.2); /* Active BG color */
+}
+
+.pagination-list .pagination-item.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* New Grid Layout for Order List */
+.tab-how_to {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 0;
+}
+
+.nav-tab-item {
+    width: 100%;
+    margin-bottom: 0 !important;
+}
+
+.btn_tab {
+    height: 100%;
+    padding: 20px !important;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Internal Card Layout */
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.card-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.id-number-box {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 14px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.date-text {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.card-data-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 15px;
+}
+
+.data-col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.data-col.text-end {
+    align-items: flex-end;
+}
+
+.data-col .label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.data-col .value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.data-col .value.highlight {
+    color: var(--primary); /* Theme color */
+    font-size: 18px;
+    text-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+}
+
+.status-box {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 40px; /* Ensure height consistency */
+}
+
+.countdown-wrapper {
+    white-space: nowrap;
+    font-size: 13px;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.status-box-button {
+    margin-left: auto; /* Push to right */
+}
+
+.full-width-btn {
+    width: auto !important;
+    min-width: 100px;
+    height: 36px !important;
+    font-size: 13px !important;
+    padding: 0 15px !important;
+}
+
+/* Mobile Adaptation */
+@media (max-width: 767px) {
+    .tab-how_to {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px;
+    }
+    
+    .btn_tab {
+        padding: 14px 14px 4px 14px !important;
+    }
+    
+    .id-number-box {
+        font-size: 12px;
+        padding: 2px 8px;
+    }
+    
+    .date-text {
+        font-size: 10px;
+        transform: scale(0.9);
+        transform-origin: right center;
+    }
+    
+    .data-col .label {
+        font-size: 10px;
+    }
+    
+    .data-col .value {
+        font-size: 13px;
+    }
+    
+    .data-col .value.highlight {
+        font-size: 14px;
+    }
+    
+    .countdown-wrapper {
+        font-size: 10px;
+    }
+    
+    .full-width-btn {
+        min-width: 70px;
+        height: 30px !important;
+        font-size: 13px !important;
+        padding: 0 10px !important;
+    }
+
+    /* Mobile overrides for new stack layout */
+    .data-row-item .label {
+        font-size: 10px;
+    }
+    .data-row-item .value {
+        font-size: 12px;
+    }
+    .data-row-item .value.highlight {
+        font-size: 13px;
+    }
+}
+
+/* New Stack Layout Styles */
+.card-data-stack {
+    display: flex;
+    flex-direction: column;
+    /* gap: 12px; */
+    /* margin-bottom: 15px; */
+    /* border-bottom: 1px solid rgba(255, 255, 255, 0.1); */
+    /* padding-bottom: 15px; */
+}
+
+.data-row-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.data-row-item .label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.data-row-item .value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.data-row-item .value.highlight {
+    color: #7bcee3;
+    font-size: 16px;
+    text-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+}
+
+.countdown-wrapper {
+    width: 100%;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 14px;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.status-box-button.w-100 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.full-width-btn {
+    width: 100% !important;
+    justify-content: center;
+    display: flex;
 }
 </style>
 

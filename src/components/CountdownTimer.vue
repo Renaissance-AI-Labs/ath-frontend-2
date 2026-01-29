@@ -1,5 +1,5 @@
 <template>
-  <span class="desc clock">{{ t('countdown.remaining') }}{{ displayTime }}</span>
+  <span class="desc clock">{{ displayTime }}</span>
 </template>
 
 <script setup>
