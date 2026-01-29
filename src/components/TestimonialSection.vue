@@ -357,6 +357,14 @@ export default {
     transform: scale(1.1);
 }
 
+.btn-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .pagination-dots {
     display: flex;
     gap: 8px;

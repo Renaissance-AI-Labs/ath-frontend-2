@@ -110,12 +110,10 @@
                                                 <a href="#" @click.prevent="shareFriendLink" class="btn-liquid compact-btn">
                                                     {{ t('hero.shareFriend') }}
                                                 </a>
-                                                <div class="reward-button-wrapper" v-if="isAuthenticated">
-                                                    <a href="#" @click.prevent="handleClaimLevelReward" class="btn-liquid compact-btn">
-                                                        {{ t('hero.achievementReward') }}
-                                                    </a>
+                                                <a href="#" v-if="isAuthenticated" @click.prevent="handleClaimLevelReward" class="btn-liquid compact-btn">
+                                                    {{ t('hero.achievementReward') }}
                                                     <div v-if="walletState.hasClaimableRewards" class="red-dot-liquid"></div>
-                                                </div>
+                                                </a>
                                             </div>
 
                                         </div>
@@ -815,16 +813,16 @@ onUnmounted(() => {
     text-overflow: ellipsis;
 }
 
-/* Specific fix for reward button wrapper to match height */
-.reward-button-wrapper {
+/* Specific fix for reward button wrapper - REMOVED */
+/* .reward-button-wrapper {
     position: relative;
-    display: flex; /* Ensure wrapper behaves like a flex item */
+    display: flex; 
     flex: 1;
-}
+} */
 
-.reward-button-wrapper .btn-liquid {
-    width: 100%; /* Fill wrapper */
-}
+/* .reward-button-wrapper .btn-liquid {
+    width: 100%;
+} */
 
 .btn-liquid {
     position: relative;
