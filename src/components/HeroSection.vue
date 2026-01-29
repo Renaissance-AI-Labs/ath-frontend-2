@@ -1,38 +1,5 @@
 <template>
     <section class="section-hero">
-        <!-- == Head Section -->
-        <!-- <div class="sect-header">
-            <div class="container">
-                <div class="s-meta text-caption font-2">
-                    <p class="s-number_order wg-counter">
-                        [ <span class="text-white">BACK</span> TO ]
-                    </p>
-                    <p class="s-label">[ <span class="text-white hacker-text_transform">FUTURE</span> ]</p>
-                </div>
-            </div>
-        </div> -->
-        <!-- <span class="br-line"></span> -->
-        <!-- == Tagline Section -->
-        <!-- <div class="sect-tagline">
-            <div class="container">
-                <div class="sect-tagline_inner">
-                    <span class="hafl-plus pst-left_bot wow bounceInScale"></span>
-                    <span class="hafl-plus pst-right_bot wow bounceInScale"></span>
-                    <p class="s-name text-caption font-2">
-                        <span class="bar-group type-left">
-                            <span class="bar_center"></span>
-                        </span>
-                        <span class="hacker-text_transform no-delay">
-                            THE ULTIMATE DECENTRALIZED AUTONOMOUS ECOSYSTEM
-                        </span>
-                        <span class="bar-group type-right">
-                            <span class="bar_center"></span>
-                        </span>
-                    </p>
-                </div>
-            </div>
-        </div> -->
-        <!-- <span class="br-line"></span> -->
         <!-- == Main Section -->
         <div class="sect-main">
             <div class="container">
@@ -143,12 +110,10 @@
                                                 <a href="#" @click.prevent="shareFriendLink" class="btn-liquid compact-btn">
                                                     {{ t('hero.shareFriend') }}
                                                 </a>
-                                                <div class="reward-button-wrapper" v-if="isAuthenticated">
-                                                    <a href="#" @click.prevent="handleClaimLevelReward" class="btn-liquid compact-btn">
-                                                        {{ t('hero.achievementReward') }}
-                                                    </a>
+                                                <a href="#" v-if="isAuthenticated" @click.prevent="handleClaimLevelReward" class="btn-liquid compact-btn">
+                                                    {{ t('hero.achievementReward') }}
                                                     <div v-if="walletState.hasClaimableRewards" class="red-dot-liquid"></div>
-                                                </div>
+                                                </a>
                                             </div>
 
                                         </div>
@@ -848,16 +813,16 @@ onUnmounted(() => {
     text-overflow: ellipsis;
 }
 
-/* Specific fix for reward button wrapper to match height */
-.reward-button-wrapper {
+/* Specific fix for reward button wrapper - REMOVED */
+/* .reward-button-wrapper {
     position: relative;
-    display: flex; /* Ensure wrapper behaves like a flex item */
+    display: flex; 
     flex: 1;
-}
+} */
 
-.reward-button-wrapper .btn-liquid {
-    width: 100%; /* Fill wrapper */
-}
+/* .reward-button-wrapper .btn-liquid {
+    width: 100%;
+} */
 
 .btn-liquid {
     position: relative;
