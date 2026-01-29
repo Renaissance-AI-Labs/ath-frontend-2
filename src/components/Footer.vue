@@ -16,7 +16,7 @@
                             <!-- <a class="footer-logo">
                                 <img class="logo-img" src="/asset/images/logo/athenax-06.png" alt="ATHENA Logo">
                             </a> -->
-                            <p class="brand-desc">Athena Protocol</p>
+                            <p class="brand-desc">Athena Protocol X</p>
                         </div>
 
                         <!-- Links Columns -->

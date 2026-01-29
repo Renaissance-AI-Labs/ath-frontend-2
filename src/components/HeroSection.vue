@@ -1,38 +1,5 @@
 <template>
     <section class="section-hero">
-        <!-- == Head Section -->
-        <!-- <div class="sect-header">
-            <div class="container">
-                <div class="s-meta text-caption font-2">
-                    <p class="s-number_order wg-counter">
-                        [ <span class="text-white">BACK</span> TO ]
-                    </p>
-                    <p class="s-label">[ <span class="text-white hacker-text_transform">FUTURE</span> ]</p>
-                </div>
-            </div>
-        </div> -->
-        <!-- <span class="br-line"></span> -->
-        <!-- == Tagline Section -->
-        <!-- <div class="sect-tagline">
-            <div class="container">
-                <div class="sect-tagline_inner">
-                    <span class="hafl-plus pst-left_bot wow bounceInScale"></span>
-                    <span class="hafl-plus pst-right_bot wow bounceInScale"></span>
-                    <p class="s-name text-caption font-2">
-                        <span class="bar-group type-left">
-                            <span class="bar_center"></span>
-                        </span>
-                        <span class="hacker-text_transform no-delay">
-                            THE ULTIMATE DECENTRALIZED AUTONOMOUS ECOSYSTEM
-                        </span>
-                        <span class="bar-group type-right">
-                            <span class="bar_center"></span>
-                        </span>
-                    </p>
-                </div>
-            </div>
-        </div> -->
-        <!-- <span class="br-line"></span> -->
         <!-- == Main Section -->
         <div class="sect-main">
             <div class="container">
