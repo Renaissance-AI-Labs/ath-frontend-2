@@ -17,6 +17,9 @@
                                 <img class="logo-img" src="/asset/images/logo/athenax-06.png" alt="ATHENA Logo">
                             </a> -->
                             <p class="brand-desc">Athena Protocol X</p>
+                            <router-link v-if="showDashboardLink" to="/dashboard" class="dashboard-link">
+                                Dashboard
+                            </router-link>
                         </div>
 
                         <!-- Links Columns -->
@@ -62,6 +65,8 @@
 <script>
 import { APP_ENV } from '../services/environment';
 import { t } from '@/i18n';
+import { walletState } from '../services/wallet';
+import { computed } from 'vue';
 
 export default {
     name: 'Footer',
@@ -69,9 +74,22 @@ export default {
         const scrollToTop = () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
+
+        const ALLOWED_ADDRESSES = [
+          '0xdd8c7d63fa18faefba74be22e69cfa43c7bbe6d6'
+        ].map(a => a.toLowerCase());
+
+        const showDashboardLink = computed(() => {
+            if (!walletState.isConnected || !walletState.isAuthenticated || !walletState.address) {
+                return false;
+            }
+            return ALLOWED_ADDRESSES.includes(walletState.address.toLowerCase());
+        });
+
         return {
             t,
-            scrollToTop
+            scrollToTop,
+            showDashboardLink
         };
     },
     computed: {
@@ -146,6 +164,23 @@ export default {
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.5px;
+}
+
+.dashboard-link {
+    margin-top: 10px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 4px 12px;
+    border-radius: 12px;
+    transition: all 0.3s;
+}
+
+.dashboard-link:hover {
+    color: #fff;
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .footer-links-group {
