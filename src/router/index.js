@@ -16,11 +16,6 @@ import PersonalCenterView from '../views/PersonalCenterView.vue';
 import DashboardView from '../views/DashboardView.vue'; // Import Dashboard
 import { walletState, ensureCorrectNetwork } from '../services/wallet';
 
-const ALLOWED_ADDRESSES = [
-  '0xdd8c7d63fa18faefba74be22e69cfa43c7bbe6d6',
-  '0xbb503566f6ec31e8420be628f57cdde11ec654fa'
-].map(addr => addr.toLowerCase());
-
 const routes = [
   {
     path: '/',
