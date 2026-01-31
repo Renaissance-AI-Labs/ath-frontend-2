@@ -114,6 +114,7 @@ import {
 } from 'echarts/components';
 import { fetchGlobalDashboardData, fetchTeamDashboardData, fetchAllTeams } from '../services/subgraph';
 import { walletState, formatAddress as formatAddr } from '../services/wallet';
+import { DASHBOARD_WHITELIST } from '../services/environment';
 
 // Register ECharts components
 use([
@@ -151,24 +152,20 @@ const globalBarOption = ref({});
 const teamPieOption = ref({});
 const teamBarOption = ref({});
 
-const ALLOWED_ADDRESSES = [
-  '0xdd8c7d63fa18faefba74be22e69cfa43c7bbe6d6'
-].map(a => a.toLowerCase());
-
 const DECIMALS = 1e18; 
 
 // --- ACCESS CONTROL LOGIC ---
 const checkAccess = () => {
   const cachedAddress = localStorage.getItem('ath_walletAddress')?.toLowerCase();
   
-  if (!cachedAddress || !ALLOWED_ADDRESSES.includes(cachedAddress)) {
+  if (!cachedAddress || !DASHBOARD_WHITELIST.includes(cachedAddress)) {
     console.warn('Dashboard denied: No valid cached session.');
     router.replace('/');
     return;
   }
 
   if (walletState.isConnected && walletState.isAuthenticated) {
-    if (ALLOWED_ADDRESSES.includes(walletState.address.toLowerCase())) {
+    if (DASHBOARD_WHITELIST.includes(walletState.address.toLowerCase())) {
       grantAccess();
     } else {
       router.replace('/');
@@ -185,7 +182,7 @@ const checkAccess = () => {
 
   const unwatch = watch(() => [walletState.isConnected, walletState.isAuthenticated], ([connected, auth]) => {
     if (connected && auth) {
-      if (ALLOWED_ADDRESSES.includes(walletState.address.toLowerCase())) {
+      if (DASHBOARD_WHITELIST.includes(walletState.address.toLowerCase())) {
         clearTimeout(timeout);
         unwatch();
         grantAccess();

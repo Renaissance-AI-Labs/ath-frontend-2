@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { APP_ENV } from '../services/environment';
+import { APP_ENV, DASHBOARD_WHITELIST } from '../services/environment';
 import { t } from '@/i18n';
 import { walletState } from '../services/wallet';
 import { computed } from 'vue';
@@ -75,15 +75,11 @@ export default {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
-        const ALLOWED_ADDRESSES = [
-          '0xdd8c7d63fa18faefba74be22e69cfa43c7bbe6d6'
-        ].map(a => a.toLowerCase());
-
         const showDashboardLink = computed(() => {
             if (!walletState.isConnected || !walletState.isAuthenticated || !walletState.address) {
                 return false;
             }
-            return ALLOWED_ADDRESSES.includes(walletState.address.toLowerCase());
+            return DASHBOARD_WHITELIST.includes(walletState.address.toLowerCase());
         });
 
         return {
