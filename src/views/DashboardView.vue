@@ -310,10 +310,16 @@ const getPieOption = (statData) => {
         type: 'pie',
         radius: ['40%', '70%'],
         avoidLabelOverlap: false,
-        itemStyle: { borderRadius: 10, borderColor: '#1a1a1a', borderWidth: 2 },
-        label: { show: false, position: 'center' },
-        emphasis: { label: { show: true, fontSize: 20, fontWeight: 'bold', color: '#fff' } },
-        labelLine: { show: false },
+        itemStyle: { borderRadius: 10, borderColor: '#fff', borderWidth: 2 },
+        label: {
+          show: true,
+          position: 'outside',
+          formatter: '{b}: {c}',
+          color: '#fff',
+          fontSize: 12
+        },
+        emphasis: { label: { show: true, fontSize: 14, fontWeight: 'bold' } },
+        labelLine: { show: true, length: 15, length2: 10 },
         data: data.length ? data : [{ value: 0, name: '无数据' }]
       }
     ]
