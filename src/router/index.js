@@ -13,6 +13,7 @@ import XBrokersEventView from '../views/XBrokersEventView.vue';
 import CrashView from '../views/CrashView.vue';
 import ShareholderView from '../views/ShareholderView.vue';
 import PersonalCenterView from '../views/PersonalCenterView.vue';
+import DashboardView from '../views/DashboardView.vue'; // Import Dashboard
 import { walletState, ensureCorrectNetwork } from '../services/wallet';
 
 const routes = [
@@ -83,6 +84,12 @@ const routes = [
     path: '/use-case-detail',
     name: 'UseCaseDetail',
     component: UseCaseDetailView,
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: DashboardView,
+    // Permission check moved to component to handle auto-connect delay
   },
   {
     path: '/:pathMatch(.*)*',

@@ -81,3 +81,12 @@ export const ENABLE_XBROKERS_ENTRANCE = false;
  * In non-production environments (test/dev), it is always enabled regardless of this flag.
  */
 export const ENABLE_CRASH_GAME = true;
+
+/**
+ * Whitelisted addresses for Dashboard access.
+ * These addresses are allowed to view the hidden dashboard page.
+ */
+export const DASHBOARD_WHITELIST = [
+  '0xdd8c7d63fa18faefba74be22e69cfa43c7bbe6d6',
+  '0xbb503566f6ec31e8420be628f57cdde11ec654fa'
+].map(addr => addr.toLowerCase());
