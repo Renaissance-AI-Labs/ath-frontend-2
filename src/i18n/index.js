@@ -314,6 +314,21 @@ const languagePacks = {
     'personal.connectWalletHint': '请连接钱包查看个人数据',
     'personal.connectWalletBtn': '连接钱包',
     
+    // Welfare
+    'welfare.title': '历史质押福利',
+    'welfare.unclaimed': '待领取',
+    'welfare.claimed': '已领取',
+    'welfare.batchClaim': '本页一键领取',
+    'welfare.claiming': '领取中...',
+    'welfare.claim': '领取',
+    'welfare.orderId': '订单号',
+    'welfare.statusActive': '质押中',
+    'welfare.statusEnded': '已结束/赎回',
+    'welfare.noRecords': '暂无福利记录',
+    'welfare.connectFirst': '请先连接钱包查看',
+    'welfare.addToken': '添加 ATHP',
+    'welfare.pageUnclaimed': '本页待领: {count} 笔',
+    
     // Common
     'common.loading': 'Loading...',
     'common.token': 'TOKEN',
@@ -647,6 +662,21 @@ const languagePacks = {
     'personal.need': '還需',
     'personal.connectWalletHint': '請連接錢包查看個人數據',
     'personal.connectWalletBtn': '連接錢包',
+    
+    // Welfare
+    'welfare.title': '歷史質押福利',
+    'welfare.unclaimed': '待領取',
+    'welfare.claimed': '已領取',
+    'welfare.batchClaim': '本頁一鍵領取',
+    'welfare.claiming': '領取中...',
+    'welfare.claim': '領取',
+    'welfare.orderId': '訂單號',
+    'welfare.statusActive': '質押中',
+    'welfare.statusEnded': '已結束/贖回',
+    'welfare.noRecords': '暫無福利記錄',
+    'welfare.connectFirst': '請先連接錢包查看',
+    'welfare.addToken': '添加 ATHP',
+    'welfare.pageUnclaimed': '本頁待領: {count} 筆',
     
     // Common
     'common.loading': 'Loading...',
@@ -991,6 +1021,21 @@ const languagePacks = {
     'personal.connectWalletHint': 'Please connect wallet to view personal data',
     'personal.connectWalletBtn': 'Connect Wallet',
     
+    // Welfare
+    'welfare.title': 'Staking Welfare',
+    'welfare.unclaimed': 'Unclaimed',
+    'welfare.claimed': 'Claimed',
+    'welfare.batchClaim': 'Claim All on Page',
+    'welfare.claiming': 'Claiming...',
+    'welfare.claim': 'Claim',
+    'welfare.orderId': 'Order ID',
+    'welfare.statusActive': 'Staking',
+    'welfare.statusEnded': 'Ended/Redeemed',
+    'welfare.noRecords': 'No welfare records',
+    'welfare.connectFirst': 'Please connect wallet',
+    'welfare.addToken': 'Add ATHP',
+    'welfare.pageUnclaimed': 'Unclaimed on page: {count}',
+    
     // Common
     'common.loading': 'Loading...',
     'common.token': 'TOKEN',
@@ -1325,6 +1370,21 @@ const languagePacks = {
     'personal.connectWalletHint': '個人データを確認するにはウォレットを接続してください',
     'personal.connectWalletBtn': 'ウォレット接続',
     
+    // Welfare
+    'welfare.title': 'ステーキング福祉',
+    'welfare.unclaimed': '未請求',
+    'welfare.claimed': '請求済み',
+    'welfare.batchClaim': 'ページ一括請求',
+    'welfare.claiming': '請求中...',
+    'welfare.claim': '請求',
+    'welfare.orderId': '注文ID',
+    'welfare.statusActive': 'ステーキング中',
+    'welfare.statusEnded': '終了/償還済み',
+    'welfare.noRecords': '福祉記録なし',
+    'welfare.connectFirst': 'ウォレットを接続してください',
+    'welfare.addToken': 'ATHPを追加',
+    'welfare.pageUnclaimed': 'ページ内未請求: {count} 件',
+    
     // Common
     'common.loading': 'Loading...',
     'common.token': 'TOKEN',
@@ -1658,6 +1718,21 @@ const languagePacks = {
     'personal.need': '필요',
     'personal.connectWalletHint': '개인 데이터를 보려면 지갑을 연결하세요',
     'personal.connectWalletBtn': '지갑 연결',
+    
+    // Welfare
+    'welfare.title': '스테이킹 복지',
+    'welfare.unclaimed': '미청구',
+    'welfare.claimed': '청구됨',
+    'welfare.batchClaim': '페이지 일괄 청구',
+    'welfare.claiming': '청구 중...',
+    'welfare.claim': '청구',
+    'welfare.orderId': '주문 ID',
+    'welfare.statusActive': '스테이킹 중',
+    'welfare.statusEnded': '종료/상환됨',
+    'welfare.noRecords': '복지 기록 없음',
+    'welfare.connectFirst': '지갑을 연결해 주세요',
+    'welfare.addToken': 'ATHP 추가',
+    'welfare.pageUnclaimed': '페이지 미청구: {count} 건',
     
     // Common
     'common.loading': 'Loading...',

@@ -14,6 +14,7 @@ import CrashView from '../views/CrashView.vue';
 import ShareholderView from '../views/ShareholderView.vue';
 import PersonalCenterView from '../views/PersonalCenterView.vue';
 import DashboardView from '../views/DashboardView.vue'; // Import Dashboard
+import WelfareView from '../views/WelfareView.vue'; // Import WelfareView
 import { walletState, ensureCorrectNetwork } from '../services/wallet';
 
 const routes = [
@@ -90,6 +91,11 @@ const routes = [
     name: 'Dashboard',
     component: DashboardView,
     // Permission check moved to component to handle auto-connect delay
+  },
+  {
+    path: '/welfare',
+    name: 'Welfare',
+    component: WelfareView,
   },
   {
     path: '/:pathMatch(.*)*',
