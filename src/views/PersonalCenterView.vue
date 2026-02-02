@@ -1,59 +1,50 @@
 <template>
-  <div>
-    <!-- Page Title -->
-    <div class="section-page-title">
-      <div class="sect-tagline">
-        <div class="container">
-          <div class="sect-tagline_inner">
-            <span class="hafl-plus pst-left_bot wow bounceInScale"></span>
-            <span class="hafl-plus pst-right_bot wow bounceInScale"></span>
-            <div class="s-name text-caption font-2">
-              <span class="bar-group type-left">
-                <span class="bar_center"></span>
-              </span>
-              <div class="breadcrumbs-list">
-                <!-- <router-link to="/" class="text-white link font-2">
-                  {{ t('personal.home') }}
-                </router-link>
-                <span>/</span> -->
-                <span class="hacker-text_transform no-delay current-page">
-                  {{ t('personal.title') }}
-                </span>
-              </div>
-              <span class="bar-group type-right">
-                <span class="bar_center"></span>
-              </span>
-            </div>
-          </div>
+  <div class="personal-page">
+    <!-- Background Effect -->
+    <div class="s-img_item">
+      <div class="aurora-bg">
+        <div class="aurora-item"></div>
+        <div class="aurora-item"></div>
+        <div class="aurora-item"></div>
+      </div>
+    </div>
+
+    <div class="page-container">
+      <!-- Header -->
+      <div class="page-header wow fadeInUp">
+        <div class="header-content">
+          <h1 class="page-title">
+            {{ t('personal.title') }}
+          </h1>
+          <p class="page-subtitle">{{ t('personal.subtitle') || 'Level up to unlock more benefits' }}</p>
         </div>
       </div>
-      <span class="br-line"></span>
-    </div>
-    <!-- /Page Title -->
 
-    <section class="flat-spacing-3 pt-5">
-      <div class="container">
+      <!-- Content -->
+      <div class="content-wrapper wow fadeInUp" data-wow-delay="0.1s">
         <div class="row">
           <div class="col-lg-10 col-xl-8 mx-auto">
             
             <!-- User Stats Section -->
-            <div class="stats-grid mb-5">
-              <div class="row align-items-center">
-                <div class="col-12 mb-4">
-                  <div class="stat-item text-center">
-                    <h5 class="font-2 text-white opacity-75 mb-2 text-uppercase spacing-1">{{ t('personal.currentLevel') }}</h5>
-                    <div class="stat-value">
-                      <span class="font-3 text-white h1 fw-bold">Lv {{ userLevel }}</span>
+            <div class="glass-card mb-4">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col-md-6 mb-4 mb-md-0">
+                    <div class="stat-item text-center">
+                      <h5 class="label mb-2">{{ t('personal.currentLevel') }}</h5>
+                      <div class="stat-value">
+                        <span class="amount-value h1 fw-bold">Lv {{ userLevel }}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                
-                <div class="col-12">
-                  <div class="stat-item text-center">
-                    <h5 class="font-2 text-white opacity-75 mb-2 text-uppercase spacing-1">{{ t('personal.teamTotalBet') }}</h5>
-                    <div class="stat-value">
-                      <span class="font-3 text-linear h2 fw-bold">{{ formatAmount(totalWin) }}</span>
-                      <span class="font-2 text-white opacity-75 ms-2">{{ t('common.ath') }}</span>
+                  
+                  <div class="col-md-6">
+                    <div class="stat-item text-center">
+                      <h5 class="label mb-2">{{ t('personal.teamTotalBet') }}</h5>
+                      <div class="stat-value">
+                        <span class="amount-value h2 fw-bold text-gradient">{{ formatAmount(totalWin) }}</span>
+                        <span class="amount-unit">{{ t('common.ath') }}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -61,12 +52,12 @@
             </div>
 
             <!-- Level Up Progress Bar -->
-            <div class="progress-section px-4 px-md-5">
-               <div class="d-flex justify-content-between align-items-end mb-3">
-                 <h4 class="font-3 text-white mb-0 h5">
+            <div class="glass-card">
+              <div class="card-header mb-3">
+                 <h4 class="text-white mb-0 h5 font-weight-bold">
                    {{ isMaxLevel ? t('personal.maxLevelReached') : t('personal.nextLevelProgress') }}
                  </h4>
-               </div>
+              </div>
                
                <div v-if="!isMaxLevel" class="level-progress-container">
                  <div class="progress-track">
@@ -75,34 +66,42 @@
                     </div>
                  </div>
                  
-                 <div class="d-flex justify-content-between text-caption text-white opacity-50 mt-2 font-2">
+                 <div class="d-flex justify-content-between label mt-3">
                     <span>{{ t('personal.current') }}: {{ formatAmount(totalWin) }}</span>
-                    <span>{{ t('personal.target') }}: {{ formatAmount(nextLevelTarget) }} ({{ t('personal.need') }} {{ formatAmount(remainingToNextLevel) }} {{ t('common.ath') }})</span>
+                    <span>{{ t('personal.target') }}: {{ formatAmount(nextLevelTarget) }}</span>
+                 </div>
+                 <div class="text-center mt-2 label" style="opacity: 0.8;">
+                    {{ t('personal.need') }} <span class="text-white">{{ formatAmount(remainingToNextLevel) }}</span> {{ t('common.ath') }}
                  </div>
                </div>
                
                <div v-else class="text-center py-4">
-                 <p class="text-linear h4 font-3">{{ t('personal.maxLevelDesc') }}</p>
+                 <p class="text-gradient h4">{{ t('personal.maxLevelDesc') }}</p>
                </div>
             </div>
 
             <!-- Loading/Connect Hint -->
             <div v-if="!walletState.isConnected" class="text-center mt-5">
                <p class="text-white mb-4 opacity-75">{{ t('personal.connectWalletHint') }}</p>
-               <a href="#" @click.prevent="connectWallet" class="tf-btn style-2 text-body-3 animate-btn animate-dark px-5">
-                  {{ t('personal.connectWalletBtn') }}
-               </a>
+               <button @click.prevent="connectWallet" class="btn-liquid">
+                  <span>{{ t('personal.connectWalletBtn') }}</span>
+               </button>
             </div>
 
           </div>
         </div>
       </div>
-    </section>
+    </div>
 
     <!-- Sidebar Trigger Button -->
-    <div class="btn-sidebar-mb d-lg-none right">
-        <button @click="openSidebar" style="background-color: #111111;">
-            <img src="/asset/images/section/speed.svg" alt="Menu" width="50" height="50" style="transform: rotate(180deg);">
+    <div class="btn-sidebar-mb right">
+        <button @click="openSidebar" class="nav-btn glass-btn sidebar-trigger">
+            <div class="glass-filter"></div>
+            <div class="glass-specular"></div>
+            <div class="btn-content">
+                 <!-- Hamburger Icon -->
+                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </div>
         </button>
     </div>
 
@@ -265,16 +264,191 @@ export default {
 </script>
 
 <style scoped>
-.stats-grid {
-    padding: 20px 0;
+.personal-page {
+  min-height: 100vh;
+  background-color: #0f0f0f;
+  color: #fff;
+  padding: 40px 10px 0px 10px;
+  position: relative;
+  overflow-x: hidden;
+  --primary: #00d2ff;
 }
 
-.border-white-10 {
-    border-color: rgba(255, 255, 255, 0.1) !important;
+/* Background Effects */
+.s-img_item {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 30%, rgba(15, 20, 30, 0.4) 0%, #0f0f0f 100%);
 }
 
-.spacing-1 {
-    letter-spacing: 1px;
+.s-img_item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background: linear-gradient(to bottom, 
+        #0f0f0f 0%, 
+        rgba(15, 15, 15, 0.9) 15%, 
+        transparent 30%, 
+        transparent 60%, 
+        rgba(15, 15, 15, 0.9) 85%, 
+        #0f0f0f 100%
+    );
+}
+
+.aurora-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+.aurora-item {
+    position: absolute;
+    border-radius: 50%;
+    mix-blend-mode: screen;
+    filter: blur(80px);
+    opacity: 0.8;
+}
+
+.aurora-item:nth-child(1) {
+    top: -10%;
+    left: -10%;
+    width: 80%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(60, 50, 255, 0.5), transparent 70%);
+    animation: aurora-1 15s infinite alternate;
+}
+
+.aurora-item:nth-child(2) {
+    top: 20%;
+    right: -10%;
+    width: 70%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(140, 30, 255, 0.45), transparent 70%);
+    animation: aurora-2 20s infinite alternate;
+}
+
+.aurora-item:nth-child(3) {
+    bottom: -20%;
+    left: 20%;
+    width: 80%;
+    height: 50%;
+    background: radial-gradient(circle, rgba(100, 100, 255, 0.4), transparent 70%);
+    animation: aurora-3 18s infinite alternate;
+}
+
+@keyframes aurora-1 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(5%, 5%) scale(1.1); }
+}
+@keyframes aurora-2 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-5%, 10%) scale(1.1); }
+}
+@keyframes aurora-3 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(5%, -5%) scale(1.05); }
+}
+
+.page-container {
+  max-width: 900px;
+  width: 95%;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  padding-bottom: 60px;
+}
+
+.page-header {
+  padding: 20px 0 40px;
+  text-align: center;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(90deg, #fff, #888);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+.page-subtitle {
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 5px;
+  font-size: 0.9rem;
+}
+
+/* Glass Card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+      0 6px 12px rgba(0, 0, 0, 0.25), 
+      0 0 40px rgba(255, 255, 255, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glass-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0.1) 40%,
+        rgba(255, 255, 255, 0.05) 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.6;
+}
+
+.label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.amount-value {
+  color: #fff;
+}
+
+.amount-unit {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-left: 5px;
+}
+
+.text-gradient {
+    background: linear-gradient(90deg, #00C8FF, #0080FF);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 /* Progress Bar Styles */
@@ -284,8 +458,8 @@ export default {
 
 .progress-track {
     width: 100%;
-    height: 8px; /* Thinner track for cleaner look */
-    background: rgba(255, 255, 255, 0.08); /* More subtle track */
+    height: 8px;
+    background: rgba(255, 255, 255, 0.08);
     border-radius: 4px;
     overflow: hidden;
     position: relative;
@@ -299,7 +473,7 @@ export default {
     transition: width 0.6s ease-out;
     position: relative;
     animation: gradientMove 3s linear infinite;
-    box-shadow: 0 0 15px rgba(0, 200, 255, 0.4); /* Add glow to the bar itself */
+    box-shadow: 0 0 15px rgba(0, 200, 255, 0.4);
 }
 
 .progress-glow {
@@ -307,7 +481,7 @@ export default {
     top: 0;
     right: 0;
     bottom: 0;
-    width: 20px; /* Wider glow */
+    width: 20px;
     background: rgba(255, 255, 255, 0.8);
     box-shadow: 0 0 20px rgba(255, 255, 255, 1);
     filter: blur(4px);
@@ -317,5 +491,87 @@ export default {
 @keyframes gradientMove {
     0% { background-position: 100% 0; }
     100% { background-position: 0 0; }
+}
+
+/* Liquid Button */
+.btn-liquid {
+  position: relative;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 12px 30px;
+  border-radius: 100px;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-liquid:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Sidebar Trigger Button Styling */
+.btn-sidebar-mb {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  top: auto;
+  transform: none;
+  z-index: 9990;
+}
+
+.nav-btn.sidebar-trigger {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s;
+    flex: unset;
+    padding: 0;
+}
+
+.nav-btn.sidebar-trigger:hover {
+    transform: scale(1.1);
+}
+
+.nav-btn.sidebar-trigger .btn-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn.sidebar-trigger .glass-filter {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.nav-btn.sidebar-trigger .glass-specular {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 5px rgba(255, 255, 255, 0.1);
+    pointer-events: none;
 }
 </style>

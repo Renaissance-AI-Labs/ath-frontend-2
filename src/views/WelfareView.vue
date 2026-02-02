@@ -218,6 +218,24 @@
           </div>
         </div>
       </div>
+
+    <!-- Sidebar Trigger Button -->
+    <div class="btn-sidebar-mb right">
+        <button @click="openSidebar" class="nav-btn glass-btn sidebar-trigger">
+            <div class="glass-filter"></div>
+            <div class="glass-specular"></div>
+            <div class="btn-content">
+                 <!-- Hamburger Icon -->
+                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </div>
+        </button>
+    </div>
+
+    <!-- Right Sidebar -->
+    <HomeRightSidebar 
+      :is-open="isSidebarOpen" 
+      @close="closeSidebar" 
+    />
     </div>
   </div>
 </template>
@@ -234,6 +252,7 @@ import { walletState } from '../services/wallet';
 import { showToast } from '../services/notification';
 import { t } from '../i18n';
 import AnimatedNumber from '../components/AnimatedNumber.vue';
+import HomeRightSidebar from '../components/HomeRightSidebar.vue';
 
 // State
 const activeTab = ref(1); // 1: Unclaimed, 2: Claimed
@@ -245,6 +264,7 @@ const batchClaiming = ref(false);
 const unclaimedTotal = ref(0); // Total count from contract
 const showAddTokenModal = ref(false);
 const showClaimModal = ref(false);
+const isSidebarOpen = ref(false);
 
 // Pagination
 const limit = 20;
@@ -387,6 +407,14 @@ const formatAmount = (val) => {
   if (isNaN(num)) return '0.00';
   return num.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 });
 };
+
+const openSidebar = () => {
+  isSidebarOpen.value = true;
+};
+
+const closeSidebar = () => {
+  isSidebarOpen.value = false;
+};
 </script>
 
 <style scoped>
@@ -394,7 +422,7 @@ const formatAmount = (val) => {
   min-height: 100vh;
   background-color: #0f0f0f;
   color: #fff;
-  padding-top: 40px;
+  padding: 40px 10px 0px 10px;
   position: relative;
   overflow-x: hidden;
   --primary: #00d2ff;
@@ -1308,5 +1336,63 @@ const formatAmount = (val) => {
   height: inherit;
   background: transparent;
   box-shadow: inherit;
+}
+
+/* Sidebar Trigger Button Styling */
+.btn-sidebar-mb {
+  position: fixed;
+  bottom: 90px; /* Above GoTop (40px bottom + 38px height + 12px gap) */
+  right: 20px;
+  top: auto;
+  transform: none;
+  z-index: 9990;
+}
+
+/* Override .nav-btn if it exists, or define it */
+.nav-btn.sidebar-trigger {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s;
+    flex: unset; /* Override flex: 1 from glass-btn */
+    padding: 0; /* Reset padding */
+}
+
+.nav-btn.sidebar-trigger:hover {
+    transform: scale(1.1);
+}
+
+.nav-btn.sidebar-trigger .btn-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn.sidebar-trigger .glass-filter {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.nav-btn.sidebar-trigger .glass-specular {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 5px rgba(255, 255, 255, 0.1);
+    pointer-events: none;
 }
 </style>

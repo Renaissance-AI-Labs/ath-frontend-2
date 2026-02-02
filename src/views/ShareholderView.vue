@@ -1,57 +1,47 @@
 <template>
-  <div>
-    <!-- Page Title -->
-    <div class="section-page-title">
-      <div class="sect-tagline">
-        <div class="container">
-          <div class="sect-tagline_inner">
-            <span class="hafl-plus pst-left_bot wow bounceInScale"></span>
-            <span class="hafl-plus pst-right_bot wow bounceInScale"></span>
-            <div class="s-name text-caption font-2">
-              <span class="bar-group type-left">
-                <span class="bar_center"></span>
-              </span>
-              <div class="breadcrumbs-list">
-                <span></span>
-                <span class="hacker-text_transform no-delay current-page">
-                  SHAREHOLDER
-                </span>
-              </div>
-              <span class="bar-group type-right">
-                <span class="bar_center"></span>
-              </span>
-            </div>
-          </div>
+  <div class="shareholder-page">
+    <!-- Background Effect -->
+    <div class="s-img_item">
+      <div class="aurora-bg">
+        <div class="aurora-item"></div>
+        <div class="aurora-item"></div>
+        <div class="aurora-item"></div>
+      </div>
+    </div>
+
+    <div class="page-container">
+      <!-- Header -->
+      <div class="page-header wow fadeInUp">
+        <div class="header-content">
+          <h1 class="page-title">
+            SHAREHOLDER
+          </h1>
+          <p class="page-subtitle">{{ t('banker.subtitle') || 'Become a shareholder and earn dividends' }}</p>
         </div>
       </div>
-      <span class="br-line"></span>
-    </div>
-    <!-- /Page Title -->
     
-    <section class="flat-spacing-3" style="padding-top: 10px; padding-bottom: 10px;">
-      <div class="container" style="padding: 0 30px;">
+      <div class="content-wrapper wow fadeInUp" data-wow-delay="0.1s">
         <!-- 3.1 Core Data Display -->
-        
-        <div class="row mb-3">
+        <div class="row mb-4">
             <!-- Total Liquidity -->
             <div class="col-md-3 col-6 mb-3">
-                <div class="stat-card">
-                    <h5 class="text-white-50 font-2 mb-2 fs-small">{{ t('banker.tvl') }}</h5>
-                    <h3 class="text-white font-3 fs-medium">{{ formatNumber(bankerData.tvl) }} ATH</h3>
+                <div class="glass-card h-100">
+                    <h5 class="label mb-2 fs-small">{{ t('banker.tvl') }}</h5>
+                    <h3 class="amount-value fs-medium">{{ formatNumber(bankerData.tvl) }} ATH</h3>
                 </div>
             </div>
              <!-- My Principal -->
             <div class="col-md-3 col-6 mb-3">
-                <div class="stat-card">
-                    <h5 class="text-white-50 font-2 mb-2 fs-small">{{ t('banker.myPrincipal') }}</h5>
-                    <h3 class="text-white font-3 fs-medium">{{ formatNumber(bankerData.invested) }} ATH</h3>
+                <div class="glass-card h-100">
+                    <h5 class="label mb-2 fs-small">{{ t('banker.myPrincipal') }}</h5>
+                    <h3 class="amount-value fs-medium">{{ formatNumber(bankerData.invested) }} ATH</h3>
                 </div>
             </div>
             <!-- Current Position Value -->
             <div class="col-md-3 col-6 mb-3">
-                <div class="stat-card">
-                    <h5 class="text-white-50 font-2 mb-2 fs-small">{{ t('banker.currentValue') }}</h5>
-                    <h3 class="text-white font-3 fs-medium">{{ formatNumber(bankerData.value) }} ATH</h3>
+                <div class="glass-card h-100">
+                    <h5 class="label mb-2 fs-small">{{ t('banker.currentValue') }}</h5>
+                    <h3 class="amount-value fs-medium">{{ formatNumber(bankerData.value) }} ATH</h3>
                     <div class="small mt-1 fs-extra-small" :class="bankerData.pnl >= 0 ? 'text-success' : 'text-danger'">
                          PnL: {{ bankerData.pnl >= 0 ? '+' : '' }}{{ formatNumber(bankerData.pnl) }} ATH
                     </div>
@@ -59,9 +49,9 @@
             </div>
              <!-- Current Net Value -->
             <div class="col-md-3 col-6 mb-3">
-                <div class="stat-card">
-                    <h5 class="text-white-50 font-2 mb-2 fs-small">{{ t('banker.sharePrice') }}</h5>
-                    <h3 class="text-white font-3 fs-medium">{{ formatNumber(bankerData.sharePrice) }} ATH</h3>
+                <div class="glass-card h-100">
+                    <h5 class="label mb-2 fs-small">{{ t('banker.sharePrice') }}</h5>
+                    <h3 class="amount-value fs-medium">{{ formatNumber(bankerData.sharePrice) }} ATH</h3>
                     <div class="small mt-1 fs-extra-small text-white-50">
                         {{ t('banker.myShares') }}: {{ formatNumber(bankerData.shares) }}
                     </div>
@@ -69,14 +59,14 @@
             </div>
             <!-- Pending Reward -->
             <div class="col-12 mb-3">
-                <div class="stat-card d-flex align-items-center justify-content-between flex-wrap gap-3">
+                <div class="glass-card d-flex align-items-center justify-content-between flex-wrap gap-3">
                     <div>
-                        <h5 class="text-white-50 font-2 mb-1 fs-small">{{ t('banker.pendingDividend') }}</h5>
-                        <h3 class="text-white font-3 fs-medium mb-0">{{ formatNumber(bankerData.pending) }} ATH</h3>
+                        <h5 class="label mb-1 fs-small">{{ t('banker.pendingDividend') }}</h5>
+                        <h3 class="amount-value fs-medium mb-0 text-gradient">{{ formatNumber(bankerData.pending) }} ATH</h3>
                     </div>
                     <div style="min-width: 120px;">
-                        <button class="tf-btn w-100 py-2 px-3 fs-small" @click="handleHarvest" :disabled="loading || bankerData.pending <= 0">
-                            {{ loading ? t('banker.processing') : t('banker.harvest') }}
+                        <button class="btn-liquid w-100 py-2 px-3 fs-small" @click="handleHarvest" :disabled="loading || bankerData.pending <= 0">
+                            <span>{{ loading ? t('banker.processing') : t('banker.harvest') }}</span>
                         </button>
                     </div>
                 </div>
@@ -84,11 +74,11 @@
         </div>
 
         <!-- 3.2 Interactions (Tabs) -->
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mb-5">
             <div class="col-lg-8 col-md-10">
-                <div class="action-card">
+                <div class="glass-card">
                     <!-- Tabs Header -->
-                    <div class="d-flex border-bottom border-secondary mb-4">
+                    <div class="d-flex border-bottom border-white-10 mb-4">
                         <button 
                             class="tab-btn flex-fill pb-3 font-2 fs-medium" 
                             :class="{ active: activeTab === 'deposit' }"
@@ -114,7 +104,7 @@
                         </p>
                         
                         <div class="form-group mb-4">
-                            <label class="text-white mb-2 fs-small">{{ t('banker.amountLabel') }}</label>
+                            <label class="label mb-2 fs-small">{{ t('banker.amountLabel') }}</label>
                             <div class="input-container d-flex align-items-center">
                                 <input type="number" v-model="depositAmount" class="form-control custom-input" placeholder="0.0" @input="(e) => handleInput(e, 'deposit')">
                                 <button class="max-btn" type="button" @click="setMaxDeposit">MAX</button>
@@ -123,11 +113,11 @@
                         </div>
 
                         <div class="d-flex gap-3">
-                            <button v-if="!isApproved" class="tf-btn w-100" @click="handleApprove" :disabled="loading">
-                                {{ loading ? t('banker.approving') : t('banker.approve') }}
+                            <button v-if="!isApproved" class="btn-liquid w-100" @click="handleApprove" :disabled="loading">
+                                <span>{{ loading ? t('banker.approving') : t('banker.approve') }}</span>
                             </button>
-                            <button v-else class="tf-btn w-100" @click="handleDeposit" :disabled="loading || !depositAmount">
-                                {{ loading ? t('banker.depositing') : t('banker.deposit') }}
+                            <button v-else class="btn-liquid w-100" @click="handleDeposit" :disabled="loading || !depositAmount">
+                                <span>{{ loading ? t('banker.depositing') : t('banker.deposit') }}</span>
                             </button>
                         </div>
                     </div>
@@ -143,7 +133,7 @@
                         </div>
 
                         <div class="form-group mb-4">
-                            <label class="text-white mb-2 fs-small">{{ t('banker.withdrawSharesLabel') }}</label>
+                            <label class="label mb-2 fs-small">{{ t('banker.withdrawSharesLabel') }}</label>
                             <div class="input-container d-flex align-items-center">
                                 <input type="number" v-model="withdrawShares" class="form-control custom-input" placeholder="0.0" @input="(e) => handleInput(e, 'withdraw')">
                                 <button class="max-btn" type="button" @click="setMaxWithdraw">MAX</button>
@@ -151,8 +141,8 @@
                             <small class="fs-extra-small mt-1 d-block" :class="isInsufficientShares ? 'text-danger' : 'text-white-50'">{{ t('banker.availableShares', { amount: formatNumber(bankerData.shares) }) }}</small>
                         </div>
 
-                        <button class="tf-btn w-100" @click="handleWithdraw" :disabled="loading || isLocked || !withdrawShares">
-                            {{ loading ? t('banker.withdrawing') : t('banker.withdraw') }}
+                        <button class="btn-liquid w-100" @click="handleWithdraw" :disabled="loading || isLocked || !withdrawShares">
+                            <span>{{ loading ? t('banker.withdrawing') : t('banker.withdraw') }}</span>
                         </button>
                     </div>
                 </div>
@@ -162,13 +152,14 @@
         <!-- FAQ -->
          <div class="row mt-5">
             <div class="col-12">
-                <h4 class="text-white font-3 mb-4">{{ t('banker.faqTitle') }}</h4>
-                 <div class="accordion" id="bankerFaq">
-                    <div class="card bg-transparent border-secondary mb-3">
-                        <div class="card-header" id="headingOne">
-                            <h5 class="mb-0">
-                                <button class="btn btn-link text-white text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                <h4 class="page-title h4 mb-4 text-center" style="font-size: 1.8rem;">{{ t('banker.faqTitle') }}</h4>
+                 <div class="accordion glass-card p-0" id="bankerFaq" style="background: transparent; box-shadow: none;">
+                    <div class="card bg-transparent border-white-10 mb-3 glass-panel" style="border-radius: 16px; overflow: hidden;">
+                        <div class="card-header" id="headingOne" style="background: rgba(255,255,255,0.05);">
+                            <h5 class="mb-0 w-100">
+                                <button class="btn btn-link text-white text-decoration-none w-100 text-start d-flex justify-content-between align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
                                     {{ t('banker.faq1Question') }}
+                                    <i class="icon icon-ArrowDown"></i>
                                 </button>
                             </h5>
                         </div>
@@ -178,11 +169,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card bg-transparent border-secondary">
-                        <div class="card-header" id="headingTwo">
-                            <h5 class="mb-0">
-                                <button class="btn btn-link text-white text-decoration-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                    <div class="card bg-transparent border-white-10 glass-panel" style="border-radius: 16px; overflow: hidden;">
+                        <div class="card-header" id="headingTwo" style="background: rgba(255,255,255,0.05);">
+                            <h5 class="mb-0 w-100">
+                                <button class="btn btn-link text-white text-decoration-none w-100 text-start d-flex justify-content-between align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
                                     {{ t('banker.faq2Question') }}
+                                    <i class="icon icon-ArrowDown"></i>
                                 </button>
                             </h5>
                         </div>
@@ -196,12 +188,17 @@
             </div>
         </div>
       </div>
-    </section>
+    </div>
 
     <!-- Sidebar Trigger Button -->
-    <div class="btn-sidebar-mb d-lg-none right">
-        <button @click="openSidebar" style="background-color: #111111;">
-            <img src="/asset/images/section/speed.svg" alt="Menu" width="50" height="50" style="transform: rotate(180deg);">
+    <div class="btn-sidebar-mb right">
+        <button @click="openSidebar" class="nav-btn glass-btn sidebar-trigger">
+            <div class="glass-filter"></div>
+            <div class="glass-specular"></div>
+            <div class="btn-content">
+                 <!-- Hamburger Icon -->
+                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </div>
         </button>
     </div>
 
@@ -469,113 +466,238 @@ export default {
 </script>
 
 <style scoped>
-.stat-card {
-    background: transparent;
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 15px;
+.shareholder-page {
+  min-height: 100vh;
+  background-color: #0f0f0f;
+  color: #fff;
+  padding: 40px 10px 0px 10px;
+  position: relative;
+  overflow-x: hidden;
+  --primary: #00d2ff;
+}
+
+/* Background Effects */
+.s-img_item {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 30%, rgba(15, 20, 30, 0.4) 0%, #0f0f0f 100%);
+}
+
+.s-img_item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
+    z-index: 2;
+    background: linear-gradient(to bottom, 
+        #0f0f0f 0%, 
+        rgba(15, 15, 15, 0.9) 15%, 
+        transparent 30%, 
+        transparent 60%, 
+        rgba(15, 15, 15, 0.9) 85%, 
+        #0f0f0f 100%
+    );
 }
 
-.action-card {
-    background: transparent;
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 30px;
+.aurora-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
-}
-
-.text-highlight {
-    color: #ffd700;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-}
-
-.btn-action {
     background: transparent;
-    color: var(--white);
-    border: 1px solid var(--line);
-    padding: 8px 20px;
-    border-radius: 4px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    cursor: pointer;
 }
 
-.btn-action:hover:not(:disabled) {
-    background: var(--line);
-    border-color: var(--line);
+.aurora-item {
+    position: absolute;
+    border-radius: 50%;
+    mix-blend-mode: screen;
+    filter: blur(80px);
+    opacity: 0.8;
 }
 
-.btn-action:disabled {
+.aurora-item:nth-child(1) {
+    top: -10%;
+    left: -10%;
+    width: 80%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(60, 50, 255, 0.5), transparent 70%);
+    animation: aurora-1 15s infinite alternate;
+}
+
+.aurora-item:nth-child(2) {
+    top: 20%;
+    right: -10%;
+    width: 70%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(140, 30, 255, 0.45), transparent 70%);
+    animation: aurora-2 20s infinite alternate;
+}
+
+.aurora-item:nth-child(3) {
+    bottom: -20%;
+    left: 20%;
+    width: 80%;
+    height: 50%;
+    background: radial-gradient(circle, rgba(100, 100, 255, 0.4), transparent 70%);
+    animation: aurora-3 18s infinite alternate;
+}
+
+@keyframes aurora-1 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(5%, 5%) scale(1.1); }
+}
+@keyframes aurora-2 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-5%, 10%) scale(1.1); }
+}
+@keyframes aurora-3 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(5%, -5%) scale(1.05); }
+}
+
+.page-container {
+  max-width: 1100px; /* Wider for dashboard */
+  width: 95%;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  padding-bottom: 60px;
+}
+
+.page-header {
+  padding: 20px 0 40px;
+  text-align: center;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(90deg, #fff, #888);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+.page-subtitle {
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 5px;
+  font-size: 0.9rem;
+}
+
+/* Glass Card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+      0 6px 12px rgba(0, 0, 0, 0.25), 
+      0 0 40px rgba(255, 255, 255, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glass-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0.1) 40%,
+        rgba(255, 255, 255, 0.05) 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.6;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.amount-value {
+  color: #fff;
+}
+
+.text-gradient {
+    background: linear-gradient(90deg, #00C8FF, #0080FF);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.border-white-10 {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Liquid Button */
+.btn-liquid {
+  position: relative;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 12px 30px;
+  border-radius: 100px;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-liquid:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-liquid:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
-.tf-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 16px 32px;
-    background: var(--white);
-    color: var(--black);
-    border-radius: 4px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    font-family: 'DepartureMono', sans-serif;
-}
-
-.tf-btn:hover:not(:disabled) {
-    background: var(--line);
-    color: var(--white);
-}
-
-.tf-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-.input-group .form-control {
-    background: transparent;
-    border-color: var(--line);
-    color: var(--white);
-    border-right: none;
-    border-radius: 4px 0 0 4px;
-}
-
-.input-group .form-control:focus {
-    box-shadow: none;
-    border-color: var(--line);
-}
-
-.input-group .btn-outline-secondary {
-    border-color: var(--line);
-    color: var(--text-2);
-    border-left: none;
-    border-radius: 0 4px 4px 0;
-}
-
-.input-group .btn-outline-secondary:hover {
-    background: transparent;
-    color: var(--white);
-    border-color: var(--line);
-}
-
-.text-success { color: #22c55e !important; }
-.text-danger { color: #ef4444 !important; }
-
-/* Input Container Styling */
+/* Input Styles */
 .input-container {
-    background: transparent;
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    padding: 0 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 4px 16px;
     transition: border-color 0.3s ease;
 }
 
 .input-container:focus-within {
-    border-color: var(--white);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .custom-input {
@@ -585,24 +707,24 @@ export default {
     padding: 12px 0;
     box-shadow: none !important;
     width: 100%;
+    font-size: 1.1rem;
 }
 
 .custom-input::placeholder {
-    color: var(--text-2);
+    color: rgba(255, 255, 255, 0.3);
 }
 
 .max-btn {
     background: rgba(255, 255, 255, 0.1);
     color: var(--white);
     border: none;
-    border-radius: 4px;
-    padding: 4px 12px;
+    border-radius: 8px;
+    padding: 6px 12px;
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
     margin-left: 8px;
-    font-family: 'DepartureMono', sans-serif;
 }
 
 .max-btn:hover {
@@ -613,7 +735,7 @@ export default {
 .tab-btn {
     background: transparent;
     border: none;
-    color: var(--text-2);
+    color: rgba(255, 255, 255, 0.5);
     cursor: pointer;
     transition: all 0.3s ease;
     border-bottom: 2px solid transparent;
@@ -628,35 +750,73 @@ export default {
     border-bottom-color: var(--white);
 }
 
-/* Remove old input-group styles that are no longer needed or might conflict */
-.input-group .form-control,
-.input-group .btn-outline-secondary {
-    display: none; 
-}
+.text-success { color: #22c55e !important; }
+.text-danger { color: #ef4444 !important; }
 
-/* Font size adjustments for mobile/responsive */
-.fs-small {
-    font-size: 14px;
-}
+/* Font size adjustments */
+.fs-small { font-size: 14px; }
+.fs-medium { font-size: 20px; font-weight: 700; }
+.fs-extra-small { font-size: 12px; }
 
-.fs-medium {
-    font-size: 20px;
-}
-
-.fs-extra-small {
-    font-size: 12px;
-}
-
-/* Specific overrides for very small screens if needed */
 @media (max-width: 576px) {
-    .fs-small {
-        font-size: 12px;
-    }
-    .fs-medium {
-        font-size: 16px;
-    }
-    .stat-card {
-        padding: 16px; /* Reduce padding on mobile */
-    }
+    .fs-small { font-size: 12px; }
+    .fs-medium { font-size: 16px; }
+}
+
+/* Sidebar Trigger Button Styling */
+.btn-sidebar-mb {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  top: auto;
+  transform: none;
+  z-index: 9990;
+}
+
+.nav-btn.sidebar-trigger {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s;
+    flex: unset;
+    padding: 0;
+}
+
+.nav-btn.sidebar-trigger:hover {
+    transform: scale(1.1);
+}
+
+.nav-btn.sidebar-trigger .btn-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn.sidebar-trigger .glass-filter {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.nav-btn.sidebar-trigger .glass-specular {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 5px rgba(255, 255, 255, 0.1);
+    pointer-events: none;
 }
 </style>

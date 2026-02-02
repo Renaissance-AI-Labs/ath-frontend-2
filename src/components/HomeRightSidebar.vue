@@ -7,141 +7,68 @@
 
     <!-- Sidebar Drawer -->
     <transition name="slide-right">
-      <div v-if="isOpen" class="home-right-sidebar">
-        <div class="sidebar-header">
-          <h5 class="font-3 text-main-2">{{ t('sidebar.ecoMatrix') }}</h5>
-          <button class="close-btn" @click="$emit('close')">
-            <i class="icon icon-close"></i>
-          </button>
-        </div>
+      <div v-if="isOpen" class="home-right-sidebar glass-panel">
+        <!-- Glass Effects -->
+        <div class="glass-filter"></div>
+        <div class="glass-overlay"></div>
+        <div class="glass-specular"></div>
         
-        <div class="sidebar-content-scroll">
-          <div class="blog-sidebar sidebar-content-wrap">
-            <!-- Search -->
-            <!-- 
-            <div class="sidebar-item">
-              <h5 class="sb-title font-3 text-linear">Search</h5>
-              <div class="br-line has-dot"></div>
-              <form class="form-search" @submit.prevent>
-                <input class="style-large type-radius-2" type="text" placeholder="Search blog..." required>
-                <button type="submit" class="btn_submit tf-btn text-body-3 style-2 animate-btn animate-dark">
-                  <i class="icon icon-MagnifyingGlass"></i>
-                </button>
-              </form>
-            </div>
-            -->
+        <div class="sidebar-content-wrapper">
+          <div class="sidebar-header">
+            <h5 class="font-3 text-gradient">{{ t('sidebar.ecoMatrix') }}</h5>
+            <button class="nav-btn glass-btn" @click="$emit('close')">
+                <div class="glass-filter"></div>
+                <div class="glass-specular"></div>
+                <div class="btn-content">
+                  <i class="icon icon-close"></i>
+                </div>
+            </button>
+          </div>
+          
+          <div class="sidebar-content-scroll">
+            <div class="blog-sidebar sidebar-content-wrap">
+              <!-- Category -->
+              <div class="sidebar-item glass-card-item">
+                <h5 class="sb-title font-3 text-gradient">{{ t('sidebar.gameCenter') }}</h5>
+                <div class="br-line has-dot"></div>
+                <ul class="sb-category">
+                  <li>
+                    <router-link v-if="isCrashEnabled" to="/crash" class="text-body-1 link-item" @click="$emit('close')">
+                      <span class="link-text">{{ t('sidebar.crashGame') }}</span>
+                      <i class="icon icon-ArrowUpRight"></i>
+                    </router-link>
+                    <span v-else class="text-body-1 link-item disabled">
+                       <span class="link-text">{{ t('sidebar.crashGameComingSoon') }}</span>
+                    </span>
+                  </li>
+                </ul>
+              </div>
 
-            <!-- Category -->
-            <!-- 
-            <div class="sidebar-item">
-              <h5 class="sb-title font-3 text-linear">{{ t('sidebar.gameCenter') }}</h5>
-              <div class="br-line has-dot"></div>
-              <ul class="sb-category">
-                <li>
-                  <router-link v-if="isCrashEnabled" to="/crash" class="text-body-1" @click="$emit('close')">
-                    {{ t('sidebar.crashGame') }}
-                    <i class="icon icon-ArrowUpRight"></i>
-                  </router-link>
-                  <span v-else class="text-body-1" style="cursor: not-allowed; opacity: 0.6; display: flex; align-items: center; justify-content: space-between;">
-                     {{ t('sidebar.crashGameComingSoon') }}
-                     <!- - <i class="icon icon-ArrowUpRight"></i> - ->
-                  </span>
-                </li>
-              </ul>
+              <div class="sidebar-item glass-card-item">
+                <h5 class="sb-title font-3 text-gradient">{{ t('sidebar.equityCenter') }}</h5>
+                <div class="br-line has-dot"></div>
+                <ul class="sb-category">
+                  <li>
+                    <router-link to="/welfare" class="text-body-1 link-item" @click="$emit('close')">
+                      <span class="link-text">{{ t('sidebar.collectPoints') }}</span>
+                      <i class="icon icon-ArrowUpRight"></i>
+                    </router-link>
+                  </li>
+                  <li>
+                    <router-link to="/personal-center" class="text-body-1 link-item" @click="$emit('close')">
+                      <span class="link-text">{{ t('sidebar.personalCenter') }}</span>
+                      <i class="icon icon-ArrowUpRight"></i>
+                    </router-link>
+                  </li>
+                  <li>
+                    <router-link to="/shareholder" class="text-body-1 link-item" @click="$emit('close')">
+                      <span class="link-text">{{ t('sidebar.becomeShareholder') }}</span>
+                      <i class="icon icon-ArrowUpRight"></i>
+                    </router-link>
+                  </li>
+                </ul>
+              </div>
             </div>
-
-            <div class="sidebar-item">
-              <h5 class="sb-title font-3 text-linear">{{ t('sidebar.equityCenter') }}</h5>
-              <div class="br-line has-dot"></div>
-              <ul class="sb-category">
-                <li>
-                  <router-link to="/personal-center" class="text-body-1" @click="$emit('close')">
-                    {{ t('sidebar.personalCenter') }}
-                    <i class="icon icon-ArrowUpRight"></i>
-                  </router-link>
-                </li>
-                <li>
-                  <router-link to="/shareholder" class="text-body-1" @click="$emit('close')">
-                    {{ t('sidebar.becomeShareholder') }}
-                    <i class="icon icon-ArrowUpRight"></i>
-                  </router-link>
-                </li>
-              </ul>
-            </div>
-            -->
-
-            <!-- Recent posts -->
-            <!-- 
-            <div class="sidebar-item">
-              <h5 class="sb-title font-3 text-linear">Recent posts</h5>
-              <div class="br-line has-dot"></div>
-              <ul class="sb-recent">
-                <li class="sb-recent_item hover-img">
-                  <a href="#" class="recent__image img-style">
-                    <img loading="lazy" width="94" height="94" src="/asset/images/blog/recent-1.jpg" alt="Recent">
-                  </a>
-                  <div class="recent__content">
-                    <div class="entry_date">
-                      <i class="icon icon-Clock"></i>
-                      <span class="date text-body-3">
-                        August 3, 2025
-                      </span>
-                    </div>
-                    <a href="#" class="entry_name link">
-                      Leak suggests OpenAI’s open-source AI model release is imminent
-                    </a>
-                  </div>
-                </li>
-                <li class="sb-recent_item hover-img">
-                  <a href="#" class="recent__image img-style">
-                    <img loading="lazy" width="94" height="94" src="/asset/images/blog/recent-2.jpg" alt="Recent">
-                  </a>
-                  <div class="recent__content">
-                    <div class="entry_date">
-                      <i class="icon icon-Clock"></i>
-                      <span class="date text-body-3">
-                        August 3, 2025
-                      </span>
-                    </div>
-                    <a href="#" class="entry_name link">
-                      Shah Muhammad, Sweco: How AI is building the future of our cities
-                    </a>
-                  </div>
-                </li>
-                <li class="sb-recent_item hover-img">
-                  <a href="#" class="recent__image img-style">
-                    <img loading="lazy" width="94" height="94" src="/asset/images/blog/recent-3.jpg" alt="Recent">
-                  </a>
-                  <div class="recent__content">
-                    <div class="entry_date">
-                      <i class="icon icon-Clock"></i>
-                      <span class="date text-body-3">
-                        August 3, 2025
-                      </span>
-                    </div>
-                    <a href="#" class="entry_name link">
-                      Google’s Veo 3 AI video creation tools are now widely available
-                    </a>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            -->
-            
-            <!-- Tags -->
-            <!--
-            <div class="sidebar-item">
-              <h5 class="sb-title font-3 text-linear">Tags</h5>
-              <div class="br-line has-dot"></div>
-              <ul class="sb-tag">
-                <li><a href="#" class="text-body-3 link">ChatBot AI</a></li>
-                <li><a href="#" class="text-body-3 link">Athena Protocol</a></li>
-                <li><a href="#" class="text-body-3 link">Qore</a></li>
-                <li><a href="#" class="text-body-3 link">Design</a></li>
-                <li><a href="#" class="text-body-3 link">AI</a></li>
-              </ul>
-            </div>
-            -->
           </div>
         </div>
       </div>
@@ -178,56 +105,206 @@ export default {
   height: 100vh;
   background: rgba(0, 0, 0, 0.6);
   z-index: 9998;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(4px);
 }
 
 .home-right-sidebar {
   position: fixed;
   top: 0;
   right: 0;
-  width: 85%; /* Changed from 100% to allow backdrop to be seen on mobile */
+  width: 85%;
   max-width: 400px;
   height: 100vh;
-  background: var(--bg-main, #0b0b0b); /* Fallback dark bg */
-  background-color: #121212; /* Explicit dark bg matching theme */
   z-index: 9999;
-  box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden; /* For glass effects */
 }
 
+.sidebar-content-wrapper {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Glass Panel Styles (Base Sidebar) */
+.glass-panel {
+    background: #000000; /* Pure black base as requested */
+}
+
+.glass-filter {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.glass-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+}
+
+.glass-specular {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+}
+
+/* Header */
 .sidebar-header {
-  padding: 20px;
+  padding: 30px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.close-btn {
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-  transition: transform 0.3s;
+.text-gradient {
+    background: linear-gradient(120deg, #fff, #0ef3c5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #fff;
+    font-weight: 700;
 }
 
-.close-btn:hover {
-  transform: rotate(90deg);
-  color: #c0f; /* Accent color */
+/* Close Button (Glass Style) */
+.nav-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s;
 }
 
+.nav-btn:hover {
+    transform: scale(1.1);
+}
+
+.glass-btn {
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Content */
 .sidebar-content-scroll {
   flex: 1;
   overflow-y: auto;
-  padding: 20px;
+  padding: 30px 24px;
 }
 
-/* Ensure the existing classes look good in this narrow container */
+/* Item Card Style */
 .sidebar-item {
-  margin-bottom: 40px;
+  margin-bottom: 30px;
+  padding: 24px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.sidebar-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-2px);
+}
+
+.sb-title {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.br-line {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.br-line.has-dot::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 30px;
+  height: 3px;
+  background: #0ef3c5;
+  border-radius: 2px;
+}
+
+/* Links */
+.sb-category li {
+  margin-bottom: 12px;
+}
+
+.sb-category li:last-child {
+  margin-bottom: 0;
+}
+
+.link-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.link-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-color: rgba(14, 243, 197, 0.3);
+  box-shadow: 0 0 15px rgba(14, 243, 197, 0.1);
+}
+
+.link-item i {
+  font-size: 14px;
+  color: #0ef3c5;
+  transition: transform 0.3s ease;
+}
+
+.link-item:hover i {
+  transform: translate(3px, -3px);
+}
+
+.link-item.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: transparent;
+}
+
+.link-item.disabled:hover {
+  background: transparent;
+  box-shadow: none;
+  border-color: transparent;
 }
 
 /* Transitions */
@@ -243,7 +320,7 @@ export default {
 
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: transform 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .slide-right-enter-from,
