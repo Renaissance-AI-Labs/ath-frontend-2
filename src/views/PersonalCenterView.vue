@@ -75,11 +75,13 @@
             </div>
 
             <!-- Loading/Connect Hint -->
-            <div v-if="!walletState.isConnected" class="text-center mt-5">
-               <p class="text-white mb-4 opacity-75">{{ t('personal.connectWalletHint') }}</p>
-               <button @click.prevent="connectWallet" class="btn-liquid">
-                  <span>{{ t('personal.connectWalletBtn') }}</span>
-               </button>
+            <div v-if="!walletState.isConnected" class="glass-card mb-3 empty-state">
+               <div class="stars-bg">
+                   <div class="stars"></div>
+                   <div class="stars2"></div>
+                   <div class="stars3"></div>
+               </div>
+               <p class="text-white mb-0" style="position: relative; z-index: 2;">{{ t('personal.connectWalletHint') }}</p>
             </div>
 
           </div>
@@ -581,5 +583,61 @@ export default {
 
 .border-white-10 {
     border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Empty State Styles */
+.empty-state {
+  position: relative;
+  text-align: center;
+  padding: 50px 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.stars-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.stars, .stars2, .stars3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  background: transparent;
+}
+
+.stars {
+  box-shadow: 123px 45px rgba(0, 210, 255, 0.6), 255px 189px rgba(0, 210, 255, 0.6), 345px 8px rgba(0, 210, 255, 0.6), 99px 345px rgba(0, 210, 255, 0.6), 487px 233px rgba(0, 210, 255, 0.6), 321px 487px rgba(0, 210, 255, 0.6), 499px 10px rgba(0, 210, 255, 0.6), 23px 187px rgba(0, 210, 255, 0.6), 176px 455px rgba(0, 210, 255, 0.6), 433px 321px rgba(0, 210, 255, 0.6), 45px 23px rgba(0, 210, 255, 0.6), 231px 480px rgba(0, 210, 255, 0.6), 467px 98px rgba(0, 210, 255, 0.6), 33px 256px rgba(0, 210, 255, 0.6), 198px 321px rgba(0, 210, 255, 0.6), 349px 465px rgba(0, 210, 255, 0.6), 480px 12px rgba(0, 210, 255, 0.6), 12px 190px rgba(0, 210, 255, 0.6), 256px 432px rgba(0, 210, 255, 0.6), 490px 211px rgba(0, 210, 255, 0.6), 54px 49px rgba(0, 210, 255, 0.6), 289px 344px rgba(0, 210, 255, 0.6), 411px 189px rgba(0, 210, 255, 0.6), 76px 287px rgba(0, 210, 255, 0.6), 201px 477px rgba(0, 210, 255, 0.6), 389px 23px rgba(0, 210, 255, 0.6), 477px 376px rgba(0, 210, 255, 0.6), 156px 143px rgba(0, 210, 255, 0.6), 301px 499px rgba(0, 210, 255, 0.6), 432px 65px rgba(0, 210, 255, 0.6);
+}
+
+.stars2 {
+  width: 2px;
+  height: 2px;
+  box-shadow: 234px 123px rgba(0, 210, 255, 0.6), 456px 345px rgba(0, 210, 255, 0.6), 12px 487px rgba(0, 210, 255, 0.6), 498px 65px rgba(0, 210, 255, 0.6), 213px 289px rgba(0, 210, 255, 0.6), 45px 456px rgba(0, 210, 255, 0.6), 345px 98px rgba(0, 210, 255, 0.6), 187px 399px rgba(0, 210, 255, 0.6), 432px 187px rgba(0, 210, 255, 0.6), 88px 88px rgba(0, 210, 255, 0.6), 287px 465px rgba(0, 210, 255, 0.6), 478px 243px rgba(0, 210, 255, 0.6), 143px 32px rgba(0, 210, 255, 0.6), 365px 398px rgba(0, 210, 255, 0.6), 499px 488px rgba(0, 210, 255, 0.6);
+}
+
+.stars3 {
+  width: 3px;
+  height: 3px;
+  box-shadow: 87px 345px rgba(0, 210, 255, 0.6), 465px 87px rgba(0, 210, 255, 0.6), 234px 487px rgba(0, 210, 255, 0.6), 487px 234px rgba(0, 210, 255, 0.6), 156px 156px rgba(0, 210, 255, 0.6), 387px 432px rgba(0, 210, 255, 0.6), 432px 32px rgba(0, 210, 255, 0.6);
+}
+
+.stars:after, .stars2:after, .stars3:after {
+  content: " ";
+  position: absolute;
+  top: 250px;
+  width: inherit;
+  height: inherit;
+  background: transparent;
+  box-shadow: inherit;
 }
 </style>

@@ -333,7 +333,7 @@ const languagePacks = {
     'welfare.connectFirst': '请先连接钱包查看',
     'welfare.addToken': '添加 ATHP',
     'welfare.pageUnclaimed': '待领: {count} 笔',
-    'welfare.confirmBatchClaim': '确认领取本页所有奖励？',
+    'welfare.confirmBatchClaim': '确认领取所有积分？',
     'welfare.confirmAddTokenTitle': '添加代币',
     'welfare.confirmAddTokenDesc': '是否添加ATHP代币到钱包？',
     
@@ -693,7 +693,7 @@ const languagePacks = {
     'welfare.connectFirst': '請先連接錢包查看',
     'welfare.addToken': '添加 ATHP',
     'welfare.pageUnclaimed': '待領: {count} 筆',
-    'welfare.confirmBatchClaim': '確認領取本頁所有獎勵？',
+    'welfare.confirmBatchClaim': '確認領取所有積分？',
     'welfare.confirmAddTokenTitle': '添加代幣',
     'welfare.confirmAddTokenDesc': '是否添加ATHP代幣到錢包？',
     
@@ -1062,7 +1062,7 @@ const languagePacks = {
     'welfare.connectFirst': 'Please connect wallet',
     'welfare.addToken': 'Add ATHP',
     'welfare.pageUnclaimed': 'Unclaimed: {count}',
-    'welfare.confirmBatchClaim': 'Confirm claim all rewards on this page?',
+    'welfare.confirmBatchClaim': 'Confirm claim all points?',
     'welfare.confirmAddTokenTitle': 'Add Token',
     'welfare.confirmAddTokenDesc': 'Add ATHP token to wallet?',
     
@@ -1422,7 +1422,7 @@ const languagePacks = {
     'welfare.connectFirst': 'ウォレットを接続してください',
     'welfare.addToken': 'ATHPを追加',
     'welfare.pageUnclaimed': '未請求: {count} 件',
-    'welfare.confirmBatchClaim': 'このページのすべての報酬を受け取りますか？',
+    'welfare.confirmBatchClaim': 'すべてのポイントを受け取りますか？',
     'welfare.confirmAddTokenTitle': 'トークンを追加',
     'welfare.confirmAddTokenDesc': 'ウォレットにATHPトークンを追加しますか？',
     
@@ -1781,7 +1781,7 @@ const languagePacks = {
     'welfare.connectFirst': '지갑을 연결해 주세요',
     'welfare.addToken': 'ATHP 추가',
     'welfare.pageUnclaimed': '미청구: {count} 건',
-    'welfare.confirmBatchClaim': '이 페이지의 모든 보상을 청구하시겠습니까?',
+    'welfare.confirmBatchClaim': '모든 포인트를 청구하시겠습니까?',
     'welfare.confirmAddTokenTitle': '토큰 추가',
     'welfare.confirmAddTokenDesc': '지갑에 ATHP 토큰을 추가하시겠습니까?',
     

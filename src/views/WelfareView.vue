@@ -300,6 +300,12 @@ watch(() => [walletState.isConnected, walletState.contractsInitialized], ([conne
   if (connected && init) {
     currentPage.value = 1;
     loadData(); // Reload when connection is established
+  } else if (!connected) {
+    // Reset state on disconnect
+    records.value = [];
+    totalRecords.value = 0;
+    unclaimedTotal.value = 0;
+    currentPage.value = 1;
   }
 });
 
@@ -1181,8 +1187,8 @@ const closeSidebar = () => {
 }
 
 .modal-subtitle {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 14px;
+  color: #fff;
+  font-size: 1.1rem;
 }
 
 /* Glass Buttons in Modal */
