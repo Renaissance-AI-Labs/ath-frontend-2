@@ -183,37 +183,48 @@ export const initializeContracts = async () => {
   const athpAddress = contractAddresses.ATHP[env];
   const stakingWelfareAddress = contractAddresses.StakingWelfare[env];
 
+  // Helper to safely create contract
+  const createContract = (address, abi, signer) => {
+      if (!address) return null;
+      try {
+          return new ethers.Contract(address, abi, signer);
+      } catch (e) {
+          console.error(`Failed to create contract instance for ${address}`, e);
+          return null;
+      }
+  };
+
   // Create new contract instances using the raw, unwrapped signer
-  referralContract = new ethers.Contract(referralAddress, referralAbi, rawSigner);
-  stakingContract = new ethers.Contract(stakingAddress, stakingAbi, rawSigner);
-  athContract = new ethers.Contract(athAddress, athAbi, rawSigner);
-  usdtContract = new ethers.Contract(usdtAddress, athAbi, rawSigner);
-  routerContract = new ethers.Contract(routerAddress, uniswapV2RouterAbi, rawSigner);
-  s5poolContract = new ethers.Contract(s5poolAddress, s5poolAbi, rawSigner);
-  s6poolContract = new ethers.Contract(s6poolAddress, s6poolAbi, rawSigner);
-  s7poolContract = new ethers.Contract(s7poolAddress, s7poolAbi, rawSigner);
-  nodeDividendPoolContract = new ethers.Contract(nodeDividendPoolAddress, nodeDividendPoolAbi, rawSigner);
-  crashContract = new ethers.Contract(crashAddress, crashAbi, rawSigner);
-  bankerPoolContract = new ethers.Contract(bankerPoolAddress, bankerPoolAbi, rawSigner);
-  gameLevelContract = new ethers.Contract(gameLevelAddress, gameLevelAbi, rawSigner);
-  athpContract = new ethers.Contract(athpAddress, athpAbi, rawSigner);
-  stakingWelfareContract = new ethers.Contract(stakingWelfareAddress, stakingWelfareAbi, rawSigner);
+  referralContract = createContract(referralAddress, referralAbi, rawSigner);
+  stakingContract = createContract(stakingAddress, stakingAbi, rawSigner);
+  athContract = createContract(athAddress, athAbi, rawSigner);
+  usdtContract = createContract(usdtAddress, athAbi, rawSigner);
+  routerContract = createContract(routerAddress, uniswapV2RouterAbi, rawSigner);
+  s5poolContract = createContract(s5poolAddress, s5poolAbi, rawSigner);
+  s6poolContract = createContract(s6poolAddress, s6poolAbi, rawSigner);
+  s7poolContract = createContract(s7poolAddress, s7poolAbi, rawSigner);
+  nodeDividendPoolContract = createContract(nodeDividendPoolAddress, nodeDividendPoolAbi, rawSigner);
+  crashContract = createContract(crashAddress, crashAbi, rawSigner);
+  bankerPoolContract = createContract(bankerPoolAddress, bankerPoolAbi, rawSigner);
+  gameLevelContract = createContract(gameLevelAddress, gameLevelAbi, rawSigner);
+  athpContract = createContract(athpAddress, athpAbi, rawSigner);
+  stakingWelfareContract = createContract(stakingWelfareAddress, stakingWelfareAbi, rawSigner);
 
   console.log("Contracts initialized:", {
-    referral: await referralContract.getAddress(),
-    staking: await stakingContract.getAddress(),
-    ath: await athContract.getAddress(),
-    usdt: await usdtContract.getAddress(),
-    router: await routerContract.getAddress(),
-    s5pool: await s5poolContract.getAddress(),
-    s6pool: await s6poolContract.getAddress(),
-    s7pool: await s7poolContract.getAddress(),
-    nodeDividendPool: await nodeDividendPoolContract.getAddress(),
-    crash: await crashContract.getAddress(),
-    bankerPool: await bankerPoolContract.getAddress(),
-    gameLevel: await gameLevelContract.getAddress(),
-    athp: await athpContract.getAddress(),
-    stakingWelfare: await stakingWelfareContract.getAddress(),
+    referral: referralContract ? await referralContract.getAddress() : 'Not Initialized',
+    staking: stakingContract ? await stakingContract.getAddress() : 'Not Initialized',
+    ath: athContract ? await athContract.getAddress() : 'Not Initialized',
+    usdt: usdtContract ? await usdtContract.getAddress() : 'Not Initialized',
+    router: routerContract ? await routerContract.getAddress() : 'Not Initialized',
+    s5pool: s5poolContract ? await s5poolContract.getAddress() : 'Not Initialized',
+    s6pool: s6poolContract ? await s6poolContract.getAddress() : 'Not Initialized',
+    s7pool: s7poolContract ? await s7poolContract.getAddress() : 'Not Initialized',
+    nodeDividendPool: nodeDividendPoolContract ? await nodeDividendPoolContract.getAddress() : 'Not Initialized',
+    crash: crashContract ? await crashContract.getAddress() : 'Not Initialized',
+    bankerPool: bankerPoolContract ? await bankerPoolContract.getAddress() : 'Not Initialized',
+    gameLevel: gameLevelContract ? await gameLevelContract.getAddress() : 'Not Initialized',
+    athp: athpContract ? await athpContract.getAddress() : 'Not Initialized',
+    stakingWelfare: stakingWelfareContract ? await stakingWelfareContract.getAddress() : 'Not Initialized',
   });
 
   walletState.contractsInitialized = true;
@@ -1032,7 +1043,9 @@ export const rewardOfSlot = async (id) => {
  */
 export const getWelfareRecords = async (offset = 0, limit = 10, status = 1) => {
     if (!stakingWelfareContract || !walletState.address) {
-        console.warn("StakingWelfare contract not initialized or user not connected.");
+        if (walletState.isAuthenticated && walletState.contractsInitialized) {
+            console.warn("StakingWelfare contract not initialized or user not connected.");
+        }
         return { records: [], total: 0 };
     }
     try {

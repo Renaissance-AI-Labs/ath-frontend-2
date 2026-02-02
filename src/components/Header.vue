@@ -103,6 +103,7 @@ import { t } from '@/i18n';
 
 export default {
   name: 'Header',
+  emits: ['open-get-started-modal', 'open-language-modal'],
   setup() {
     const formattedAddress = computed(() => formatAddress(walletState.address));
 

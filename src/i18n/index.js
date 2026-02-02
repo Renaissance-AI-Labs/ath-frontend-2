@@ -315,19 +315,24 @@ const languagePacks = {
     'personal.connectWalletBtn': '连接钱包',
     
     // Welfare
-    'welfare.title': '历史质押福利',
+    'welfare.title': '质押积分',
+    'welfare.subtitle': '可领取代币数依据订单质押周期计算',
     'welfare.unclaimed': '待领取',
     'welfare.claimed': '已领取',
-    'welfare.batchClaim': '本页一键领取',
+    'welfare.batchClaim': '一键领取',
     'welfare.claiming': '领取中...',
     'welfare.claim': '领取',
+    'welfare.claimablePoints': '可领取积分',
     'welfare.orderId': '订单号',
     'welfare.statusActive': '质押中',
     'welfare.statusEnded': '已结束/赎回',
     'welfare.noRecords': '暂无福利记录',
     'welfare.connectFirst': '请先连接钱包查看',
     'welfare.addToken': '添加 ATHP',
-    'welfare.pageUnclaimed': '本页待领: {count} 笔',
+    'welfare.pageUnclaimed': '待领: {count} 笔',
+    'welfare.confirmBatchClaim': '确认领取本页所有奖励？',
+    'welfare.confirmAddTokenTitle': '添加代币',
+    'welfare.confirmAddTokenDesc': '是否添加ATHP代币到钱包？',
     
     // Common
     'common.loading': 'Loading...',
@@ -366,6 +371,8 @@ const languagePacks = {
     'banker.faq2Question': '我的收益如何计算？',
     'banker.faq2Answer': '您的收益由两部分组成：“流动性盈亏”（随玩家输赢波动，影响本金）和“分红奖励”（随交易量增加，通过领取获得）。',
     'common.recommend': '推荐',
+    'common.cancel': '取消',
+    'common.confirm': '确认',
     
     // Unstake Modal
     'unstake.title': '选择赎回方式',
@@ -664,19 +671,24 @@ const languagePacks = {
     'personal.connectWalletBtn': '連接錢包',
     
     // Welfare
-    'welfare.title': '歷史質押福利',
+    'welfare.title': '質押積分',
+    'welfare.subtitle': '可領取代幣數依據訂單質押週期計算',
     'welfare.unclaimed': '待領取',
     'welfare.claimed': '已領取',
-    'welfare.batchClaim': '本頁一鍵領取',
+    'welfare.batchClaim': '一鍵領取',
     'welfare.claiming': '領取中...',
     'welfare.claim': '領取',
+    'welfare.claimablePoints': '可領取積分',
     'welfare.orderId': '訂單號',
     'welfare.statusActive': '質押中',
     'welfare.statusEnded': '已結束/贖回',
     'welfare.noRecords': '暫無福利記錄',
     'welfare.connectFirst': '請先連接錢包查看',
     'welfare.addToken': '添加 ATHP',
-    'welfare.pageUnclaimed': '本頁待領: {count} 筆',
+    'welfare.pageUnclaimed': '待領: {count} 筆',
+    'welfare.confirmBatchClaim': '確認領取本頁所有獎勵？',
+    'welfare.confirmAddTokenTitle': '添加代幣',
+    'welfare.confirmAddTokenDesc': '是否添加ATHP代幣到錢包？',
     
     // Common
     'common.loading': 'Loading...',
@@ -715,6 +727,8 @@ const languagePacks = {
     'banker.faq2Question': '我的收益如何計算？',
     'banker.faq2Answer': '您的收益由兩部分組成：「流動性盈虧」（隨玩家輸贏波動，影響本金）和「分紅獎勵」（隨交易量增加，通過領取獲得）。',
     'common.recommend': '推薦',
+    'common.cancel': '取消',
+    'common.confirm': '確認',
 
     // Unstake Modal
     'unstake.title': '選擇贖回方式',
@@ -1022,19 +1036,24 @@ const languagePacks = {
     'personal.connectWalletBtn': 'Connect Wallet',
     
     // Welfare
-    'welfare.title': 'Staking Welfare',
+    'welfare.title': 'Staking Points',
+    'welfare.subtitle': 'Claimable token amount depends on the staking order cycle',
     'welfare.unclaimed': 'Unclaimed',
     'welfare.claimed': 'Claimed',
-    'welfare.batchClaim': 'Claim All on Page',
+    'welfare.batchClaim': 'Claim All',
     'welfare.claiming': 'Claiming...',
     'welfare.claim': 'Claim',
+    'welfare.claimablePoints': 'Claimable Points',
     'welfare.orderId': 'Order ID',
     'welfare.statusActive': 'Staking',
     'welfare.statusEnded': 'Ended/Redeemed',
     'welfare.noRecords': 'No welfare records',
     'welfare.connectFirst': 'Please connect wallet',
     'welfare.addToken': 'Add ATHP',
-    'welfare.pageUnclaimed': 'Unclaimed on page: {count}',
+    'welfare.pageUnclaimed': 'Unclaimed: {count}',
+    'welfare.confirmBatchClaim': 'Confirm claim all rewards on this page?',
+    'welfare.confirmAddTokenTitle': 'Add Token',
+    'welfare.confirmAddTokenDesc': 'Add ATHP token to wallet?',
     
     // Common
     'common.loading': 'Loading...',
@@ -1073,6 +1092,8 @@ const languagePacks = {
     'banker.faq2Question': 'How are my earnings calculated?',
     'banker.faq2Answer': 'Your earnings consist of two parts: "Liquidity PnL" (fluctuates with players\' wins/losses, affecting your principal) and "Dividend Rewards" (increases with volume, claimed via Harvest).',
     'common.recommend': 'Recommended',
+    'common.cancel': 'Cancel',
+    'common.confirm': 'Confirm',
 
     // Unstake Modal
     'unstake.title': 'Select Redeem Option',
@@ -1371,19 +1392,24 @@ const languagePacks = {
     'personal.connectWalletBtn': 'ウォレット接続',
     
     // Welfare
-    'welfare.title': 'ステーキング福祉',
+    'welfare.title': 'ステーキングポイント',
+    'welfare.subtitle': '請求可能なトークン量は注文のステーキングサイクルに基づきます',
     'welfare.unclaimed': '未請求',
     'welfare.claimed': '請求済み',
-    'welfare.batchClaim': 'ページ一括請求',
+    'welfare.batchClaim': '一括請求',
     'welfare.claiming': '請求中...',
     'welfare.claim': '請求',
+    'welfare.claimablePoints': '請求可能ポイント',
     'welfare.orderId': '注文ID',
     'welfare.statusActive': 'ステーキング中',
     'welfare.statusEnded': '終了/償還済み',
     'welfare.noRecords': '福祉記録なし',
     'welfare.connectFirst': 'ウォレットを接続してください',
     'welfare.addToken': 'ATHPを追加',
-    'welfare.pageUnclaimed': 'ページ内未請求: {count} 件',
+    'welfare.pageUnclaimed': '未請求: {count} 件',
+    'welfare.confirmBatchClaim': 'このページのすべての報酬を受け取りますか？',
+    'welfare.confirmAddTokenTitle': 'トークンを追加',
+    'welfare.confirmAddTokenDesc': 'ウォレットにATHPトークンを追加しますか？',
     
     // Common
     'common.loading': 'Loading...',
@@ -1422,6 +1448,8 @@ const languagePacks = {
     'banker.faq2Question': '収益はどのように計算されますか？',
     'banker.faq2Answer': '収益は2つの部分で構成されます。「流動性損益」（プレイヤーの勝敗に応じて変動し、元本に影響します）と「配当報酬」（取引量とともに増加し、収穫で請求されます）。',
     'common.recommend': '推奨',
+    'common.cancel': 'キャンセル',
+    'common.confirm': '確認',
 
     // Unstake Modal
     'unstake.title': '償還方法の選択',
@@ -1720,19 +1748,24 @@ const languagePacks = {
     'personal.connectWalletBtn': '지갑 연결',
     
     // Welfare
-    'welfare.title': '스테이킹 복지',
+    'welfare.title': '스테이킹 포인트',
+    'welfare.subtitle': '청구 가능한 토큰 수량은 주문 스테이킹 주기에 따라 계산됩니다',
     'welfare.unclaimed': '미청구',
     'welfare.claimed': '청구됨',
-    'welfare.batchClaim': '페이지 일괄 청구',
+    'welfare.batchClaim': '일괄 청구',
     'welfare.claiming': '청구 중...',
     'welfare.claim': '청구',
+    'welfare.claimablePoints': '수령 가능 포인트',
     'welfare.orderId': '주문 ID',
     'welfare.statusActive': '스테이킹 중',
     'welfare.statusEnded': '종료/상환됨',
     'welfare.noRecords': '복지 기록 없음',
     'welfare.connectFirst': '지갑을 연결해 주세요',
     'welfare.addToken': 'ATHP 추가',
-    'welfare.pageUnclaimed': '페이지 미청구: {count} 건',
+    'welfare.pageUnclaimed': '미청구: {count} 건',
+    'welfare.confirmBatchClaim': '이 페이지의 모든 보상을 청구하시겠습니까?',
+    'welfare.confirmAddTokenTitle': '토큰 추가',
+    'welfare.confirmAddTokenDesc': '지갑에 ATHP 토큰을 추가하시겠습니까?',
     
     // Common
     'common.loading': 'Loading...',
@@ -1771,6 +1804,8 @@ const languagePacks = {
     'banker.faq2Question': '수익은 어떻게 계산되나요?',
     'banker.faq2Answer': '수익은 두 가지 부분으로 구성됩니다: "유동성 손익"(플레이어의 승패에 따라 변동하며 원금에 영향을 미침)과 "배당 보상"(거래량에 따라 증가하며 수확을 통해 청구).',
     'common.recommend': '추천',
+    'common.cancel': '취소',
+    'common.confirm': '확인',
 
     // Unstake Modal
     'unstake.title': '상환 옵션 선택',
