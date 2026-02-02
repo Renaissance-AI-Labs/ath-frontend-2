@@ -62,7 +62,7 @@
                     </div>
                   </div>
                   <div class="balance-text " :class="{ 'text-danger': isInsufficientBalance }">
-                    {{ t('crash.balance', { amount: formatAmount4(athBalance) }) }}
+                    {{ t('crash.balance', { amount: formatAmount4(athpBalance) }) }}
                   </div>
                 </div>
 
@@ -173,7 +173,7 @@
                       
                       <!-- Current Payout (Animating) - HIDDEN as per request (inaccurate estimate)
                       <div v-if="gameState === 'ANIMATING'" class="current-payout text-highlight-gold" style="font-size: 1.5rem; font-weight: bold; margin-top: 5px; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);">
-                          +{{ (parseFloat(betAmount || 0) * currentMultiplier).toFixed(4) }} ATH
+                          +{{ (parseFloat(betAmount || 0) * currentMultiplier).toFixed(4) }} ATHP
                       </div>
                       -->
 
@@ -183,7 +183,7 @@
                       </div>
                       
                       <div v-if="gameState === 'RESULT' && lastGameWon" class="result-payout  text-success">
-                        +{{ lastPayout }} ATH
+                        +{{ lastPayout }} ATHP
                       </div>
                   </div>
                 </div>
@@ -524,9 +524,9 @@ import { ref, onMounted, onUnmounted, computed, watch, nextTick } from 'vue';
 import { solidityPackedKeccak256, solidityPacked } from 'ethers';
 import HomeRightSidebar from '../components/HomeRightSidebar.vue';
 import { 
-  getAthBalance, 
-  getAthAllowance, 
-  approveAth, 
+  getAthpBalance, 
+  getAthpAllowance, 
+  approveAthp, 
   placeBet, 
   settleBet, 
   getActiveBet,
@@ -549,8 +549,8 @@ export default {
     const gameState = ref('IDLE'); // IDLE, BETTING, WAITING_BLOCK, READY_TO_SETTLE, SETTLING, ANIMATING, RESULT
     const betAmount = ref('');
     const prediction = ref(DEFAULT_PREDICTION.toFixed(2));
-    const athBalance = ref('0');
-    const athAllowance = ref('0');
+    const athpBalance = ref('0');
+    const athpAllowance = ref('0');
     
     const isBetting = ref(false);
     const isApproving = ref(false);
@@ -805,7 +805,7 @@ export default {
     });
 
     const isInsufficientBalance = computed(() => {
-        const bal = parseFloat(athBalance.value || 0);
+        const bal = parseFloat(athpBalance.value || 0);
         const amount = parseFloat(betAmount.value || 0);
         // 如果余额为0，显示红色
         if (bal === 0) return true;
@@ -816,7 +816,7 @@ export default {
 
     const needsApproval = computed(() => {
         if (!betAmount.value) return false;
-        return parseFloat(athAllowance.value) < parseFloat(betAmount.value);
+        return parseFloat(athpAllowance.value) < parseFloat(betAmount.value);
     });
 
     const winChance = computed(() => {
@@ -1005,8 +1005,8 @@ export default {
     };
 
     const refreshBalance = async () => {
-        athBalance.value = await getAthBalance();
-        athAllowance.value = await getAthAllowance();
+        athpBalance.value = await getAthpBalance();
+        athpAllowance.value = await getAthpAllowance();
     };
 
     const checkActiveBet = async () => {
@@ -1114,7 +1114,7 @@ export default {
 
     const handleApprove = async () => {
         isApproving.value = true;
-        const success = await approveAth();
+        const success = await approveAthp();
         if (success) {
             showToast(t('toast.txSuccess'));
             await refreshBalance();
@@ -1124,7 +1124,7 @@ export default {
 
     const handleBet = async () => {
         const val = parseFloat(betAmount.value || 0);
-        const bal = parseFloat(athBalance.value || 0);
+        const bal = parseFloat(athpBalance.value || 0);
         
         if (val > bal) {
              showToast(t('crash.insufficientBalance'));
@@ -1624,8 +1624,8 @@ export default {
 
     // --- Helper UI Methods ---
     const setAmountPercent = (p) => {
-        if (!athBalance.value) return;
-        const bal = parseFloat(athBalance.value);
+        if (!athpBalance.value) return;
+        const bal = parseFloat(athpBalance.value);
         
         if (bal <= 0) {
             showToast(t('crash.insufficientBalance'));
@@ -1660,14 +1660,14 @@ export default {
     };
     
     const setMaxAmount = () => {
-        const bal = parseFloat(athBalance.value);
+        const bal = parseFloat(athpBalance.value);
         if (bal <= 0) {
             showToast(t('crash.insufficientBalance'));
             return;
         }
         
         if (bal <= maxBet.value) {
-            betAmount.value = formatAmount4(athBalance.value);
+            betAmount.value = formatAmount4(athpBalance.value);
         } else {
             betAmount.value = maxBet.value.toFixed(4);
         }
@@ -1825,8 +1825,8 @@ export default {
         gameState,
         betAmount,
         prediction,
-        athBalance,
-        athAllowance,
+        athpBalance,
+        athpAllowance,
         isBetting,
         isApproving,
         needsApproval,
