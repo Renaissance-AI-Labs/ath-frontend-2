@@ -30,21 +30,21 @@
                         <div class="col-6 col-md-3 border-end-md">
                             <div class="p-2">
                                 <div class="label text-white-50 fs-extra-small mb-1">{{ t('banker.tvl') }}</div>
-                                <div class="amount-value fs-6 fw-bold">{{ formatNumber(bankerData.tvl) }} ATH</div>
+                                <div class="amount-value fs-6 fw-bold">{{ formatNumber(bankerData.tvl) }} ATHP</div>
                             </div>
                         </div>
                         <!-- My Principal -->
                         <div class="col-6 col-md-3 border-end-md">
                             <div class="p-2">
                                 <div class="label text-white-50 fs-extra-small mb-1">{{ t('banker.myPrincipal') }}</div>
-                                <div class="amount-value fs-6 fw-bold">{{ formatNumber(bankerData.invested) }} ATH</div>
+                                <div class="amount-value fs-6 fw-bold">{{ formatNumber(bankerData.invested) }} ATHP</div>
                             </div>
                         </div>
                         <!-- Current Position Value -->
                         <div class="col-6 col-md-3 border-end-md">
                             <div class="p-2">
                                 <div class="label text-white-50 fs-extra-small mb-1">{{ t('banker.currentValue') }}</div>
-                                <div class="amount-value fs-6 fw-bold">{{ formatNumber(bankerData.value) }} ATH</div>
+                                <div class="amount-value fs-6 fw-bold">{{ formatNumber(bankerData.value) }} ATHP</div>
                                 <div class="fs-extra-small mt-1" :class="bankerData.pnl >= 0 ? 'text-success' : 'text-danger'" style="line-height: 1;">
                                      PnL: {{ bankerData.pnl >= 0 ? '+' : '' }}{{ formatNumber(bankerData.pnl) }}
                                 </div>
@@ -54,7 +54,7 @@
                         <div class="col-6 col-md-3">
                             <div class="p-2">
                                 <div class="label text-white-50 fs-extra-small mb-1">{{ t('banker.sharePrice') }}</div>
-                                <div class="amount-value fs-6 fw-bold">{{ formatNumber(bankerData.sharePrice) }} ATH</div>
+                                <div class="amount-value fs-6 fw-bold">{{ formatNumber(bankerData.sharePrice) }} ATHP</div>
                                 <div class="fs-extra-small text-white-50 mt-1" style="line-height: 1;">
                                     {{ t('banker.myShares') }}: {{ formatNumber(bankerData.shares) }}
                                 </div>
@@ -69,7 +69,7 @@
                     <div class="d-flex justify-content-between align-items-center px-2 pt-1">
                         <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center">
                             <span class="label text-white-50 fs-extra-small me-2">{{ t('banker.pendingDividend') }}</span>
-                            <span class="amount-value fs-5 fw-bold text-gradient">{{ formatNumber(bankerData.pending) }} ATH</span>
+                            <span class="amount-value fs-5 fw-bold text-gradient">{{ formatNumber(bankerData.pending) }} ATHP</span>
                         </div>
                         <div>
                             <button class="btn-liquid btn-sm py-1 px-3 fs-extra-small" @click="handleHarvest" :disabled="loading || bankerData.pending <= 0" style="padding: 6px 12px; min-height: 32px;">
@@ -117,7 +117,7 @@
                                 <input type="number" v-model="depositAmount" class="form-control custom-input" placeholder="0.0" @input="(e) => handleInput(e, 'deposit')">
                                 <button class="max-btn" type="button" @click="setMaxDeposit">MAX</button>
                             </div>
-                            <small class="fs-extra-small mt-1 d-block" :class="isInsufficientBalance ? 'text-danger' : 'text-white-50'">{{ t('banker.balanceLabel', { amount: formatNumber(athBalance) }) }}</small>
+                            <small class="fs-extra-small mt-1 d-block" :class="isInsufficientBalance ? 'text-danger' : 'text-white-50'">{{ t('banker.balanceLabel', { amount: formatNumber(athpBalance) }) }}</small>
                         </div>
 
                         <div class="d-flex gap-3">
@@ -224,14 +224,14 @@ import HomeRightSidebar from '../components/HomeRightSidebar.vue';
 import { walletState } from '../services/wallet';
 import { 
     getBankerData, 
-    approveAthForBanker, 
-    getAthAllowanceForBanker, 
+    approveAthpForBanker, 
+    getAthpAllowanceForBanker, 
     depositBanker, 
     withdrawBanker, 
     harvestBanker 
 } from '../services/banker';
 import { contractAddresses } from '../services/contracts'; // Use generic ath balance from somewhere or fetch it specifically
-import { athContract } from '../services/contracts';
+import { athpContract } from '../services/contracts';
 import { ethers } from 'ethers';
 import { t } from '../i18n';
 
@@ -253,7 +253,7 @@ export default {
         lockPeriod: 0,
         lastDepositTime: 0
     });
-    const athBalance = ref('0');
+    const athpBalance = ref('0');
     const depositAmount = ref('');
     const withdrawShares = ref('');
     const allowance = ref('0');
@@ -304,11 +304,11 @@ export default {
         const data = await getBankerData();
         if (data) bankerData.value = data;
         
-        allowance.value = await getAthAllowanceForBanker();
+        allowance.value = await getAthpAllowanceForBanker();
         
-        if (athContract && walletState.address) {
-            const bal = await athContract.balanceOf(walletState.address);
-            athBalance.value = ethers.formatUnits(bal, 18);
+        if (athpContract && walletState.address) {
+            const bal = await athpContract.balanceOf(walletState.address);
+            athpBalance.value = ethers.formatUnits(bal, 18);
         }
     };
 
@@ -329,7 +329,7 @@ export default {
                 lockPeriod: 0,
                 lastDepositTime: 0
             };
-            athBalance.value = '0';
+            athpBalance.value = '0';
             depositAmount.value = '';
             withdrawShares.value = '';
             allowance.value = '0';
@@ -349,7 +349,7 @@ export default {
 
     const handleApprove = async () => {
         loading.value = true;
-        const success = await approveAthForBanker();
+        const success = await approveAthpForBanker();
         if (success) await loadData();
         loading.value = false;
     };
@@ -382,7 +382,7 @@ export default {
     };
 
     const setMaxDeposit = () => {
-        depositAmount.value = formatNumber(athBalance.value);
+        depositAmount.value = formatNumber(athpBalance.value);
     };
 
     const setMaxWithdraw = () => {
@@ -404,7 +404,7 @@ export default {
 
     const isInsufficientBalance = computed(() => {
         const inputVal = parseFloat(depositAmount.value || 0);
-        const maxVal = parseFloat(formatNumber(athBalance.value));
+        const maxVal = parseFloat(formatNumber(athpBalance.value));
         return inputVal > maxVal;
     });
 
@@ -445,7 +445,7 @@ export default {
 
     return {
         bankerData,
-        athBalance,
+        athpBalance,
         depositAmount,
         withdrawShares,
         isApproved,

@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { bankerPoolContract, athContract, contractAddresses } from './contracts';
+import { bankerPoolContract, athpContract, contractAddresses } from './contracts';
 import { walletState } from './wallet';
 import { showToast } from './notification';
 import { t } from '../i18n';
@@ -97,13 +97,13 @@ export const getBankerData = async () => {
     }
 };
 
-export const approveAthForBanker = async () => {
-    if (!athContract) return false;
+export const approveAthpForBanker = async () => {
+    if (!athpContract) return false;
     const env = APP_ENV === 'PROD' ? 'production' : 'development';
     const bankerAddress = contractAddresses.bankerPool[env];
     
     try {
-        const tx = await athContract.approve(bankerAddress, ethers.MaxUint256);
+        const tx = await athpContract.approve(bankerAddress, ethers.MaxUint256);
         await tx.wait();
         return true;
     } catch (error) {
@@ -112,13 +112,13 @@ export const approveAthForBanker = async () => {
     }
 };
 
-export const getAthAllowanceForBanker = async () => {
-    if (!athContract || !walletState.address) return "0";
+export const getAthpAllowanceForBanker = async () => {
+    if (!athpContract || !walletState.address) return "0";
     const env = APP_ENV === 'PROD' ? 'production' : 'development';
     const bankerAddress = contractAddresses.bankerPool[env];
     
     try {
-        const allowance = await athContract.allowance(walletState.address, bankerAddress);
+        const allowance = await athpContract.allowance(walletState.address, bankerAddress);
         return ethers.formatUnits(allowance, 18);
     } catch (error) {
         console.error("Get allowance failed:", error);

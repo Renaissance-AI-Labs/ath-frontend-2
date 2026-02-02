@@ -38,7 +38,7 @@
                     <div class="label text-white-50 fs-extra-small mb-1">{{ t('personal.teamTotalBet') }}</div>
                     <div class="d-flex align-items-baseline">
                         <span class="amount-value fs-5 fw-bold text-gradient me-1">{{ formatAmount(totalWin) }}</span>
-                        <span class="text-white-50 fs-extra-small">{{ t('common.ath') }}</span>
+                        <span class="text-white-50 fs-extra-small">ATHP</span>
                     </div>
                   </div>
                 </div>
