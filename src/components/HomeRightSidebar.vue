@@ -1,79 +1,93 @@
 <template>
-  <div>
-    <!-- Backdrop Overlay -->
-    <transition name="fade">
-      <div v-if="isOpen" class="sidebar-backdrop" @click="$emit('close')"></div>
-    </transition>
+  <Teleport to="body">
+    <div>
+      <!-- Backdrop Overlay -->
+      <transition name="fade">
+        <div v-if="isOpen" class="sidebar-backdrop" @click="$emit('close')"></div>
+      </transition>
 
-    <!-- Sidebar Drawer -->
-    <transition name="slide-right">
-      <div v-if="isOpen" class="home-right-sidebar glass-panel">
-        <!-- Glass Effects -->
-        <div class="glass-filter"></div>
-        <div class="glass-overlay"></div>
-        <div class="glass-specular"></div>
-        
-        <div class="sidebar-content-wrapper">
-          <div class="sidebar-header">
-            <h5 class="font-3 text-gradient">{{ t('sidebar.ecoMatrix') }}</h5>
-            <button class="nav-btn glass-btn" @click="$emit('close')">
-                <div class="glass-filter"></div>
-                <div class="glass-specular"></div>
-                <div class="btn-content">
-                  <i class="icon icon-close"></i>
-                </div>
-            </button>
-          </div>
+      <!-- Sidebar Drawer -->
+      <transition name="slide-right">
+        <div v-if="isOpen" class="home-right-sidebar glass-panel">
+          <!-- Glass Effects -->
+          <div class="glass-filter"></div>
+          <div class="glass-overlay"></div>
+          <div class="glass-specular"></div>
           
-          <div class="sidebar-content-scroll">
-            <div class="blog-sidebar sidebar-content-wrap">
-              <!-- Category -->
-              <div class="sidebar-item glass-card-item">
-                <h5 class="sb-title font-3 text-gradient">{{ t('sidebar.gameCenter') }}</h5>
-                <div class="br-line has-dot"></div>
-                <ul class="sb-category">
-                  <li>
-                    <router-link v-if="isCrashEnabled" to="/crash" class="text-body-1 link-item" @click="$emit('close')">
-                      <span class="link-text">{{ t('sidebar.crashGame') }}</span>
-                      <i class="icon icon-ArrowUpRight"></i>
-                    </router-link>
-                    <span v-else class="text-body-1 link-item disabled">
-                       <span class="link-text">{{ t('sidebar.crashGameComingSoon') }}</span>
-                    </span>
-                  </li>
-                </ul>
-              </div>
+          <div class="sidebar-content-wrapper">
+            <div class="sidebar-header">
+              <h5 class="font-3 text-gradient">{{ t('sidebar.ecoMatrix') }}</h5>
+              <button class="nav-btn glass-btn" @click="$emit('close')">
+                  <div class="glass-filter"></div>
+                  <div class="glass-specular"></div>
+                  <div class="btn-content">
+                    <i class="icon icon-close"></i>
+                  </div>
+              </button>
+            </div>
+            
+            <div class="sidebar-content-scroll">
+              <div class="blog-sidebar sidebar-content-wrap">
+                <!-- Home -->
+                <div class="sidebar-item glass-card-item">
+                  <ul class="sb-category">
+                    <li>
+                      <router-link to="/" class="text-body-1 link-item" @click="$emit('close')">
+                        <span class="link-text">{{ t('sidebar.home') }}</span>
+                        <i class="icon icon-ArrowUpRight"></i>
+                      </router-link>
+                    </li>
+                  </ul>
+                </div>
 
-              <div class="sidebar-item glass-card-item">
-                <h5 class="sb-title font-3 text-gradient">{{ t('sidebar.equityCenter') }}</h5>
-                <div class="br-line has-dot"></div>
-                <ul class="sb-category">
-                  <li>
-                    <router-link to="/welfare" class="text-body-1 link-item" @click="$emit('close')">
-                      <span class="link-text">{{ t('sidebar.collectPoints') }}</span>
-                      <i class="icon icon-ArrowUpRight"></i>
-                    </router-link>
-                  </li>
-                  <li>
-                    <router-link to="/personal-center" class="text-body-1 link-item" @click="$emit('close')">
-                      <span class="link-text">{{ t('sidebar.personalCenter') }}</span>
-                      <i class="icon icon-ArrowUpRight"></i>
-                    </router-link>
-                  </li>
-                  <li>
-                    <router-link to="/shareholder" class="text-body-1 link-item" @click="$emit('close')">
-                      <span class="link-text">{{ t('sidebar.becomeShareholder') }}</span>
-                      <i class="icon icon-ArrowUpRight"></i>
-                    </router-link>
-                  </li>
-                </ul>
+                <!-- Category -->
+                <div class="sidebar-item glass-card-item">
+                  <h5 class="sb-title font-3 text-gradient">{{ t('sidebar.gameCenter') }}</h5>
+                  <div class="br-line has-dot"></div>
+                  <ul class="sb-category">
+                    <li>
+                      <router-link v-if="isCrashEnabled" to="/crash" class="text-body-1 link-item" @click="$emit('close')">
+                        <span class="link-text">{{ t('sidebar.crashGame') }}</span>
+                        <i class="icon icon-ArrowUpRight"></i>
+                      </router-link>
+                      <span v-else class="text-body-1 link-item disabled">
+                         <span class="link-text">{{ t('sidebar.crashGameComingSoon') }}</span>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="sidebar-item glass-card-item">
+                  <h5 class="sb-title font-3 text-gradient">{{ t('sidebar.equityCenter') }}</h5>
+                  <div class="br-line has-dot"></div>
+                  <ul class="sb-category">
+                    <li>
+                      <router-link to="/welfare" class="text-body-1 link-item" @click="$emit('close')">
+                        <span class="link-text">{{ t('sidebar.collectPoints') }}</span>
+                        <i class="icon icon-ArrowUpRight"></i>
+                      </router-link>
+                    </li>
+                    <li>
+                      <router-link to="/personal-center" class="text-body-1 link-item" @click="$emit('close')">
+                        <span class="link-text">{{ t('sidebar.personalCenter') }}</span>
+                        <i class="icon icon-ArrowUpRight"></i>
+                      </router-link>
+                    </li>
+                    <li>
+                      <router-link to="/shareholder" class="text-body-1 link-item" @click="$emit('close')">
+                        <span class="link-text">{{ t('sidebar.becomeShareholder') }}</span>
+                        <i class="icon icon-ArrowUpRight"></i>
+                      </router-link>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </transition>
-  </div>
+      </transition>
+    </div>
+  </Teleport>
 </template>
 
 <script>
@@ -104,22 +118,23 @@ export default {
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.6);
-  z-index: 9998;
+  z-index: 2147483646;
   backdrop-filter: blur(4px);
 }
 
 .home-right-sidebar {
   position: fixed;
-  top: 0;
-  right: 0;
+  top: 2vh;
+  right: 1vw;
   width: 85%;
   max-width: 400px;
-  height: 100vh;
-  z-index: 9999;
+  height: 96vh;
+  z-index: 2147483647;
   box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
   overflow: hidden; /* For glass effects */
+  border-radius: 24px;
 }
 
 .sidebar-content-wrapper {
@@ -160,7 +175,7 @@ export default {
 
 /* Header */
 .sidebar-header {
-  padding: 30px 24px;
+  padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -178,8 +193,8 @@ export default {
 
 /* Close Button (Glass Style) */
 .nav-btn {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     border: none;
     background: transparent;
@@ -214,13 +229,13 @@ export default {
 .sidebar-content-scroll {
   flex: 1;
   overflow-y: auto;
-  padding: 30px 24px;
+  padding: 15px;
 }
 
 /* Item Card Style */
 .sidebar-item {
-  margin-bottom: 30px;
-  padding: 24px;
+  margin-bottom: 15px;
+  padding: 15px;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -234,14 +249,14 @@ export default {
 }
 
 .sb-title {
-  margin-bottom: 15px;
-  font-size: 18px;
+  margin-bottom: 10px;
+  font-size: 16px;
 }
 
 .br-line {
   height: 1px;
   background: rgba(255, 255, 255, 0.1);
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   position: relative;
 }
 
@@ -269,7 +284,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: 10px 12px;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.02);
   color: rgba(255, 255, 255, 0.8);

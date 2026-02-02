@@ -19,7 +19,7 @@
         </div>
       </div>
     
-      <div class="content-wrapper wow fadeInUp" data-wow-delay="0.1s">
+      <div class="content-wrapper wow fadeInUp" data-wow-delay="0.1s" style="margin-top: 40px;">
         <!-- 3.1 Core Data Display -->
         <div class="row mb-3">
             <div class="col-12">

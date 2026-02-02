@@ -20,7 +20,7 @@
       </div>
 
       <!-- Content -->
-      <div class="content-wrapper wow fadeInUp" data-wow-delay="0.1s">
+      <div class="content-wrapper wow fadeInUp" data-wow-delay="0.1s" style="margin-top: 40px;">
         <div class="row">
           <div class="col-lg-10 col-xl-8 mx-auto">
             

@@ -39,14 +39,14 @@
       <!-- Action Bar (Moved to top) -->
       <div class="action-bar glass-panel wow fadeInUp" data-wow-delay="0.2s" v-if="activeTab === 1 && records.length > 0">
         <div class="action-info">
-          {{ t('welfare.pageUnclaimed', { count: pageUnclaimedCount }) }}
+          {{ t('welfare.pageUnclaimed', { count: unclaimedTotal }) }}
         </div>
         <button 
           class="batch-claim-btn btn-liquid" 
           @click="handleBatchClaim"
-          :disabled="batchClaiming || pageUnclaimedCount === 0"
+          :disabled="batchClaiming || unclaimedTotal === 0"
         >
-          <span>{{ batchClaiming ? t('welfare.claiming') : t('welfare.batchClaim') }}</span>
+          <span>{{ batchClaiming ? t('welfare.claiming') : t('welfare.batchClaimAll', { count: unclaimedTotal }) }}</span>
         </button>
       </div>
 
@@ -116,14 +116,14 @@
 
         <!-- Pagination Controls -->
         <div v-if="records.length > 0 && totalPages > 1" class="pagination-list wow fadeInUp" data-wow-delay="0.3s">
-            <a href="#" class="pagination-item glass-btn" @click.prevent="changePage(currentPage - 1)" :class="{ 'disabled': currentPage === 1 }">
+            <a href="#" class="pagination-item glass-btn" @click.prevent="changePage(currentPage - 1)" :class="{ 'disabled': currentPage === 1 }" style="flex: none !important;">
                 <div class="glass-filter"></div>
                 <div class="btn-content">
                     <span>&lt;</span>
                 </div>
             </a>
             <span class="page-info">{{ currentPage }} / {{ totalPages }}</span>
-            <a href="#" class="pagination-item glass-btn" @click.prevent="changePage(currentPage + 1)" :class="{ 'disabled': currentPage === totalPages }">
+            <a href="#" class="pagination-item glass-btn" @click.prevent="changePage(currentPage + 1)" :class="{ 'disabled': currentPage === totalPages }"  style="flex: none !important;">
                 <div class="glass-filter"></div>
                 <div class="btn-content">
                     <span>&gt;</span>
@@ -266,7 +266,7 @@ const showClaimModal = ref(false);
 const isSidebarOpen = ref(false);
 
 // Pagination
-const limit = 20;
+const limit = 10;
 const currentPage = ref(1);
 
 // Computed
@@ -367,7 +367,7 @@ const handleClaim = async (item) => {
 };
 
 const handleBatchClaim = () => {
-  if (batchClaiming.value || pageUnclaimedCount.value === 0) return;
+  if (batchClaiming.value || unclaimedTotal.value === 0) return;
   showClaimModal.value = true;
 };
 
@@ -375,21 +375,33 @@ const confirmBatchClaim = async () => {
   showClaimModal.value = false;
   if (batchClaiming.value) return;
   
-  const idsToClaim = records.value
-    .filter(r => !r.isClaimed)
-    .map(r => r.orderId);
+  try {
+    batchClaiming.value = true;
     
-  if (idsToClaim.length === 0) return;
+    // Fetch all unclaimed records to get their IDs
+    // Use a safe large limit or the known total
+    const limitToFetch = unclaimedTotal.value > 0 ? unclaimedTotal.value : 1000;
+    const res = await getWelfareRecords(0, limitToFetch, 1); // status 1 = Unclaimed
+    
+    const idsToClaim = res.records.map(r => r.orderId);
+      
+    if (idsToClaim.length === 0) {
+      batchClaiming.value = false;
+      return;
+    }
 
-  batchClaiming.value = true;
-  const success = await batchClaimWelfareRewards(idsToClaim);
-  
-  if (success) {
-    // Reload to be safe
-    loadData();
+    const success = await batchClaimWelfareRewards(idsToClaim);
+    
+    if (success) {
+      // Reload to be safe
+      loadData(true);
+    }
+  } catch (error) {
+    console.error("Batch claim failed:", error);
+    showToast(t('toast.claimFailed', { reason: 'Fetch error' }));
+  } finally {
+    batchClaiming.value = false;
   }
-  
-  batchClaiming.value = false;
 };
 
 const handleAddToken = () => {
@@ -857,7 +869,7 @@ const closeSidebar = () => {
 .pagination-item {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    border-radius: 50% !important;
     border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
