@@ -304,7 +304,7 @@ const languagePacks = {
 
     // Personal Center
     'personal.home': 'HOME',
-    'personal.title': 'PERSONAL CENTER',
+    'personal.title': '个人中心',
     'personal.currentLevel': '当前等级',
     'personal.teamTotalBet': '团队累计投注',
     'personal.maxLevelReached': '已达到最高等级',
@@ -342,6 +342,7 @@ const languagePacks = {
 
     // Banker/Shareholder
     'banker.dashboard': '股东看板',
+    'banker.title': '股东中心',
     'banker.tvl': '总流动性 (TVL)',
     'banker.myPrincipal': '我的本金',
     'banker.currentValue': '当前持仓价值',
@@ -661,7 +662,7 @@ const languagePacks = {
 
     // Personal Center
     'personal.home': 'HOME',
-    'personal.title': 'PERSONAL CENTER',
+    'personal.title': '個人中心',
     'personal.currentLevel': '當前等級',
     'personal.teamTotalBet': '團隊累計投注',
     'personal.maxLevelReached': '已達到最高等級',
@@ -699,6 +700,7 @@ const languagePacks = {
 
     // Banker/Shareholder
     'banker.dashboard': '股東看板',
+    'banker.title': '股東中心',
     'banker.tvl': '總流動性 (TVL)',
     'banker.myPrincipal': '我的本金',
     'banker.currentValue': '當前持倉價值',
@@ -1065,6 +1067,7 @@ const languagePacks = {
 
     // Banker/Shareholder
     'banker.dashboard': 'Shareholder Dashboard',
+    'banker.title': 'SHAREHOLDER',
     'banker.tvl': 'Total Liquidity (TVL)',
     'banker.myPrincipal': 'My Principal',
     'banker.currentValue': 'Current Position Value',

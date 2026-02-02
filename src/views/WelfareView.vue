@@ -16,7 +16,6 @@
           <h1 class="page-title">
             {{ t('welfare.title') }}
           </h1>
-          <p class="page-subtitle">{{ t('welfare.subtitle') }}</p>
         </div>
         <div class="header-actions">
           <button class="add-token-btn glass-icon-btn" @click="handleAddToken" :title="t('welfare.addToken')">
@@ -422,7 +421,7 @@ const closeSidebar = () => {
   min-height: 100vh;
   background-color: #0f0f0f;
   color: #fff;
-  padding: 40px 10px 0px 10px;
+  padding: 20px 10px 0px 10px;
   position: relative;
   overflow-x: hidden;
   --primary: #00d2ff;
@@ -527,7 +526,7 @@ const closeSidebar = () => {
 }
 
 .page-header {
-  padding: 20px 0 40px;
+  padding: 20px 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -583,7 +582,7 @@ const closeSidebar = () => {
 .tabs-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .toggle-button {
@@ -637,7 +636,7 @@ const closeSidebar = () => {
   justify-content: flex-end; /* Align right as requested */
   gap: 15px; /* Add gap between text and button */
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border-radius: 16px;
 }
 
@@ -657,7 +656,7 @@ const closeSidebar = () => {
 .records-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  gap: 10px;
   padding-bottom: 40px;
 }
 

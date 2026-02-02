@@ -16,7 +16,6 @@
           <h1 class="page-title">
             {{ t('personal.title') }}
           </h1>
-          <p class="page-subtitle">{{ t('personal.subtitle') || 'Level up to unlock more benefits' }}</p>
         </div>
       </div>
 
@@ -26,58 +25,53 @@
           <div class="col-lg-10 col-xl-8 mx-auto">
             
             <!-- User Stats Section -->
-            <div class="glass-card mb-4">
-              <div class="card-body">
-                <div class="row align-items-center">
-                  <div class="col-md-6 mb-4 mb-md-0">
-                    <div class="stat-item text-center">
-                      <h5 class="label mb-2">{{ t('personal.currentLevel') }}</h5>
-                      <div class="stat-value">
-                        <span class="amount-value h1 fw-bold">Lv {{ userLevel }}</span>
-                      </div>
-                    </div>
+            <div class="glass-card mb-3" style="padding: 20px;">
+              <div class="row align-items-center">
+                <div class="col-6 border-end-md">
+                  <div class="p-1">
+                    <div class="label text-white-50 fs-extra-small mb-1">{{ t('personal.currentLevel') }}</div>
+                    <div class="amount-value fs-4 fw-bold">Lv {{ userLevel }}</div>
                   </div>
-                  
-                  <div class="col-md-6">
-                    <div class="stat-item text-center">
-                      <h5 class="label mb-2">{{ t('personal.teamTotalBet') }}</h5>
-                      <div class="stat-value">
-                        <span class="amount-value h2 fw-bold text-gradient">{{ formatAmount(totalWin) }}</span>
-                        <span class="amount-unit">{{ t('common.ath') }}</span>
-                      </div>
+                </div>
+                <div class="col-6">
+                  <div class="p-1">
+                    <div class="label text-white-50 fs-extra-small mb-1">{{ t('personal.teamTotalBet') }}</div>
+                    <div class="d-flex align-items-baseline">
+                        <span class="amount-value fs-5 fw-bold text-gradient me-1">{{ formatAmount(totalWin) }}</span>
+                        <span class="text-white-50 fs-extra-small">{{ t('common.ath') }}</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Level Up Progress Bar -->
-            <div class="glass-card">
-              <div class="card-header mb-3">
-                 <h4 class="text-white mb-0 h5 font-weight-bold">
-                   {{ isMaxLevel ? t('personal.maxLevelReached') : t('personal.nextLevelProgress') }}
-                 </h4>
-              </div>
-               
-               <div v-if="!isMaxLevel" class="level-progress-container">
-                 <div class="progress-track">
-                    <div class="progress-fill" :style="{ width: progressPercent + '%' }">
-                      <div class="progress-glow"></div>
-                    </div>
-                 </div>
-                 
-                 <div class="d-flex justify-content-between label mt-3">
-                    <span>{{ t('personal.current') }}: {{ formatAmount(totalWin) }}</span>
-                    <span>{{ t('personal.target') }}: {{ formatAmount(nextLevelTarget) }}</span>
-                 </div>
-                 <div class="text-center mt-2 label" style="opacity: 0.8;">
-                    {{ t('personal.need') }} <span class="text-white">{{ formatAmount(remainingToNextLevel) }}</span> {{ t('common.ath') }}
-                 </div>
-               </div>
-               
-               <div v-else class="text-center py-4">
-                 <p class="text-gradient h4">{{ t('personal.maxLevelDesc') }}</p>
-               </div>
+            <!-- Level Up Progress Section -->
+            <div class="glass-card mb-3" style="padding: 20px;">
+                  <div class="mb-2 d-flex justify-content-between align-items-center">
+                     <span class="text-white h6 mb-0 font-weight-bold" style="font-size: 0.9rem;">
+                       {{ isMaxLevel ? t('personal.maxLevelReached') : t('personal.nextLevelProgress') }}
+                     </span>
+                     <span v-if="!isMaxLevel" class="fs-extra-small text-white-50">
+                        {{ t('personal.need') }} <span class="text-white fw-bold">{{ formatAmount(remainingToNextLevel) }}</span>
+                     </span>
+                  </div>
+                   
+                   <div v-if="!isMaxLevel" class="level-progress-container">
+                     <div class="progress-track">
+                        <div class="progress-fill" :style="{ width: progressPercent + '%' }">
+                          <div class="progress-glow"></div>
+                        </div>
+                     </div>
+                     
+                     <div class="d-flex justify-content-between mt-2 fs-extra-small text-white-50">
+                        <span>{{ t('personal.current') }}: {{ formatAmount(totalWin) }}</span>
+                        <span>{{ t('personal.target') }}: {{ formatAmount(nextLevelTarget) }}</span>
+                     </div>
+                   </div>
+                   
+                   <div v-else class="text-center py-3">
+                     <p class="text-gradient h5 mb-0">{{ t('personal.maxLevelDesc') }}</p>
+                   </div>
             </div>
 
             <!-- Loading/Connect Hint -->
@@ -268,7 +262,7 @@ export default {
   min-height: 100vh;
   background-color: #0f0f0f;
   color: #fff;
-  padding: 40px 10px 0px 10px;
+  padding: 20px 10px 0px 10px;
   position: relative;
   overflow-x: hidden;
   --primary: #00d2ff;
@@ -371,12 +365,12 @@ export default {
 }
 
 .page-header {
-  padding: 20px 0 40px;
-  text-align: center;
+  padding: 20px 0 20px;
+  text-align: left;
 }
 
 .page-title {
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   font-weight: 700;
   margin: 0;
   background: linear-gradient(90deg, #fff, #888);
@@ -573,5 +567,19 @@ export default {
     border-radius: inherit;
     box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 5px rgba(255, 255, 255, 0.1);
     pointer-events: none;
+}
+
+@media (min-width: 768px) {
+    .border-end-md {
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+}
+
+.fs-extra-small {
+    font-size: 12px;
+}
+
+.border-white-10 {
+    border-color: rgba(255, 255, 255, 0.1) !important;
 }
 </style>

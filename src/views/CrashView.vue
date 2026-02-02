@@ -500,13 +500,16 @@
     </section>
 
     <!-- Sidebar Trigger Button -->
-    <!--
-    <div class="btn-sidebar-mb d-lg-none right">
-        <button @click="openSidebar" style="background-color: #111111;">
-            <img src="/asset/images/section/speed.svg" alt="Menu" width="50" height="50" style="transform: rotate(180deg);">
+    <div class="btn-sidebar-mb right">
+        <button @click="openSidebar" class="nav-btn glass-btn sidebar-trigger">
+            <div class="glass-filter"></div>
+            <div class="glass-specular"></div>
+            <div class="btn-content">
+                 <!-- Hamburger Icon -->
+                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </div>
         </button>
     </div>
-    -->
 
     <!-- Right Sidebar -->
     <HomeRightSidebar 
@@ -2530,5 +2533,52 @@ canvas {
 
 .math-op {
     font-family: 'Times New Roman', Times, serif;
+}
+
+.nav-btn.sidebar-trigger {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s;
+    flex: unset; /* Override flex: 1 from glass-btn */
+    padding: 0; /* Reset padding */
+}
+
+.nav-btn.sidebar-trigger:hover {
+    transform: scale(1.1);
+}
+
+.nav-btn.sidebar-trigger .btn-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn.sidebar-trigger .glass-filter {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.nav-btn.sidebar-trigger .glass-specular {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 5px rgba(255, 255, 255, 0.1);
+    pointer-events: none;
 }
 </style>

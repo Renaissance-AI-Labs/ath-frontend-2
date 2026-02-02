@@ -14,67 +14,75 @@
       <div class="page-header wow fadeInUp">
         <div class="header-content">
           <h1 class="page-title">
-            SHAREHOLDER
+            {{ t('banker.title') }}
           </h1>
-          <p class="page-subtitle">{{ t('banker.subtitle') || 'Become a shareholder and earn dividends' }}</p>
         </div>
       </div>
     
       <div class="content-wrapper wow fadeInUp" data-wow-delay="0.1s">
         <!-- 3.1 Core Data Display -->
-        <div class="row mb-4">
-            <!-- Total Liquidity -->
-            <div class="col-md-3 col-6 mb-3">
-                <div class="glass-card h-100">
-                    <h5 class="label mb-2 fs-small">{{ t('banker.tvl') }}</h5>
-                    <h3 class="amount-value fs-medium">{{ formatNumber(bankerData.tvl) }} ATH</h3>
-                </div>
-            </div>
-             <!-- My Principal -->
-            <div class="col-md-3 col-6 mb-3">
-                <div class="glass-card h-100">
-                    <h5 class="label mb-2 fs-small">{{ t('banker.myPrincipal') }}</h5>
-                    <h3 class="amount-value fs-medium">{{ formatNumber(bankerData.invested) }} ATH</h3>
-                </div>
-            </div>
-            <!-- Current Position Value -->
-            <div class="col-md-3 col-6 mb-3">
-                <div class="glass-card h-100">
-                    <h5 class="label mb-2 fs-small">{{ t('banker.currentValue') }}</h5>
-                    <h3 class="amount-value fs-medium">{{ formatNumber(bankerData.value) }} ATH</h3>
-                    <div class="small mt-1 fs-extra-small" :class="bankerData.pnl >= 0 ? 'text-success' : 'text-danger'">
-                         PnL: {{ bankerData.pnl >= 0 ? '+' : '' }}{{ formatNumber(bankerData.pnl) }} ATH
+        <div class="row mb-3">
+            <div class="col-12">
+                <div class="glass-card mb-2" style="padding: 15px;">
+                    <!-- Top Row: 4 Data Points -->
+                    <div class="row g-2 align-items-start">
+                        <!-- Total Liquidity -->
+                        <div class="col-6 col-md-3 border-end-md">
+                            <div class="p-2">
+                                <div class="label text-white-50 fs-extra-small mb-1">{{ t('banker.tvl') }}</div>
+                                <div class="amount-value fs-6 fw-bold">{{ formatNumber(bankerData.tvl) }} ATH</div>
+                            </div>
+                        </div>
+                        <!-- My Principal -->
+                        <div class="col-6 col-md-3 border-end-md">
+                            <div class="p-2">
+                                <div class="label text-white-50 fs-extra-small mb-1">{{ t('banker.myPrincipal') }}</div>
+                                <div class="amount-value fs-6 fw-bold">{{ formatNumber(bankerData.invested) }} ATH</div>
+                            </div>
+                        </div>
+                        <!-- Current Position Value -->
+                        <div class="col-6 col-md-3 border-end-md">
+                            <div class="p-2">
+                                <div class="label text-white-50 fs-extra-small mb-1">{{ t('banker.currentValue') }}</div>
+                                <div class="amount-value fs-6 fw-bold">{{ formatNumber(bankerData.value) }} ATH</div>
+                                <div class="fs-extra-small mt-1" :class="bankerData.pnl >= 0 ? 'text-success' : 'text-danger'" style="line-height: 1;">
+                                     PnL: {{ bankerData.pnl >= 0 ? '+' : '' }}{{ formatNumber(bankerData.pnl) }}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Share Price -->
+                        <div class="col-6 col-md-3">
+                            <div class="p-2">
+                                <div class="label text-white-50 fs-extra-small mb-1">{{ t('banker.sharePrice') }}</div>
+                                <div class="amount-value fs-6 fw-bold">{{ formatNumber(bankerData.sharePrice) }} ATH</div>
+                                <div class="fs-extra-small text-white-50 mt-1" style="line-height: 1;">
+                                    {{ t('banker.myShares') }}: {{ formatNumber(bankerData.shares) }}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-             <!-- Current Net Value -->
-            <div class="col-md-3 col-6 mb-3">
-                <div class="glass-card h-100">
-                    <h5 class="label mb-2 fs-small">{{ t('banker.sharePrice') }}</h5>
-                    <h3 class="amount-value fs-medium">{{ formatNumber(bankerData.sharePrice) }} ATH</h3>
-                    <div class="small mt-1 fs-extra-small text-white-50">
-                        {{ t('banker.myShares') }}: {{ formatNumber(bankerData.shares) }}
-                    </div>
-                </div>
-            </div>
-            <!-- Pending Reward -->
-            <div class="col-12 mb-3">
-                <div class="glass-card d-flex align-items-center justify-content-between flex-wrap gap-3">
-                    <div>
-                        <h5 class="label mb-1 fs-small">{{ t('banker.pendingDividend') }}</h5>
-                        <h3 class="amount-value fs-medium mb-0 text-gradient">{{ formatNumber(bankerData.pending) }} ATH</h3>
-                    </div>
-                    <div style="min-width: 120px;">
-                        <button class="btn-liquid w-100 py-2 px-3 fs-small" @click="handleHarvest" :disabled="loading || bankerData.pending <= 0">
-                            <span>{{ loading ? t('banker.processing') : t('banker.harvest') }}</span>
-                        </button>
+                    
+                    <!-- Divider -->
+                    <div class="my-2 border-top border-white-10"></div>
+
+                    <!-- Bottom Row: Pending Dividend & Harvest -->
+                    <div class="d-flex justify-content-between align-items-center px-2 pt-1">
+                        <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center">
+                            <span class="label text-white-50 fs-extra-small me-2">{{ t('banker.pendingDividend') }}</span>
+                            <span class="amount-value fs-5 fw-bold text-gradient">{{ formatNumber(bankerData.pending) }} ATH</span>
+                        </div>
+                        <div>
+                            <button class="btn-liquid btn-sm py-1 px-3 fs-extra-small" @click="handleHarvest" :disabled="loading || bankerData.pending <= 0" style="padding: 6px 12px; min-height: 32px;">
+                                <span>{{ loading ? t('banker.processing') : t('banker.harvest') }}</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- 3.2 Interactions (Tabs) -->
-        <div class="row justify-content-center mb-5">
+        <div class="row justify-content-center mb-3">
             <div class="col-lg-8 col-md-10">
                 <div class="glass-card">
                     <!-- Tabs Header -->
@@ -470,7 +478,7 @@ export default {
   min-height: 100vh;
   background-color: #0f0f0f;
   color: #fff;
-  padding: 40px 10px 0px 10px;
+  padding: 20px 10px 0px 10px;
   position: relative;
   overflow-x: hidden;
   --primary: #00d2ff;
@@ -573,12 +581,12 @@ export default {
 }
 
 .page-header {
-  padding: 20px 0 40px;
-  text-align: center;
+  padding: 20px 0 20px;
+  text-align: left;
 }
 
 .page-title {
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   font-weight: 700;
   margin: 0;
   background: linear-gradient(90deg, #fff, #888);
@@ -811,12 +819,9 @@ export default {
     -webkit-backdrop-filter: blur(10px);
 }
 
-.nav-btn.sidebar-trigger .glass-specular {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    border-radius: inherit;
-    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 5px rgba(255, 255, 255, 0.1);
-    pointer-events: none;
+@media (min-width: 768px) {
+    .border-end-md {
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
 }
 </style>
