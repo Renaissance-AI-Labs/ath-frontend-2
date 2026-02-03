@@ -24,6 +24,8 @@ import nodeDividendPoolAbi from '../abis/node_dividend_pool.json';
 import crashAbi from '../abis/crash.json';
 import bankerPoolAbi from '../abis/bankerpool.json';
 import gameLevelAbi from '../abis/game_level.json';
+import athpAbi from '../abis/athp.json';
+import stakingWelfareAbi from '../abis/stakingWelfare.json';
 // No need for a separate USDT ABI if it follows ERC20 standard like `ath.json`
 // import usdtAbi from '../abis/usdt.json';
 
@@ -77,16 +79,24 @@ export const contractAddresses = {
     development: '0x3F4E253D329C767293F0B50670882Eb3761a6989',
   },
   crash: {
-    production: '0x896A036F2Ef9699322b20C1E9Eb529F5486b79eF', // To be deployed
-    development: '0x58Ad6227c74D9000d0d6014682bD990aAB217eE0',
+    production: '', // To be deployed
+    development: '0x756cb7FdC2Df93b78E012E4229F3a8c9c6432c07',
   },
   bankerPool: {
-    production: '0xe98944fE9E52143a213Bd14bEbFFA9790466c777', // To be deployed
-    development: '0x1a6Ce0091075a3C81bcad078cDc59A55668F12a4',
+    production: '', // To be deployed
+    development: '0x4a8b912526724da4eC1974720e70196C7d6823eb',
   },
   gameLevel: {
-    production: '0x9233205Be82a858d9a6Db6Cd3fA589716474c925', // To be deployed
-    development: '0xdBB653bA08987a6Ec630909fCb62d938cdF3cE9B',
+    production: '', // To be deployed
+    development: '0xE46055144B3E2EabC06935b0Bf245AA846c9061f',
+  },
+  ATHP: {
+    production: '', // To be deployed
+    development: '0x21C95Ca4e64aA0B49242cc6E7c96BDf8B3a2d41F',
+  },
+  StakingWelfare: {
+    production: '', // To be deployed
+    development: '0x38cC750ecd51fcF8a48760c8d5512F88936f5CC4',
   }
 };
 
@@ -103,9 +113,11 @@ let nodeDividendPoolContract;
 let crashContract;
 let bankerPoolContract;
 let gameLevelContract;
+let athpContract;
+let stakingWelfareContract;
 
 // We need to export these for other modules to use them.
-export { referralContract, stakingContract, athContract, usdtContract, s5poolContract, s6poolContract, s7poolContract, nodeDividendPoolContract, crashContract, bankerPoolContract, gameLevelContract };
+export { referralContract, stakingContract, athContract, usdtContract, s5poolContract, s6poolContract, s7poolContract, nodeDividendPoolContract, crashContract, bankerPoolContract, gameLevelContract, athpContract, stakingWelfareContract };
 
 // --- KPI Thresholds (as per Staking.sol) ---
 const THRESHOLDS = {
@@ -168,34 +180,51 @@ export const initializeContracts = async () => {
   const crashAddress = contractAddresses.crash[env];
   const bankerPoolAddress = contractAddresses.bankerPool[env];
   const gameLevelAddress = contractAddresses.gameLevel[env];
+  const athpAddress = contractAddresses.ATHP[env];
+  const stakingWelfareAddress = contractAddresses.StakingWelfare[env];
+
+  // Helper to safely create contract
+  const createContract = (address, abi, signer) => {
+      if (!address) return null;
+      try {
+          return new ethers.Contract(address, abi, signer);
+      } catch (e) {
+          console.error(`Failed to create contract instance for ${address}`, e);
+          return null;
+      }
+  };
 
   // Create new contract instances using the raw, unwrapped signer
-  referralContract = new ethers.Contract(referralAddress, referralAbi, rawSigner);
-  stakingContract = new ethers.Contract(stakingAddress, stakingAbi, rawSigner);
-  athContract = new ethers.Contract(athAddress, athAbi, rawSigner);
-  usdtContract = new ethers.Contract(usdtAddress, athAbi, rawSigner);
-  routerContract = new ethers.Contract(routerAddress, uniswapV2RouterAbi, rawSigner);
-  s5poolContract = new ethers.Contract(s5poolAddress, s5poolAbi, rawSigner);
-  s6poolContract = new ethers.Contract(s6poolAddress, s6poolAbi, rawSigner);
-  s7poolContract = new ethers.Contract(s7poolAddress, s7poolAbi, rawSigner);
-  nodeDividendPoolContract = new ethers.Contract(nodeDividendPoolAddress, nodeDividendPoolAbi, rawSigner);
-  crashContract = new ethers.Contract(crashAddress, crashAbi, rawSigner);
-  bankerPoolContract = new ethers.Contract(bankerPoolAddress, bankerPoolAbi, rawSigner);
-  gameLevelContract = new ethers.Contract(gameLevelAddress, gameLevelAbi, rawSigner);
+  referralContract = createContract(referralAddress, referralAbi, rawSigner);
+  stakingContract = createContract(stakingAddress, stakingAbi, rawSigner);
+  athContract = createContract(athAddress, athAbi, rawSigner);
+  usdtContract = createContract(usdtAddress, athAbi, rawSigner);
+  routerContract = createContract(routerAddress, uniswapV2RouterAbi, rawSigner);
+  s5poolContract = createContract(s5poolAddress, s5poolAbi, rawSigner);
+  s6poolContract = createContract(s6poolAddress, s6poolAbi, rawSigner);
+  s7poolContract = createContract(s7poolAddress, s7poolAbi, rawSigner);
+  nodeDividendPoolContract = createContract(nodeDividendPoolAddress, nodeDividendPoolAbi, rawSigner);
+  crashContract = createContract(crashAddress, crashAbi, rawSigner);
+  bankerPoolContract = createContract(bankerPoolAddress, bankerPoolAbi, rawSigner);
+  gameLevelContract = createContract(gameLevelAddress, gameLevelAbi, rawSigner);
+  athpContract = createContract(athpAddress, athpAbi, rawSigner);
+  stakingWelfareContract = createContract(stakingWelfareAddress, stakingWelfareAbi, rawSigner);
 
   console.log("Contracts initialized:", {
-    referral: await referralContract.getAddress(),
-    staking: await stakingContract.getAddress(),
-    ath: await athContract.getAddress(),
-    usdt: await usdtContract.getAddress(),
-    router: await routerContract.getAddress(),
-    s5pool: await s5poolContract.getAddress(),
-    s6pool: await s6poolContract.getAddress(),
-    s7pool: await s7poolContract.getAddress(),
-    nodeDividendPool: await nodeDividendPoolContract.getAddress(),
-    crash: await crashContract.getAddress(),
-    bankerPool: await bankerPoolContract.getAddress(),
-    gameLevel: await gameLevelContract.getAddress(),
+    referral: referralContract ? await referralContract.getAddress() : 'Not Initialized',
+    staking: stakingContract ? await stakingContract.getAddress() : 'Not Initialized',
+    ath: athContract ? await athContract.getAddress() : 'Not Initialized',
+    usdt: usdtContract ? await usdtContract.getAddress() : 'Not Initialized',
+    router: routerContract ? await routerContract.getAddress() : 'Not Initialized',
+    s5pool: s5poolContract ? await s5poolContract.getAddress() : 'Not Initialized',
+    s6pool: s6poolContract ? await s6poolContract.getAddress() : 'Not Initialized',
+    s7pool: s7poolContract ? await s7poolContract.getAddress() : 'Not Initialized',
+    nodeDividendPool: nodeDividendPoolContract ? await nodeDividendPoolContract.getAddress() : 'Not Initialized',
+    crash: crashContract ? await crashContract.getAddress() : 'Not Initialized',
+    bankerPool: bankerPoolContract ? await bankerPoolContract.getAddress() : 'Not Initialized',
+    gameLevel: gameLevelContract ? await gameLevelContract.getAddress() : 'Not Initialized',
+    athp: athpContract ? await athpContract.getAddress() : 'Not Initialized',
+    stakingWelfare: stakingWelfareContract ? await stakingWelfareContract.getAddress() : 'Not Initialized',
   });
 
   walletState.contractsInitialized = true;
@@ -219,6 +248,8 @@ export const resetContracts = () => {
   crashContract = null;
   bankerPoolContract = null;
   gameLevelContract = null;
+  athpContract = null;
+  stakingWelfareContract = null;
   console.log("Contract instances have been reset.");
 };
 
@@ -1002,6 +1033,163 @@ export const rewardOfSlot = async (id) => {
 // --- Exported Functions to get contract instances (optional, but good practice) ---
 // This allows other parts of the app to get a read-only instance if needed,
 // but for now, we will keep them internal and expose specific function calls later.
+
+/**
+ * Fetches the welfare claim records for the user.
+ * @param {number} offset Pagination offset.
+ * @param {number} limit Pagination limit.
+ * @param {number} status Filter status: 0=All, 1=Unclaimed, 2=Claimed.
+ * @returns {Promise<{records: Array, total: number}>} Records and total count.
+ */
+export const getWelfareRecords = async (offset = 0, limit = 10, status = 1) => {
+    if (!stakingWelfareContract || !walletState.address) {
+        if (walletState.isAuthenticated && walletState.contractsInitialized) {
+            console.warn("StakingWelfare contract not initialized or user not connected.");
+        }
+        return { records: [], total: 0 };
+    }
+    try {
+        console.log(`[Welfare] Fetching records: user=${walletState.address}, offset=${offset}, limit=${limit}, status=${status}`);
+        const result = await stakingWelfareContract.getUserClaimRecords(
+            walletState.address,
+            offset,
+            limit,
+            status
+        );
+        console.log("[Welfare] Raw contract result:", result);
+        
+        // result is likely [records, total] (tuple)
+        // Check if result is array-like or object-like
+        let recordsRaw, totalRaw;
+        
+        if (Array.isArray(result)) {
+            recordsRaw = result[0];
+            totalRaw = result[1];
+        } else {
+             // Try accessing by name if available, or assume structure
+             recordsRaw = result.records || result[0];
+             totalRaw = result.total || result[1];
+        }
+
+        if (!recordsRaw) {
+            console.warn("[Welfare] Records not found in result");
+            return { records: [], total: 0 };
+        }
+
+        // Map contract struct to frontend friendly format
+        const formattedRecords = recordsRaw.map(record => ({
+            orderId: record.orderId.toString(),
+            isClaimed: record.isClaimed,
+            claimableAmount: ethers.formatUnits(record.claimableAmount, 18), // Assuming ATHP is 18 decimals
+            stakingStatus: record.stakingStatus // false: Active, true: Ended
+        }));
+
+        console.log("[Welfare] Formatted records:", formattedRecords);
+
+        return {
+            records: formattedRecords,
+            total: Number(totalRaw)
+        };
+    } catch (error) {
+        console.error("Error fetching welfare records:", error);
+        return { records: [], total: 0 };
+    }
+};
+
+/**
+ * Claims ATHP reward for a single order.
+ * @param {string} orderId The order ID to claim.
+ * @returns {Promise<boolean>} Success status.
+ */
+export const claimWelfareReward = async (orderId) => {
+    if (!stakingWelfareContract) {
+        showToast(t('toast.poolNotInitialized'));
+        return false;
+    }
+    try {
+        const tx = await stakingWelfareContract.claim(orderId);
+        showToast(t('toast.txSent'));
+        await tx.wait();
+        showToast(t('toast.claimSuccess'));
+        return true;
+    } catch (error) {
+        if (error.code === 'ACTION_REJECTED') {
+            console.log("User rejected claim transaction.");
+        } else {
+            console.error("Error claiming welfare reward:", error);
+            const reason = error.reason || error.message || 'Unknown error';
+            if (reason.includes("Already claimed")) {
+                showToast("该订单已领取过积分");
+            } else if (reason.includes("Invalid stake amount")) {
+                showToast("无效的质押数据");
+            } else if (reason.includes("Weight not set")) {
+                showToast("该周期暂未开放兑换");
+            } else if (reason.includes("ATHP not set")) {
+                showToast("合约暂停服务");
+            } else {
+                showToast(t('toast.claimFailed', { reason: reason }));
+            }
+        }
+        return false;
+    }
+};
+
+/**
+ * Batch claims ATHP rewards for multiple orders.
+ * @param {string[]} orderIds Array of order IDs to claim.
+ * @returns {Promise<boolean>} Success status.
+ */
+export const batchClaimWelfareRewards = async (orderIds) => {
+    if (!stakingWelfareContract) {
+        showToast(t('toast.poolNotInitialized'));
+        return false;
+    }
+    if (!orderIds || orderIds.length === 0) {
+        return false;
+    }
+    try {
+        const tx = await stakingWelfareContract.batchClaim(orderIds);
+        showToast(t('toast.txSent'));
+        await tx.wait();
+        showToast(t('toast.claimSuccess'));
+        return true;
+    } catch (error) {
+        if (error.code === 'ACTION_REJECTED') {
+            console.log("User rejected batch claim transaction.");
+        } else {
+            console.error("Error batch claiming welfare rewards:", error);
+            const reason = error.reason || error.message || 'Unknown error';
+            showToast(t('toast.claimFailed', { reason: reason }));
+        }
+        return false;
+    }
+};
+
+/**
+ * Adds the ATHP token to the user's wallet (MetaMask).
+ */
+export const addAthpToWallet = async () => {
+    const env = APP_ENV === 'PROD' ? 'production' : 'development';
+    const athpAddress = contractAddresses.ATHP[env];
+    
+    if (!athpAddress || !window.ethereum) return;
+
+    try {
+        await window.ethereum.request({
+            method: 'wallet_watchAsset',
+            params: {
+                type: 'ERC20',
+                options: {
+                    address: athpAddress,
+                    symbol: 'ATHP',
+                    decimals: 18,
+                },
+            },
+        });
+    } catch (error) {
+        console.error("Error adding ATHP to wallet:", error);
+    }
+};
 
 // Example of how we will export specific functions later:
 /*

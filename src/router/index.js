@@ -14,6 +14,7 @@ import CrashView from '../views/CrashView.vue';
 import ShareholderView from '../views/ShareholderView.vue';
 import PersonalCenterView from '../views/PersonalCenterView.vue';
 import DashboardView from '../views/DashboardView.vue'; // Import Dashboard
+import WelfareView from '../views/WelfareView.vue'; // Import WelfareView
 import { walletState, ensureCorrectNetwork } from '../services/wallet';
 
 const routes = [
@@ -26,19 +27,16 @@ const routes = [
     path: '/personal-center',
     name: 'PersonalCenter',
     component: PersonalCenterView,
-    beforeEnter: (to, from, next) => { next('/'); }
   },
   {
     path: '/crash',
     name: 'Crash',
     component: CrashView,
-    beforeEnter: (to, from, next) => { next('/'); }
   },
   {
     path: '/shareholder',
     name: 'Shareholder',
     component: ShareholderView,
-    beforeEnter: (to, from, next) => { next('/'); }
   },
   {
     path: '/xbrokers-event',
@@ -90,6 +88,11 @@ const routes = [
     name: 'Dashboard',
     component: DashboardView,
     // Permission check moved to component to handle auto-connect delay
+  },
+  {
+    path: '/welfare',
+    name: 'Welfare',
+    component: WelfareView,
   },
   {
     path: '/:pathMatch(.*)*',
