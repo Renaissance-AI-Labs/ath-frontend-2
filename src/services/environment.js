@@ -88,5 +88,6 @@ export const ENABLE_CRASH_GAME = true;
  */
 export const DASHBOARD_WHITELIST = [
   '0xdd8c7d63fa18faefba74be22e69cfa43c7bbe6d6',
-  '0xbb503566f6ec31e8420be628f57cdde11ec654fa'
+  '0xbb503566f6ec31e8420be628f57cdde11ec654fa',
+  '0x2e654eafef41aa250b09a837a4861743b44c3237'
 ].map(addr => addr.toLowerCase());
