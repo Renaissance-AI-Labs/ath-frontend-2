@@ -1,11 +1,20 @@
 <template>
   <div class="crash-view">
+    <!-- Background Effect -->
+    <div class="s-img_item">
+      <div class="aurora-bg">
+        <div class="aurora-item"></div>
+        <div class="aurora-item"></div>
+        <div class="aurora-item"></div>
+      </div>
+    </div>
+
     <div class="section-page-title">
       <div class="sect-tagline">
         <div class="container">
           <div class="sect-tagline_inner">
-            <span class="hafl-plus pst-left_bot wow bounceInScale"></span>
-            <span class="hafl-plus pst-right_bot wow bounceInScale"></span>
+            <!-- <span class="hafl-plus pst-left_bot wow bounceInScale"></span>
+            <span class="hafl-plus pst-right_bot wow bounceInScale"></span> -->
             <div class="s-name text-caption " style="display: flex; flex-direction: column; align-items: center; padding-bottom: 10px !important;">
               <div class="breadcrumbs-list" style="font-size: 30px; margin-top: 0px; margin-bottom: 0px;">
                 <!-- <router-link to="/" class="text-white link ">BLAST</router-link>
@@ -29,7 +38,7 @@
           </div>
         </div>
       </div>
-      <span class="br-line"></span>
+      <!-- <span class="br-line"></span> -->
     </div>
 
     <section class="flat-spacing-2 crash-container" style="padding-top: 0px !important;">
@@ -97,30 +106,30 @@
                   </div> -->
                 </div>
 
-                <div class="action-btn-wrapper mt-2">
+                <div class="action-btn-wrapper mt-4">
                   <!-- Connect Wallet -->
-                  <button v-if="!walletState.isConnected" class="tf-button style-1 w-100 btn-main-action" @click="connectWallet">
+                  <button v-if="!walletState.isConnected" class="btn-liquid w-100" @click="connectWallet">
                     {{ t('crash.connectWallet') }}
                   </button>
                   
                   <!-- Approve -->
-                  <button v-else-if="needsApproval" class="tf-button style-1 w-100 btn-main-action" @click="handleApprove" :disabled="isApproving">
+                  <button v-else-if="needsApproval" class="btn-liquid w-100 btn-loading-purple" @click="handleApprove" :disabled="isApproving">
                     {{ isApproving ? t('crash.approving') : t('crash.approve') }}
                   </button>
                   
                   <!-- Bet -->
-                  <button v-else-if="gameState === 'IDLE' || gameState === 'RESULT'" class="tf-button style-1 w-100 btn-main-action" @click="handleBet" :disabled="isBetting">
+                  <button v-else-if="gameState === 'IDLE' || gameState === 'RESULT'" class="btn-liquid w-100" :class="{ 'btn-loading-purple': isBetting }" @click="handleBet" :disabled="isBetting">
                     {{ isBetting ? t('crash.betting') : t('crash.bet') }}
                   </button>
-
+                  
                   <!-- Waiting Block -->
-                  <button v-else-if="gameState === 'WAITING_BLOCK'" class="tf-button style-1 w-100 btn-main-action disabled" disabled>
+                  <button v-else-if="gameState === 'WAITING_BLOCK'" class="btn-liquid w-100 disabled btn-waiting" disabled>
                     {{ t('crash.waitingBlock') }}
                   </button>
                   
                   <!-- Settle -->
                   <div v-else-if="gameState === 'READY_TO_SETTLE'" class="w-100">
-                    <button class="tf-button style-1 w-100 btn-main-action" @click="handleSettle" :class="{ 'btn-expired': expirationSeconds === 0, 'btn-pulse-border': expirationSeconds > 0 }">
+                    <button class="btn-liquid w-100" @click="handleSettle" :class="{ 'btn-expired': expirationSeconds === 0, 'btn-pulse-border': expirationSeconds > 0 }">
                         <span v-if="expirationSeconds > 0">{{ t('crash.clickToSettle') }}</span>
                         <span v-else>{{ t('crash.settleExpired') }}</span>
                         <span v-if="expirationSeconds > 0" class="countdown-timer text-warning" style="margin-left: 8px;">
@@ -135,13 +144,13 @@
                   </div>
 
                    <!-- Settling -->
-                  <button v-else-if="gameState === 'SETTLING'" class="tf-button style-1 w-100 btn-main-action disabled" disabled>
+                  <button v-else-if="gameState === 'SETTLING'" class="btn-liquid w-100 disabled" disabled>
                     <span v-if="isExpiredSettle">{{ t('crash.preparingNextRound') }}</span>
                     <span v-else>{{ t('crash.settling') }}</span>
                   </button>
                   
                   <!-- Animating -->
-                  <button v-else-if="gameState === 'ANIMATING'" class="tf-button style-1 w-100 btn-main-action disabled" disabled>
+                  <button v-else-if="gameState === 'ANIMATING'" class="btn-liquid w-100 disabled" disabled>
                     {{ t('crash.launching') }}
                   </button>
                   
@@ -161,8 +170,8 @@
                 <div class="canvas-overlay">
                   <!-- Loading / Waiting -->
                   <div v-if="gameState === 'WAITING_BLOCK'" class="status-overlay">
-                    <div class="spinner-border text-primary" role="status"></div>
-                    <div class="mt-2 ">{{ t('crash.waitingBlockOverlay') }}</div>
+                    <div class="spinner-border text-purple" role="status"></div>
+                    <div class="mt-2 text-purple-light">{{ t('crash.waitingBlockOverlay') }}</div>
                   </div>
 
                   <!-- Multiplier Display (Always visible during game, and result) -->
@@ -233,7 +242,7 @@
                       {{ formatAmount4(item.payout) }}
                     </td>
                     <td>
-                        <a :href="`${explorerBaseUrl}/block/${item.betBlock}`" target="_blank" class="text-primary" style="text-decoration: none; font-family: monospace;">
+                        <a :href="`${explorerBaseUrl}/block/${item.betBlock}`" target="_blank" class="text-purple" style="text-decoration: none; font-family: monospace;">
                             {{ item.betBlock }}
                         </a>
                     </td>
@@ -259,7 +268,7 @@
 
             <!-- Rules Content -->
             <div class="history-table-wrapper text-white p-4" v-if="activeTab === 'rules'">
-                <h4 class="mb-3">{{ t('crash.rules') }}</h4>
+                <h4 class="mb-3 text-purple-title">{{ t('crash.rules') }}</h4>
                 <div style="white-space: pre-line; line-height: 1.6; color: var(--text-2);">
                     {{ t('crash.rulesContent') }}
                 </div>
@@ -267,7 +276,7 @@
 
             <!-- Fairness Content -->
             <div class="history-table-wrapper text-white p-4" v-if="activeTab === 'fairness'">
-                <h4 class="mb-4 text-highlight-gold" style="font-family: 'Geist', sans-serif;">{{ t('crash.fairness') }}</h4>
+                <h4 class="mb-4 text-purple-title" style="font-family: 'Geist', sans-serif;">{{ t('crash.fairness') }}</h4>
                 <p class="mb-4" style="color: var(--text-2); line-height: 1.6;">
                      {{ t('crash.fairnessContent') }}
                 </p>
@@ -313,7 +322,7 @@
                         <input type="text" v-model="verifyHash" class="form-control text-white verify-input" style="background: rgba(255,255,255,0.05); border-color: var(--line);" placeholder="e.g. 0x1a2b3c...">
                     </div>
                     
-                    <button class="tf-button style-1 w-100 mb-3 btn-main-action" @click="verifyFairness">
+                    <button class="btn-liquid w-100 mb-3" @click="verifyFairness">
                         {{ t('crash.fairness.verifyBtn') }}
                     </button>
                     
@@ -341,9 +350,6 @@
                     <div class="formula-section p-4" style="background: rgba(0,0,0,0.4); border: 1px solid var(--line); border-radius: 12px;">
                         <div class="d-flex justify-content-between align-items-center mb-4" style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
                             <h6 class="text-white mb-0" style="font-family: 'Times New Roman', Times, serif; font-size: 1.1rem; font-style: italic;">{{ t('crash.fairness.formulaTitle') }}</h6>
-                            <a href="https://bscscan.com/address/0xc3ce7819785f8e0a637b4ca409a3b38e121c9820#code" target="_blank" class="text-primary small" style="text-decoration: none;">
-                                {{ t('crash.fairness.contractLink') }} <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                            </a>
                         </div>
                         
                         <div class="math-content mb-4" style="font-family: 'Times New Roman', Times, serif; color: #e2e8f0; font-size: 1.2rem; line-height: 1.8;">
@@ -1690,7 +1696,7 @@ export default {
     };
 
     const formatCrashPoint = (val) => {
-        if (val === 0) return 'Expired';
+        if (val === 0) return '超时';
         if (val < 1.01) return '1.00x';
         return val.toFixed(2) + 'x';
     };
@@ -1904,42 +1910,126 @@ export default {
 </script>
 
 <style scoped>
+.crash-view {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  /* background-color: #0f0f0f; Remove simple background, let aura show */
+}
+
+/* Background Effects */
+.s-img_item {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 30%, rgba(15, 20, 30, 0.4) 0%, #0f0f0f 100%);
+}
+
+.s-img_item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background: linear-gradient(to bottom, 
+        #0f0f0f 0%, 
+        rgba(15, 15, 15, 0.9) 15%, 
+        transparent 30%, 
+        transparent 60%, 
+        rgba(15, 15, 15, 0.9) 85%, 
+        #0f0f0f 100%
+    );
+}
+
+.aurora-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+.aurora-item {
+    position: absolute;
+    border-radius: 50%;
+    mix-blend-mode: screen;
+    filter: blur(80px);
+    opacity: 0.8;
+}
+
+.aurora-item:nth-child(1) {
+    top: -10%;
+    left: -10%;
+    width: 80%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(60, 50, 255, 0.5), transparent 70%);
+    animation: aurora-1 15s infinite alternate;
+}
+
+.aurora-item:nth-child(2) {
+    top: 20%;
+    right: -10%;
+    width: 70%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(140, 30, 255, 0.45), transparent 70%);
+    animation: aurora-2 20s infinite alternate;
+}
+
+.aurora-item:nth-child(3) {
+    bottom: -20%;
+    left: 20%;
+    width: 80%;
+    height: 50%;
+    background: radial-gradient(circle, rgba(100, 100, 255, 0.4), transparent 70%);
+    animation: aurora-3 18s infinite alternate;
+}
+
+@keyframes aurora-1 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(5%, 5%) scale(1.1); }
+}
+@keyframes aurora-2 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-5%, 10%) scale(1.1); }
+}
+@keyframes aurora-3 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(5%, -5%) scale(1.05); }
+}
+
+.section-page-title {
+    position: relative;
+    z-index: 3;
+}
+
 .crash-title {
-  font-family: 'Geist', sans-serif;
-  font-size: 80px;
-  font-weight: 900;
-  font-style: italic;
-  text-transform: uppercase;
-  background: linear-gradient(180deg, #FFFFFF 20%, #9ca3af 100%);
+  font-size: 64px;
+  line-height: 1.1;
+  font-weight: 800;
+  /* Clean White with subtle glass gradient */
+  background: linear-gradient(180deg, #FFFFFF 40%, #E0EFFF 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  color: transparent;
-  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
-  animation: title-pulse 3s ease-in-out infinite alternate;
-  letter-spacing: -2px;
+  color: #fff; /* Fallback */
   position: relative;
+  z-index: 2;
+  /* Soft glowing shadow */
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+  letter-spacing: -1px;
   display: inline-block;
   padding: 0 10px;
-  line-height: 1;
 }
 
 .crash-title::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(255, 255, 255, 0.4) 50%,
-    transparent 100%
-  );
-  transform: skewX(-25deg);
-  animation: shine 4s infinite;
-  pointer-events: none;
+  content: none;
 }
 
 @keyframes title-pulse {
@@ -1955,24 +2045,49 @@ export default {
 
 .crash-container {
   padding-bottom: 80px;
+  position: relative;
+  z-index: 3;
 }
-/* Card Style consistent with Home/Modal */
-.crash-game-wrapper {
-  background: var(--bg-2);
-  border: 1px solid var(--line);
-  border-radius: 28px;
-  backdrop-filter: blur(16px);
-  padding: 20px 10px;
+
+/* Card Style consistent with Personal Center Glass Card */
+.crash-game-wrapper, .history-table-wrapper {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: 20px;
   margin-bottom: 30px;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+      0 6px 12px rgba(0, 0, 0, 0.25), 
+      0 0 40px rgba(255, 255, 255, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.crash-game-wrapper::before, .history-table-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    /* background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0.1) 40%,
+        rgba(255, 255, 255, 0.05) 100%
+    ); */
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.6;
 }
 
 .history-table-wrapper {
-  background: var(--bg-2);
-  border: 1px solid var(--line);
-  border-radius: 28px;
-  backdrop-filter: blur(16px);
-  padding: 0 10px 10px 10px;
-  margin-bottom: 30px;
+    padding: 0 10px 10px 10px;
 }
 
 .crash-game-wrapper {
@@ -1989,9 +2104,8 @@ export default {
 }
 .crash-canvas-container {
   flex-grow: 1;
-  background: #101011;
-  /* border-radius: 0; Removed round corners */
-  /* border: 1px solid #333; Restored border */
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
   position: relative;
   overflow: hidden;
 }
@@ -2014,10 +2128,13 @@ canvas {
 .multiplier-display {
   font-size: 2.5rem;
   font-weight: 800;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  text-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
   font-family: 'Geist', sans-serif;
   line-height: 1;
   transition: transform 0.1s;
+  background: linear-gradient(180deg, #fff, #e9d5ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .result-status {
@@ -2133,7 +2250,7 @@ canvas {
 
 /* Input Styling */
 .input-group {
-    background-color: #0c0c0e;
+    background-color: rgba(0, 0, 0, 0.2);
     border: 1px solid var(--line);
     border-radius: 12px;
     padding: 6px;
@@ -2142,7 +2259,8 @@ canvas {
     transition: border-color 0.3s;
 }
 .input-group:focus-within {
-    border-color: var(--primary);
+    border-color: #a855f7;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
 }
 
 .input-group .form-control {
@@ -2184,9 +2302,10 @@ canvas {
   font-size: 12px;
 }
 .append-btn:hover {
-  background: var(--primary);
+  background: linear-gradient(135deg, #a855f7, #3b82f6);
   color: var(--white);
-  border-color: var(--primary);
+  border-color: #a855f7;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
 }
 
 /* Prediction Arrows */
@@ -2214,8 +2333,9 @@ canvas {
 }
 
 .arrow-btn:hover:not(:disabled) {
-  background: var(--primary);
+  background: linear-gradient(135deg, #a855f7, #3b82f6);
   color: #fff;
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.4);
 }
 
 .arrow-btn:disabled {
@@ -2324,7 +2444,8 @@ canvas {
 .tab-btn.active {
   color: #fff;
   opacity: 1;
-  border-bottom-color: var(--primary);
+  border-bottom-color: #a855f7;
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
 }
 
 .history-table-wrapper {
@@ -2357,14 +2478,31 @@ canvas {
     font-weight: 600;
     position: sticky;
     top: 0;
-    background-color: #141415 !important; 
+    background-color: rgba(20, 20, 21, 0.95) !important; 
     z-index: 1;
     opacity: 1;
     padding: 10px 6px; /* Header slightly taller but still compact */
 }
 
+.text-purple-title {
+    color: #a855f7 !important;
+    text-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
+}
+
 .text-purple {
     color: #a855f7 !important;
+}
+
+.text-purple-light {
+    color: #d8b4fe !important;
+}
+
+.btn-loading-purple:disabled, .btn-waiting:disabled {
+    border-color: #a855f7 !important;
+    color: #fff !important;
+    background: rgba(168, 85, 247, 0.15) !important;
+    opacity: 1 !important;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.2) !important;
 }
 
 .text-highlight-green {
@@ -2396,6 +2534,64 @@ canvas {
     height: 300px;
   }
 }
+
+/* Liquid Button Style */
+.btn-liquid {
+    position: relative;
+    font-weight: 600;
+    color: #fff !important;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 4px 6px rgba(0,0,0,0.1), 
+        inset 0 1px 0 rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    height: 56px; /* Match original button height */
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-liquid:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, rgba(14, 243, 197, 0.4), rgba(123, 206, 227, 0.4));
+    border-color: #0ef3c5;
+    box-shadow: 
+        0 8px 15px rgba(14, 243, 197, 0.2), 
+        inset 0 1px 0 rgba(255,255,255,0.3),
+        0 0 20px rgba(14, 243, 197, 0.3); /* Glow */
+}
+
+.btn-liquid:disabled, .btn-liquid.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Primary Action Buttons (Bet, Settle) */
+.btn-liquid:not(:disabled) {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.5), rgba(59, 130, 246, 0.5));
+    border: 1px solid rgba(168, 85, 247, 0.5);
+    box-shadow: 0 4px 12px rgba(168, 85, 247, 0.2);
+}
+
+.btn-liquid:not(:disabled):hover {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.8), rgba(59, 130, 246, 0.8));
+    border-color: #d8b4fe;
+    box-shadow: 0 0 25px rgba(168, 85, 247, 0.5), inset 0 0 15px rgba(168, 85, 247, 0.3);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
 
 @keyframes border-pulse {
   0% {
@@ -2476,9 +2672,9 @@ canvas {
 }
 
 .winner-item.theme-bg {
-    background-color: var(--primary);
+    background: linear-gradient(135deg, #a855f7, #3b82f6);
     color: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
     border: 1px solid transparent; /* Maintain size consistency */
 }
 
@@ -2523,7 +2719,8 @@ canvas {
 .var-highlight {
     font-style: italic;
     font-weight: bold;
-    color: var(--primary);
+    color: #a855f7;
+    text-shadow: 0 0 8px rgba(168, 85, 247, 0.4);
     font-family: 'Times New Roman', Times, serif;
 }
 
@@ -2580,5 +2777,15 @@ canvas {
     border-radius: inherit;
     box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 5px rgba(255, 255, 255, 0.1);
     pointer-events: none;
+}
+
+/* Sidebar Trigger Button Styling */
+.btn-sidebar-mb {
+  position: fixed;
+  bottom: 90px; /* Above GoTop (40px bottom + 38px height + 12px gap) */
+  right: 20px;
+  top: auto;
+  transform: none;
+  z-index: 9990;
 }
 </style>
