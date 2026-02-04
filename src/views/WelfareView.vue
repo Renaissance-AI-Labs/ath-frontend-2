@@ -1230,6 +1230,11 @@ const closeSidebar = () => {
     inset 0 0 5px var(--lg-highlight);
 }
 
+.glass-btn .btn-content {
+    position: relative;
+    z-index: 5;
+}
+
 .cancel-btn {
   /* color: rgba(255,255,255,0.7); */
 }
