@@ -46,7 +46,14 @@
           @click="handleBatchClaim"
           :disabled="batchClaiming || unclaimedTotal === 0"
         >
-          <span>{{ batchClaiming ? t('welfare.claiming') : t('welfare.batchClaimAll', { count: unclaimedTotal }) }}</span>
+          <span>{{ (batchClaiming && claimType === 'all') ? t('welfare.claiming') : t('welfare.batchClaimAll', { count: unclaimedTotal }) }}</span>
+        </button>
+        <button 
+          class="batch-claim-btn btn-liquid" 
+          @click="handlePageClaim"
+          :disabled="batchClaiming || pageUnclaimedCount === 0"
+        >
+          <span>{{ (batchClaiming && claimType === 'page') ? t('welfare.claiming') : '领取当页' }}</span>
         </button>
       </div>
 
@@ -150,8 +157,8 @@
 
             <div class="modal-body-custom">
               <div class="title_holder">
-                <h3>{{ t('welfare.batchClaim') }}</h3>
-                <p class="modal-subtitle">{{ t('welfare.confirmBatchClaim') }}</p>
+                <h3>{{ claimType === 'page' ? '领取当页' : t('welfare.batchClaim') }}</h3>
+                <p class="modal-subtitle">{{ claimType === 'page' ? '确认领取当前页面的未领取奖励？' : t('welfare.confirmBatchClaim') }}</p>
               </div>
 
               <div class="modal-actions-glass">
@@ -266,8 +273,9 @@ const showClaimModal = ref(false);
 const isSidebarOpen = ref(false);
 
 // Pagination
-const limit = 10;
+const limit = 20;
 const currentPage = ref(1);
+const claimType = ref('all'); // 'all' or 'page'
 
 // Computed
 const totalPages = computed(() => {
@@ -374,6 +382,13 @@ const handleClaim = async (item) => {
 
 const handleBatchClaim = () => {
   if (batchClaiming.value || unclaimedTotal.value === 0) return;
+  claimType.value = 'all';
+  showClaimModal.value = true;
+};
+
+const handlePageClaim = () => {
+  if (batchClaiming.value || pageUnclaimedCount.value === 0) return;
+  claimType.value = 'page';
   showClaimModal.value = true;
 };
 
@@ -384,12 +399,18 @@ const confirmBatchClaim = async () => {
   try {
     batchClaiming.value = true;
     
-    // Fetch all unclaimed records to get their IDs
-    // Use a safe large limit or the known total
-    const limitToFetch = unclaimedTotal.value > 0 ? unclaimedTotal.value : 1000;
-    const res = await getWelfareRecords(0, limitToFetch, 1); // status 1 = Unclaimed
-    
-    const idsToClaim = res.records.map(r => r.orderId);
+    let idsToClaim = [];
+
+    if (claimType.value === 'page') {
+      // Claim only current page records that are not claimed
+      idsToClaim = records.value.filter(r => !r.isClaimed).map(r => r.orderId);
+    } else {
+      // Fetch all unclaimed records to get their IDs
+      // Use a safe large limit or the known total
+      const limitToFetch = unclaimedTotal.value > 0 ? unclaimedTotal.value : 1000;
+      const res = await getWelfareRecords(0, limitToFetch, 1); // status 1 = Unclaimed
+      idsToClaim = res.records.map(r => r.orderId);
+    }
       
     if (idsToClaim.length === 0) {
       batchClaiming.value = false;
