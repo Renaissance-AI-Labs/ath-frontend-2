@@ -79,23 +79,23 @@ export const contractAddresses = {
     development: '0x3F4E253D329C767293F0B50670882Eb3761a6989',
   },
   crash: {
-    production: '', // To be deployed
+    production: '0x15bD75bCb8f23a310230817A54c0Cc24DE782c2D',
     development: '0x756cb7FdC2Df93b78E012E4229F3a8c9c6432c07',
   },
   bankerPool: {
-    production: '', // To be deployed
+    production: '0x39616E1B408cd882C51BE664Ea751FFE57198f64',
     development: '0x4a8b912526724da4eC1974720e70196C7d6823eb',
   },
   gameLevel: {
-    production: '', // To be deployed
+    production: '0x16Cbc3A7b858d3C5715C45Ab15D20cb71A598FbA',
     development: '0xE46055144B3E2EabC06935b0Bf245AA846c9061f',
   },
   ATHP: {
-    production: '', // To be deployed
+    production: '0xE1940F9641Bd549d5DFF9305Bf87a22239640Bbe',
     development: '0x21C95Ca4e64aA0B49242cc6E7c96BDf8B3a2d41F',
   },
   StakingWelfare: {
-    production: '', // To be deployed
+    production: '0xecC2403A9e1c52A5C5880054a971e6f584e6Cc23',
     development: '0x38cC750ecd51fcF8a48760c8d5512F88936f5CC4',
   }
 };
