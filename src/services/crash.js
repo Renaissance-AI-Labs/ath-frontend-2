@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { crashContract, athContract, contractAddresses } from './contracts';
+import { crashContract, athContract, athpContract, contractAddresses } from './contracts';
 import { walletState } from './wallet';
 import { APP_ENV } from './environment';
 import { showToast } from './notification';
@@ -10,52 +10,52 @@ export const BLOCK_LIMIT = 255;
 export const DEFAULT_PREDICTION = 2.00;
 
 /**
- * Gets the current ATH balance for the user.
+ * Gets the current ATHP balance for the user.
  */
-export const getAthBalance = async () => {
-  if (!athContract || !walletState.address) return "0";
+export const getAthpBalance = async () => {
+  if (!athpContract || !walletState.address) return "0";
   try {
-    const balance = await athContract.balanceOf(walletState.address);
+    const balance = await athpContract.balanceOf(walletState.address);
     return ethers.formatUnits(balance, 18);
   } catch (error) {
-    console.error("Error fetching ATH balance:", error);
+    console.error("Error fetching ATHP balance:", error);
     return "0";
   }
 };
 
 /**
- * Gets the current ATH allowance for the crash contract.
+ * Gets the current ATHP allowance for the crash contract.
  */
-export const getAthAllowance = async () => {
+export const getAthpAllowance = async () => {
   const env = APP_ENV === 'PROD' ? 'production' : 'development';
   const crashAddress = contractAddresses.crash[env];
   
-  if (!athContract || !walletState.address || !crashAddress) return "0";
+  if (!athpContract || !walletState.address || !crashAddress) return "0";
   
   try {
-    const allowance = await athContract.allowance(walletState.address, crashAddress);
+    const allowance = await athpContract.allowance(walletState.address, crashAddress);
     return ethers.formatUnits(allowance, 18);
   } catch (error) {
-    console.error("Error fetching ATH allowance:", error);
+    console.error("Error fetching ATHP allowance:", error);
     return "0";
   }
 };
 
 /**
- * Approves the crash contract to spend ATH.
+ * Approves the crash contract to spend ATHP.
  */
-export const approveAth = async () => {
+export const approveAthp = async () => {
   const env = APP_ENV === 'PROD' ? 'production' : 'development';
   const crashAddress = contractAddresses.crash[env];
   
-  if (!athContract || !crashAddress) return false;
+  if (!athpContract || !crashAddress) return false;
   
   try {
-    const tx = await athContract.approve(crashAddress, ethers.MaxUint256);
+    const tx = await athpContract.approve(crashAddress, ethers.MaxUint256);
     await tx.wait();
     return true;
   } catch (error) {
-    console.error("Error approving ATH:", error);
+    console.error("Error approving ATHP:", error);
     return false;
   }
 };
@@ -262,7 +262,7 @@ export const getGameConfig = async () => {
 
         // Check configured Token address for debugging
         try {
-            const tokenAddr = await crashContract.athToken(); // Keep reading athToken() from contract as that's the var name
+            const tokenAddr = await crashContract.athpToken(); // Keep reading athpToken() from contract as that's the var name
             console.log("Crash Contract configured Payment token:", tokenAddr);
         } catch (e) {
             console.warn("Could not fetch token address from contract:", e);
