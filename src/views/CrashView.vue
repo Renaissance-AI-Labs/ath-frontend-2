@@ -1037,7 +1037,7 @@ export default {
                 // Initialize countdown for existing bet
                 const expiryBlock = bet.betBlock + 255;
                 const remainingBlocks = Math.max(0, expiryBlock - currentBlock);
-                const estimatedSeconds = Math.ceil(remainingBlocks * 0.75); // 0.75s per block approx on BSC/similar
+                const estimatedSeconds = Math.ceil(remainingBlocks * 0.45); // 0.45s per block approx on BSC/similar
 
                 expirationSeconds.value = estimatedSeconds;
                 if (remainingBlocks > 0) {
@@ -1081,7 +1081,7 @@ export default {
                 // Sync remaining time from chain ONCE
                 const expiryBlock = targetBlock + 255;
                 const remainingBlocks = Math.max(0, expiryBlock - current);
-                const estimatedSeconds = Math.ceil(remainingBlocks * 0.75); // 0.75s per block
+                const estimatedSeconds = Math.ceil(remainingBlocks * 0.45); // 0.45s per block
                 
                 expirationSeconds.value = estimatedSeconds;
                 if (estimatedSeconds > 0) startCountdown();
@@ -1239,7 +1239,7 @@ export default {
                          const expiryBlock = bet.betBlock + 255;
                          const remainingBlocks = Math.max(0, expiryBlock - current);
                          // Recalculate time
-                         expirationSeconds.value = Math.ceil(remainingBlocks * 0.75);
+                         expirationSeconds.value = Math.ceil(remainingBlocks * 0.45);
                          if (remainingBlocks > 0) startCountdown();
                      }
                  } else {
