@@ -206,16 +206,32 @@ export const connectWallet = async (walletType) => {
     // --- Step 1: Get the raw provider based on walletType ---
     if (walletType === 'tokenpocket') {
         if (!window.tokenpocket?.ethereum) {
-            alert('TokenPocket wallet not detected!');
+            alert('TokenPocket wallet not detected! Please open in TokenPocket.');
             return false;
         }
         rawProvider = window.tokenpocket.ethereum;
     } else if (walletType === 'okx') {
         if (!window.okexchain) {
-            alert('OKX wallet not detected!');
+            alert('OKX wallet not detected! Please open in OKX Wallet.');
             return false;
         }
         rawProvider = window.okexchain;
+    } else if (walletType === '8379') {
+        const ua = navigator.userAgent.toLowerCase();
+        // 严格拦截官方的 OKX 和 TP 环境
+        if (window.okexchain || window.ethereum?.isOkxWallet || ua.includes('okex') || ua.includes('tokenpocket')) {
+            alert('8379 wallet not detected! Please open in 8379 wallet.');
+            return false;
+        }
+
+        if (window.ethereum) {
+            rawProvider = window.ethereum;
+        } else if (window.tokenpocket?.ethereum) {
+            rawProvider = window.tokenpocket.ethereum;
+        } else {
+            alert('8379 wallet not detected! Please open in 8379 wallet.');
+            return false;
+        }
     } else if (walletType === 'binance') {
         if (window.binancew3w?.ethereum) {
             rawProvider = window.binancew3w.ethereum;
@@ -376,8 +392,8 @@ export const autoConnectWallet = async () => {
     const savedWalletType = localStorage.getItem('ath_walletType');
     if (savedAddress && savedWalletType) {
       // Check for provider existence *inside* the timeout to ensure it has loaded.
-      // Only support OKX and TokenPocket
-      if (window.tokenpocket || window.okexchain || window.binancew3w || window.ethereum?.isBinance) {
+      // Only support OKX, TokenPocket and 8379
+      if (window.tokenpocket || window.okexchain || window.ethereum) {
           console.log(`Attempting to auto-connect with ${savedWalletType}...`);
           // Use the saved wallet type for reconnection
           await connectWallet(savedWalletType);
@@ -472,26 +488,11 @@ export const setupWalletListeners = (provider) => {
   console.log('Wallet event listeners initialized on the correct provider.');
 };
 
-// --- Wallet Detection Function (OKX and TokenPocket only) ---
+// --- Wallet Detection Function ---
 export const detectWallets = () => {
-  const wallets = [];
-  
-  // Check for TokenPocket
-  // TokenPocket injects window.tokenpocket and may set window.ethereum.isTokenPocket
-  if (window.tokenpocket || window.ethereum?.isTokenPocket) {
-      wallets.push({ id: 'tokenpocket', name: 'TokenPocket' });
-  }
-  
-  // Check for OKX Wallet
-  // OKX injects both window.okexchain and sets window.ethereum.isOkxWallet
-  if (window.okexchain || window.ethereum?.isOkxWallet) {
-      wallets.push({ id: 'okx', name: 'OKX Wallet' });
-  }
-
-  // Check for Binance Web3 Wallet (covers both desktop extension and mobile dApp browser)
-  if (window.binancew3w || window.ethereum?.isBinance) {
-    wallets.push({ id: 'binance', name: 'Binance Wallet' });
-  }
-  
-  return wallets;
+  return [
+    { id: 'okx', name: 'OKX Wallet' },
+    { id: 'tokenpocket', name: 'TokenPocket' },
+    { id: '8379', name: '8379 Wallet' }
+  ];
 };
