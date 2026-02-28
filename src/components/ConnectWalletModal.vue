@@ -92,6 +92,7 @@ export default {
             tokenpocket: '/asset/images/wallet/tp-logo.png',
             okx: '/asset/images/wallet/okx-logo.png',
             binance: '/asset/images/wallet/binance-logo.png',
+            '8379': '/asset/images/wallet/8379wallet.png',
         };
         return icons[walletId] || '/asset/images/wallet/default-icon.png';
     };
