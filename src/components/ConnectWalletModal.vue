@@ -28,7 +28,10 @@
                       <div class="wallet-icon-wrapper">
                         <img :src="getWalletIcon(wallet.id)" :alt="wallet.name" class="wallet-icon" :class="`${wallet.id}-icon`">
                       </div>
-                      <span class="wallet-name">{{ wallet.name }}</span>
+                      <span class="wallet-name">
+                        {{ wallet.name }}
+                        <span v-if="wallet.id === '8379'" class="beta-tag">BETA</span>
+                      </span>
                       <div class="arrow-icon">
                         <i class="icon icon-arrow-right"></i>
                       </div>
@@ -384,6 +387,20 @@ export default {
   font-weight: 500;
   color: #fff;
   flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.beta-tag {
+  background-color: var(--primary-color, #3b82f6);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 6px;
+  border-radius: 4px;
+  margin-left: 8px;
+  line-height: 1;
 }
 
 .arrow-icon {
