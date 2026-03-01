@@ -217,6 +217,11 @@ export const connectWallet = async (walletType) => {
         }
         rawProvider = window.okexchain;
     } else if (walletType === '8379') {
+        // alert('8379 wallet support is coming soon.');
+        return false;
+        
+        // 暂时注释掉实际连接逻辑，仅做占位展示
+        /*
         const ua = navigator.userAgent.toLowerCase();
         // 严格拦截官方的 OKX 和 TP 环境
         if (window.okexchain || window.ethereum?.isOkxWallet || ua.includes('okex') || ua.includes('tokenpocket')) {
@@ -232,6 +237,7 @@ export const connectWallet = async (walletType) => {
             alert('8379 wallet not detected! Please open in 8379 wallet.');
             return false;
         }
+        */
     } else if (walletType === 'binance') {
         if (window.binancew3w?.ethereum) {
             rawProvider = window.binancew3w.ethereum;
